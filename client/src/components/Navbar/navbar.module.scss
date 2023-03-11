@@ -1,4 +1,7 @@
 @import '../../styles/size';
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Besley:wght@400;500;600;700;800;900&display=swap');
 
 .nav {
   border-top: 30px solid var(--primaryColor1000);
@@ -7,25 +10,32 @@
   justify-content: space-between;
   align-items: center;
   height: $navbar-height;
-  border-bottom: 1px solid red;
-}
-
-.logo {
-  border: 1px solid red;
-  width: 110px;
-  height: 100%;
+  padding: 0 40px;
 }
 
 .navLists {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   svg {
-    height: 15px;
-    width: 15px;
+    height: 18px;
+    width: 18px;
   }
 }
 
 .navItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  opacity: 0.8;
+  cursor: pointer;
+  color: var(--black500);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  font-family: var(--gowun-batang);
+  &:hover {
+    opacity: 1;
+  }
 }

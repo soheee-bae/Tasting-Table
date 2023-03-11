@@ -2,9 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
+  cursor: pointer;
+  pointer-events: auto;
+
   svg {
+    color: var(--primaryColor1000);
     width: 130px;
     height: auto;
   }
+}
+
+.disable {
+  pointer-events: none;
 }

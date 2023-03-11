@@ -1,0 +1,8 @@
+@import './styles/size';
+
+.main {
+  width: 100vw;
+  min-height: calc(100vh - ($navbar-height + $footer-height));
+  margin: 0;
+  padding: 0;
+}
