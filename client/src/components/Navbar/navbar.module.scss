@@ -1,0 +1,31 @@
+@import '../../styles/size';
+
+.nav {
+  border-top: 30px solid var(--primaryColor1000);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: $navbar-height;
+  border-bottom: 1px solid red;
+}
+
+.logo {
+  border: 1px solid red;
+  width: 110px;
+  height: 100%;
+}
+
+.navLists {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  svg {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.navItem {
+}
