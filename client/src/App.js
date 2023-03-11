@@ -1,8 +1,13 @@
 import './App.scss';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
-  return <Routes>{/* <Route index element={}/> */}</Routes>;
+  return (
+    <Routes>
+      {/* <Route index element={}/> */}
+      <Route path={'/login'} element={<div></div>} />
+    </Routes>
+  );
 }
 
 export default App;
