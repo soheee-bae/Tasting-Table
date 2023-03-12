@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/navbar';
 import Footer from './components/Footer/footer';
 import Home from './pages/Home/home';
 import styles from './App.module.scss';
+import Login from './pages/Login/login';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <div className={styles.main}>
         <Routes>
           <Route index element={<Home />} />
-          <Route path={'/login'} element={<div>Login</div>} />
+          <Route path={'/login'} element={<Login />} />
         </Routes>
       </div>
       <Footer />

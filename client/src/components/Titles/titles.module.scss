@@ -1,0 +1,32 @@
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  letter-spacing: 3px;
+  font-size: var(--text-lg);
+  font-family: var(--besley);
+  font-weight: var(--font-medium);
+
+  .vr {
+    font-weight: var(--font-normal);
+    font-size: var(--text-xs);
+    margin-top: 2px;
+  }
+}
+
+.subTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  font-family: var(--gowun-batang);
+  line-height: 1.6;
+  max-width: 250px;
+  text-align: center;
+}
