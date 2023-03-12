@@ -25,6 +25,3 @@ mongoose.connect(process.env.MDB_CONNECT, {
 
 //set up routes 
 app.use('/auth', require('./routers/userRouter'))
-
-//allow you to run specific function for single path 
-// when path starts with /auth, i am going to be using the 'userRouter'
