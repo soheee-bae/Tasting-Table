@@ -2,7 +2,8 @@
 
 .footer {
   min-height: $footer-height;
-  background-color: var(--white200);
+  // background-color: var(--white200);
+  border-top: 0.5px solid var(--primaryColor1000);
   color: var(--black500);
   width: 100%;
   display: flex;

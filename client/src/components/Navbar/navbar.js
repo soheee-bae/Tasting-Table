@@ -12,16 +12,18 @@ export default function Navbar() {
 
   return (
     <nav className={styles.nav}>
-      <WebLogo isRedirect={true} />
-      <ul className={styles.navLists}>
-        <li className={styles.navItem} onClick={() => handleRedirect('/search')}>
-          <Search />
-        </li>
-        <li className={styles.navItem} onClick={() => handleRedirect('/login')}>
-          <User />
-          <p>로그인</p>
-        </li>
-      </ul>
+      <div className={styles.innerNav}>
+        <WebLogo isRedirect={true} />
+        <ul className={styles.navLists}>
+          <li className={styles.navItem} onClick={() => handleRedirect('/search')}>
+            <Search />
+          </li>
+          <li className={styles.navItem} onClick={() => handleRedirect('/login')}>
+            <User />
+            <p>로그인</p>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }

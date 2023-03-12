@@ -6,11 +6,19 @@
 .nav {
   border-top: 30px solid var(--primaryColor1000);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $navbar-height;
+}
+
+.innerNav {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: $navbar-height;
   padding: 0 40px;
+  width: 100%;
+  max-width: 2000px;
 }
 
 .navLists {
