@@ -1,19 +1,21 @@
-import { Search, User } from '../../icons';
-import WebLogo from '../WebLogo/webLogo';
-import styles from './navbar.module.scss';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { Search, User } from '@/icons/index';
+import WebLogo from '@/components/WebLogo/webLogo';
+import styles from './navbar.module.scss';
 
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const handleRedirect = (url) => {
+  const handleRedirect = (url: string) => {
     navigate(url);
   };
 
   return (
     <nav className={styles.nav}>
       <div className={styles.innerNav}>
-        <WebLogo isRedirect={true} />
+        <WebLogo isRedirect />
         <ul className={styles.navLists}>
           <li className={styles.navItem} onClick={() => handleRedirect('/search')}>
             <Search />

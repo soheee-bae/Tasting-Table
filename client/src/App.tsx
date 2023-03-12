@@ -1,10 +1,13 @@
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar/navbar';
-import Footer from './components/Footer/footer';
-import Home from './pages/Home/home';
+
+import Navbar from '@/components/Navbar/navbar';
+import Footer from '@/components/Footer/footer';
+import Home from '@/pages/Home/home';
+import Login from '@/pages/Login/login';
+import Signup from '@/pages/Signup/signup';
+
 import styles from './App.module.scss';
-import Login from './pages/Login/login';
-import Signup from './pages/Signup/signup';
 
 function App() {
   return (

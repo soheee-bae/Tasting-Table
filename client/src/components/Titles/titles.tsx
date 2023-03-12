@@ -1,17 +1,12 @@
+import React from 'react';
 import styles from './titles.module.scss';
-import PropTypes from 'prop-types';
 
-Titles.defaultProps = {
-  title: '',
-  subTitle: ''
-};
+interface TitleProps {
+  title: string;
+  subTitle?: string;
+}
 
-Titles.propTypes = {
-  title: PropTypes.string.isRequired,
-  subTitle: PropTypes.string
-};
-
-export default function Titles(props) {
+export default function Titles(props: TitleProps) {
   const { title, subTitle } = props;
 
   return (

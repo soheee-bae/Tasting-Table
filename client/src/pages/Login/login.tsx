@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Titles from '../../components/Titles/titles';
+import Titles from '@/components/Titles/titles';
 import styles from './login.module.scss';
 
 export default function Login() {
