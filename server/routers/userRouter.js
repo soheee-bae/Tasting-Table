@@ -56,6 +56,43 @@ router.post("/", async(req, res) => {
 })
 
 
+// login
 
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+
+        //validate 
+        if (!email || !password) {
+            return res.status(400).json({ errorMessage: 'Please enter all required fields.' })
+        }
+
+        const existingUser = await User.findOne({ email })
+        if (!existingUser) {
+            return res.status(401).json({ errorMessage: 'Wrong email or password.' })
+        }
+
+        const checkPassword = await bcrypt.compare(password, existingUser.passwordHash)
+        if (!checkPassword) {
+            return res.status(401).json({ errorMessage: 'Wrong email or password.' })
+        }
+
+         // Log the user in 
+         const token = jwt.sign({ user: existingUser._id }, process.env.JWT_SECRET )
+        
+
+         // send the token in a HTTP-only cookie
+         res.cookie("token", token, {
+             httpOnly: true,
+         }).send();
+
+        
+    }catch (err) {
+        console.error(err);
+        res.status(500).send()
+    }
+
+})
 
 module.exports = router;
