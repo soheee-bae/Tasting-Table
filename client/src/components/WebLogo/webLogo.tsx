@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
-import { Logo } from '@/icons/index';
+import { Logo } from 'icons/index';
 import styles from './webLogo.module.scss';
 
 interface WebLogoProps {

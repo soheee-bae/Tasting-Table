@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Titles from '@/components/Titles/titles';
+import Titles from 'components/Titles/titles';
 import styles from './login.module.scss';
+import { login } from 'apis/login';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    login({ email, password });
+  };
 
   return (
     <div className={styles.login}>
@@ -15,7 +19,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.inputField}>
           아이디
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label className={styles.inputField}>
           비밀번호

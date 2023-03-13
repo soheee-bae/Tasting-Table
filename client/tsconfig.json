@@ -26,15 +26,18 @@
     // "incremental": true,
     // "noImplicitAny": true,
 
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
     "baseUrl": "src",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/contexts/*": ["contexts/*"],
-      "@/helpers/*": ["helpers/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/icons/*": ["icons/*"],
-      "@/pages/*": ["pages/*"],
-      "@/styles/*": ["styles/*"]
+      "components/*": ["components/*"],
+      "contexts/*": ["contexts/*"],
+      "helpers/*": ["helpers/*"],
+      "hooks/*": ["hooks/*"],
+      "icons/*": ["icons/*"],
+      "pages/*": ["pages/*"],
+      "styles/*": ["styles/*"],
+      "apis/*": ["apis/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

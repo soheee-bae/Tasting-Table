@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Search, User } from '@/icons/index';
-import WebLogo from '@/components/WebLogo/webLogo';
+import { Search, User } from 'icons/index';
+import WebLogo from 'components/WebLogo/webLogo';
 import styles from './navbar.module.scss';
 
 export default function Navbar() {

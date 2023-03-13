@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './footer.module.scss';
-import { Linkedin, Email, Github } from '@/icons/index';
+import { Linkedin, Email, Github } from 'icons/index';
 
 export default function Footer() {
   return (

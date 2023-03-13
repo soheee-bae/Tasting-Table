@@ -4,11 +4,10 @@
   align-items: center;
   cursor: pointer;
   pointer-events: auto;
-
   svg {
     color: var(--primaryColor1000);
-    width: 130px;
-    height: auto;
+    width: auto;
+    height: 50px;
   }
 }
 
