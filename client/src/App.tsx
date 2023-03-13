@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import Navbar from 'components/Navbar/navbar';
@@ -8,18 +8,25 @@ import Login from 'pages/Login/login';
 import Signup from 'pages/Signup/signup';
 import axios from 'axios';
 import styles from './App.module.scss';
+import AuthContext from 'contexts/authContext';
 
 axios.defaults.withCredentials = true;
 
 function App() {
+  const { loggedIn } = useContext(AuthContext);
+
   return (
     <Router>
       <Navbar />
       <div className={styles.main}>
         <Routes>
           <Route index element={<Home />} />
-          <Route path={'/login'} element={<Login />} />
-          <Route path={'/signup'} element={<Signup />} />
+          {!loggedIn && (
+            <>
+              <Route path={'/login'} element={<Login />} />
+              <Route path={'/signup'} element={<Signup />} />
+            </>
+          )}
         </Routes>
       </div>
       <Footer />

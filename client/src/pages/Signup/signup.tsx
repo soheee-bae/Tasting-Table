@@ -1,17 +1,23 @@
-import React, { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FormEvent, useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Titles from 'components/Titles/titles';
 import styles from './signup.module.scss';
 import { register } from 'apis/auth';
+import AuthContext from 'contexts/authContext';
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const { getLoggedIn } = useContext(AuthContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    register({ email, password, passwordVerify });
+    await register({ email, password, passwordVerify });
+    await getLoggedIn();
+    navigate('/');
   };
 
   return (

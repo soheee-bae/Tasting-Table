@@ -1,16 +1,21 @@
-import React, { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, FormEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Titles from 'components/Titles/titles';
 import styles from './login.module.scss';
 import { login } from 'apis/auth';
+import AuthContext from 'contexts/authContext';
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { getLoggedIn } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    login({ email, password });
+    await login({ email, password });
+    await getLoggedIn();
+    navigate('/');
   };
 
   return (

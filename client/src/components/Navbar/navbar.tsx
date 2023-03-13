@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { MouseEvent, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Search, User } from 'icons/index';
 import WebLogo from 'components/WebLogo/webLogo';
 import styles from './navbar.module.scss';
+import AuthContext from 'contexts/authContext';
+import { logout } from 'apis/auth';
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const { loggedIn, getLoggedIn } = useContext(AuthContext);
 
   const handleRedirect = (url: string) => {
     navigate(url);
+  };
+
+  const handleLogout = async (e: MouseEvent) => {
+    e.preventDefault();
+    await logout();
+    await getLoggedIn();
+    navigate('/');
   };
 
   return (
@@ -20,10 +30,14 @@ export default function Navbar() {
           <li className={styles.navItem} onClick={() => handleRedirect('/search')}>
             <Search />
           </li>
-          <li className={styles.navItem} onClick={() => handleRedirect('/login')}>
-            <User />
-            <p>로그인</p>
-          </li>
+          {loggedIn ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <li className={styles.navItem} onClick={() => handleRedirect('/login')}>
+              <User />
+              <p>로그인</p>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
