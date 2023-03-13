@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Titles from 'components/Titles/titles';
 import styles from './signup.module.scss';
-import { register } from 'apis/register';
+import { register } from 'apis/auth';
 
 export default function Signup() {
   const [email, setEmail] = useState('');

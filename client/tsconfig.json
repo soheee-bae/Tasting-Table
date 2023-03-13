@@ -7,7 +7,7 @@
     "sourceMap": true,
     "jsx": "preserve",
     "strict": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "rootDir": "src",
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
@@ -28,6 +28,7 @@
 
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
+
     "baseUrl": "src",
     "paths": {
       "components/*": ["components/*"],

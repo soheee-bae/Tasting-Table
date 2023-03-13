@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Titles from 'components/Titles/titles';
 import styles from './login.module.scss';
-import { login } from 'apis/login';
+import { login } from 'apis/auth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
