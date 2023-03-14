@@ -19,17 +19,23 @@
 }
 
 .navDropdown {
-  display: none;
+  transition: all 0.3s;
+  overflow: hidden;
+  height: 0px;
+  width: 300px;
+  position: absolute;
+  right: 0;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  padding: 0 13px;
 
   &[data-open='true'] {
-    display: block;
-    position: absolute;
+    height: 250px;
     width: 300px;
-    right: 0;
-    margin-top: 10px;
     border: 1px solid var(--primaryColor100);
-    padding: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 3px;
+    padding: 10px 13px;
   }
 }
 
