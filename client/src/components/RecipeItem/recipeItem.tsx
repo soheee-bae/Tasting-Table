@@ -1,3 +1,4 @@
+import { Hourglass, Level } from 'icons/index';
 import React from 'react';
 import styles from './recipeItem.module.scss';
 
@@ -18,8 +19,14 @@ export default function RecipeItem(props: RecipeItemProps) {
         <p className={styles.category}>{category}</p>
         <p className={styles.name}>{name}</p>
         <div className={styles.otherDetails}>
-          <div>{level}</div>
-          <div>{duration}분</div>
+          <div className={styles.detailItem}>
+            <Level />
+            {level}
+          </div>
+          <div className={styles.detailItem}>
+            <Hourglass />
+            {duration}분
+          </div>
         </div>
       </div>
     </div>

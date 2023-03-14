@@ -1,5 +1,11 @@
 @import 'styles/size';
 
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .profileContainer {
   display: flex;
   flex-direction: column;
@@ -8,6 +14,8 @@
   gap: 30px;
   min-height: calc(100vh - ($navbar-height + $footer-height));
   width: 100%;
+  max-width: 1000px;
+  border: 1px solid red;
 }
 
 .form {

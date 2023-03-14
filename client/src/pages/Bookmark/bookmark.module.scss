@@ -1,0 +1,25 @@
+.bookmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerBookmark {
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+  max-width: 1200px;
+}
+
+.sorting {
+}
+
+.bookmarkLists {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
