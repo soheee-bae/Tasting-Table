@@ -9,6 +9,7 @@ import Signup from 'pages/Signup/signup';
 import axios from 'axios';
 import styles from './App.module.scss';
 import AuthContext from 'contexts/authContext';
+import Profile from 'pages/Profile/profile';
 
 axios.defaults.withCredentials = true;
 
@@ -21,10 +22,14 @@ function App() {
       <div className={styles.main}>
         <Routes>
           <Route index element={<Home />} />
-          {!loggedIn && (
+          {!loggedIn ? (
             <>
               <Route path={'/login'} element={<Login />} />
               <Route path={'/signup'} element={<Signup />} />
+            </>
+          ) : (
+            <>
+              <Route path={'/profile'} element={<Profile />} />
             </>
           )}
         </Routes>
