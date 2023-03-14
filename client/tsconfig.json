@@ -38,7 +38,8 @@
       "icons/*": ["icons/*"],
       "pages/*": ["pages/*"],
       "styles/*": ["styles/*"],
-      "apis/*": ["apis/*"]
+      "apis/*": ["apis/*"],
+      "image/*": ["image/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

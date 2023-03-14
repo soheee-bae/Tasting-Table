@@ -6,6 +6,7 @@ import WebLogo from 'components/WebLogo/webLogo';
 import styles from './navbar.module.scss';
 import AuthContext from 'contexts/authContext';
 import { logout } from 'apis/auth';
+import NavDropdown from 'components/NavDropdown/navDropdown';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Navbar() {
             <Search />
           </li>
           {loggedIn ? (
-            <button onClick={handleLogout}>Logout</button>
+            <NavDropdown />
           ) : (
             <li className={styles.navItem} onClick={() => handleRedirect('/login')}>
               <User />
