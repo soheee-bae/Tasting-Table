@@ -1,0 +1,39 @@
+.recipeItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  img {
+    border: 1px solid var(--black100);
+    width: 300px;
+    min-height: 300px;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-sm);
+  padding: 13px 0;
+  color: var(--black500);
+}
+
+.category {
+  word-spacing: 1px;
+}
+
+.name {
+  font-weight: var(--font-bold);
+  color: var(--black100);
+}
+
+.otherDetails {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding: 5px 0;
+  opacity: 0.6;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './titles.module.scss';
+import styles from './recipeItem.module.scss';
 
 interface RecipeItemProps {
   imgSrc: string;
@@ -10,12 +10,11 @@ interface RecipeItemProps {
 }
 
 export default function RecipeItem(props: RecipeItemProps) {
-  const { imgSrc, name = '대파구이', category = '메인요리', level = '중급', duration = 25 } = props;
-
+  const { imgSrc, name, category, level, duration } = props;
   return (
     <div className={styles.recipeItem}>
       <img src={imgSrc} alt={name} />
-      <div className={styles.basicDetails}>
+      <div className={styles.details}>
         <p className={styles.category}>{category}</p>
         <p className={styles.name}>{name}</p>
         <div className={styles.otherDetails}>
