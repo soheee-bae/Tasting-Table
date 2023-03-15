@@ -3,32 +3,29 @@ const Profile = require("../models/profileModel");
 const router = require("express").Router();
 
 // Get Profile
-router.get("/", auth, (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const cookie = req.cookies;
-    console.log(req.user);
-
-    console.log(cookie);
-    res.json(user);
+    const profile = await Profile.findOne({ userId: req.user });
+    res.json(profile);
   } catch (err) {
     console.error(err);
     res.status(500).send();
   }
 });
 
-// Edit Profile
-router.put("/", auth, (req, res) => {
-  try {
-    const cookie = req.cookies;
-    console.log(req.user);
+// // Edit Profile
+// router.put("/", auth, (req, res) => {
+//   try {
+//     const cookie = req.cookies;
+//     console.log(req.user);
 
-    console.log(cookie);
-    res.json(user);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send();
-  }
-});
+//     console.log(cookie);
+//     res.json(user);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send();
+//   }
+// });
 
 // Create Profile
 router.post("/create", auth, async (req, res) => {
