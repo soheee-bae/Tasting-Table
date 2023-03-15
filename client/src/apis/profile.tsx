@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-interface ProfileProps {
+export interface ProfileProps {
   userId: string;
   email: string;
   name: string;
   nickname: string;
-  birthdate: number;
+  birthdate: string;
 }
 
 export const createProfile = async (props: ProfileProps) => {
@@ -38,7 +38,7 @@ export const editProfile = async (props: ProfileProps) => {
       birthdate
     };
 
-    await axios.post('http://localhost:5050/profile/edit', createProfileData);
+    await axios.put('http://localhost:5050/profile/edit', createProfileData);
   } catch (err) {
     console.error(err);
   }
@@ -47,7 +47,7 @@ export const editProfile = async (props: ProfileProps) => {
 export const getProfile = async () => {
   try {
     const profile = await axios.get('http://localhost:5050/profile/');
-    return profile.data;
+    return profile.data as ProfileProps;
   } catch (err) {
     console.error(err);
   }

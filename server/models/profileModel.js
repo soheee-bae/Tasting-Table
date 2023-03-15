@@ -5,7 +5,7 @@ const profileSchema = new mongoose.Schema({
   email: { type: String },
   name: { type: String },
   nickname: { type: String },
-  birthdate: { type: Number },
+  birthdate: { type: String },
 });
 
 const Profile = mongoose.model("profile", profileSchema);

@@ -1,15 +1,39 @@
 import Titles from 'components/Titles/titles';
-import React, { useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import blankProfile from 'image/blankProfile.png';
+import { editProfile, getProfile } from 'apis/profile';
 
 export default function Profile() {
-  const [nickName, setNickName] = useState('');
+  const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [userId, setUserId] = useState('');
 
-  const handleSubmit = () => {
-    console.log('handleSubmit');
+  async function fetchProfile() {
+    const profile = await getProfile();
+    setNickname(profile?.nickname || '');
+    setBirthdate(profile?.birthdate || '');
+    setName(profile?.name || '');
+    setEmail(profile?.email || '');
+    setUserId(profile?.userId || '');
+  }
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await editProfile({
+      userId,
+      email,
+      name,
+      nickname,
+      birthdate
+    });
+    // Maybe add toast for snackbar
   };
 
   return (
@@ -23,11 +47,11 @@ export default function Profile() {
               <img src={blankProfile} alt="profile" />
               <label className={styles.inputField}>
                 닉네임(필수)
-                <input type="text" value={nickName} onChange={(e) => setNickName(e.target.value)} />
+                <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
               </label>
               <label className={styles.inputField}>
                 이메일(필수)
-                <input type="email" disabled value={name} />
+                <input type="email" disabled value={email} />
               </label>
             </div>
           </div>
@@ -44,7 +68,9 @@ export default function Profile() {
                   type="number"
                   value={birthdate}
                   placeholder="숫자만 입력해주세요(YYYYMMDD)"
-                  onChange={(e) => setBirthdate(e.target.value)}
+                  onChange={(e) => {
+                    e.target.value.length < 7 && setBirthdate(e.target.value);
+                  }}
                 />
               </label>
             </div>

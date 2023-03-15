@@ -17,7 +17,6 @@ router.get("/", auth, async (req, res) => {
 router.put("/edit", auth, async (req, res) => {
   try {
     const profile = await Profile.findOneAndUpdate(req.user, req.body);
-    console.log(profile);
     res.json(profile);
   } catch (err) {
     console.error(err);

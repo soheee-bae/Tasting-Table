@@ -18,7 +18,7 @@ export default function Signup() {
     e.preventDefault();
     const res = await register({ email, password, passwordVerify });
     const userId = res?.userId as string;
-    await createProfile({ userId, email, name: '', nickname: '', birthdate: 0 });
+    await createProfile({ userId, email, name: '', nickname: '', birthdate: '' });
     await getLoggedIn();
     navigate('/');
   };
