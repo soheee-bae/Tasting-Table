@@ -1,23 +1,21 @@
 import Titles from 'components/Titles/titles';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useContext, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import blankProfile from 'image/blankProfile.png';
 import { editProfile, getProfile } from 'apis/profile';
+import AuthContext from 'contexts/authContext';
 
 export default function Profile() {
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [userId, setUserId] = useState('');
+  const { email, userId } = useContext(AuthContext);
 
   async function fetchProfile() {
     const profile = await getProfile();
     setNickname(profile?.nickname || '');
     setBirthdate(profile?.birthdate || '');
     setName(profile?.name || '');
-    setEmail(profile?.email || '');
-    setUserId(profile?.userId || '');
   }
 
   useEffect(() => {

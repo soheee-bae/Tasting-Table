@@ -10,7 +10,7 @@ import blankProfile from 'image/blankProfile.png';
 export default function NavDropdown() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const { loggedIn, getLoggedIn } = useContext(AuthContext);
+  const { getLoggedIn } = useContext(AuthContext);
 
   const handleLogout = async (e: MouseEvent) => {
     e.preventDefault();

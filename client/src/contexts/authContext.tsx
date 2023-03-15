@@ -1,14 +1,19 @@
 import { loggedInReq } from 'apis/auth';
+import { getProfile } from 'apis/profile';
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
 export type AuthContextContent = {
   loggedIn: boolean;
   getLoggedIn: () => void;
+  email: string;
+  userId: string;
 };
 
 const AuthContext = createContext<AuthContextContent>({
   loggedIn: false,
-  getLoggedIn: () => undefined
+  getLoggedIn: () => undefined,
+  email: '',
+  userId: ''
 });
 
 interface AuthContextProps {
@@ -18,9 +23,16 @@ interface AuthContextProps {
 function AuthContextProvider(props: AuthContextProps) {
   const { children } = props;
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
 
   async function getLoggedIn() {
     const loggedInRes = await loggedInReq();
+    if (loggedInRes) {
+      const profile = await getProfile();
+      setEmail(profile?.email || '');
+      setUserId(profile?.userId || '');
+    }
     setLoggedIn(loggedInRes || false);
   }
 
@@ -28,7 +40,11 @@ function AuthContextProvider(props: AuthContextProps) {
     getLoggedIn();
   }, []);
 
-  return <AuthContext.Provider value={{ loggedIn, getLoggedIn }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ loggedIn, getLoggedIn, email, userId }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export default AuthContext;
