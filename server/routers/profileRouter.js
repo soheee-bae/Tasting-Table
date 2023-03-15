@@ -13,19 +13,17 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// // Edit Profile
-// router.put("/", auth, (req, res) => {
-//   try {
-//     const cookie = req.cookies;
-//     console.log(req.user);
-
-//     console.log(cookie);
-//     res.json(user);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send();
-//   }
-// });
+// Edit Profile
+router.put("/edit", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOneAndUpdate(req.user, req.body);
+    console.log(profile);
+    res.json(profile);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
 
 // Create Profile
 router.post("/create", auth, async (req, res) => {
