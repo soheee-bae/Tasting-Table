@@ -38,3 +38,4 @@ mongoose.connect(
 
 //set up routes
 app.use("/auth", require("./routers/userRouter"));
+app.use("/profile", require("./routers/profileRouter"));

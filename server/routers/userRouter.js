@@ -54,7 +54,7 @@ router.post("/register", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
       })
-      .send();
+      .send({ userId: savedUser._id });
   } catch (err) {
     console.error(err);
     res.status(500).send();

@@ -4,6 +4,7 @@ import Titles from 'components/Titles/titles';
 import styles from './signup.module.scss';
 import { register } from 'apis/auth';
 import AuthContext from 'contexts/authContext';
+import { createProfile } from 'apis/profile';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ export default function Signup() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await register({ email, password, passwordVerify });
+    const res = await register({ email, password, passwordVerify });
+    const userId = res?.userId as string;
+    await createProfile({ userId, email, name: '', nickname: '', birthdate: 0 });
     await getLoggedIn();
     navigate('/');
   };
