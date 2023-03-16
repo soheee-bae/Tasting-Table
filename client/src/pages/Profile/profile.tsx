@@ -44,7 +44,7 @@ export default function Profile() {
             <div className={styles.innerContent}>
               <img src={blankProfile} alt="profile" />
               <label className={styles.inputField}>
-                닉네임(필수)
+                닉네임
                 <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
               </label>
               <label className={styles.inputField}>

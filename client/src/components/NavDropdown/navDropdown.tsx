@@ -10,7 +10,7 @@ import blankProfile from 'image/blankProfile.png';
 export default function NavDropdown() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const { getLoggedIn } = useContext(AuthContext);
+  const { getLoggedIn, email } = useContext(AuthContext);
 
   const handleLogout = async (e: MouseEvent) => {
     e.preventDefault();
@@ -28,9 +28,10 @@ export default function NavDropdown() {
       <div className={styles.navDropdown} data-open={open}>
         <div className={styles.navDropdownHeader}>
           <img src={blankProfile} alt="profile" />
-          <p>nickname / email</p>
+          <p>{email}</p>
         </div>
         <div className={styles.navDropdownLists}>
+          <Link to="/myrecipe">내 레시피</Link>
           <Link to="/bookmark">책갈피한 레시피</Link>
           <Link to="/profile">회원정보 수정</Link>
           <p onClick={handleLogout}>로그아읏</p>
