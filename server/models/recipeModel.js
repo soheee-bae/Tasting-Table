@@ -18,7 +18,7 @@ const recipeSchema = new mongoose.Schema({
   description: String,
   level: { type: Number, min: 1, max: 5 },
   duration: Number,
-  categoryType: { type: categorySchema, required: true },
+  categoryType: String,
   createdDate: Date,
   amounts: { min: Number, max: Number },
   ingredients: [ingredientsSchema],
