@@ -26,6 +26,8 @@ function AuthContextProvider(props: AuthContextProps) {
   const [email, setEmail] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
 
+  console.log(userId);
+  console.log(email);
   async function getLoggedIn() {
     const loggedInRes = await loggedInReq();
     if (loggedInRes) {

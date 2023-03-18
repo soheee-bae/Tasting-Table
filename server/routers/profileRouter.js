@@ -2,7 +2,7 @@ const auth = require("../middleware/auth");
 const Profile = require("../models/profileModel");
 const router = require("express").Router();
 
-// Get Profile
+// Get User Profile
 router.get("/", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ userId: req.user });
@@ -16,7 +16,10 @@ router.get("/", auth, async (req, res) => {
 // Edit Profile
 router.put("/edit", auth, async (req, res) => {
   try {
-    const profile = await Profile.findOneAndUpdate(req.user, req.body);
+    const profile = await Profile.findOneAndUpdate(
+      { userId: req.user },
+      req.body
+    );
     res.json(profile);
   } catch (err) {
     console.error(err);
@@ -27,18 +30,8 @@ router.put("/edit", auth, async (req, res) => {
 // Create Profile
 router.post("/create", auth, async (req, res) => {
   try {
-    const { userId, email, name, nickname, birthdate } = req.body;
-
-    const newProfile = new Profile({
-      userId,
-      email,
-      name,
-      nickname,
-      birthdate,
-    });
-
+    const newProfile = new Profile({ ...req.body, userId: req.user });
     const savedProfile = await newProfile.save();
-
     res.json(savedProfile);
   } catch (err) {
     console.error(err);

@@ -9,7 +9,7 @@ export default function Profile() {
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const { email, userId } = useContext(AuthContext);
+  const { email } = useContext(AuthContext);
 
   async function fetchProfile() {
     const profile = await getProfile();
@@ -25,7 +25,6 @@ export default function Profile() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await editProfile({
-      userId,
       email,
       name,
       nickname,

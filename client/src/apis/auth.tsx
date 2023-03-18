@@ -21,8 +21,7 @@ export const register = async (props: RegisterProps) => {
       passwordVerify
     };
 
-    const res = await axios.post('http://localhost:5050/auth/register', registerData);
-    return res.data;
+    await axios.post('http://localhost:5050/auth/register', registerData);
   } catch (err) {
     console.error(err);
   }

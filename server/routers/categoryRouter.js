@@ -2,7 +2,7 @@ const auth = require("../middleware/auth");
 const Category = require("../models/categoryModel");
 const router = require("express").Router();
 
-// Get Categories
+// Get All Categories
 router.get("/", async (req, res) => {
   try {
     const category = await Category.find();

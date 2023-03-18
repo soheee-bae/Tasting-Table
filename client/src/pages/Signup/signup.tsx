@@ -16,9 +16,8 @@ export default function Signup() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const res = await register({ email, password, passwordVerify });
-    const userId = res?.userId as string;
-    await createProfile({ userId, email, name: '', nickname: '', birthdate: '' });
+    await register({ email, password, passwordVerify });
+    await createProfile({ email, name: '', nickname: '', birthdate: '' });
     await getLoggedIn();
     navigate('/');
   };
