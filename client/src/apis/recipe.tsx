@@ -11,6 +11,7 @@ interface Step {
 }
 
 export interface Recipe {
+  // image, comment
   userId: string;
   name?: string;
   level?: number;
@@ -20,6 +21,7 @@ export interface Recipe {
   amounts?: { min: number; max: number };
   ingredients?: [{ name: string; ingredient: Ingredient[] }];
   steps?: Step[];
+  _id?: string;
 }
 
 export interface RecipeProps {
