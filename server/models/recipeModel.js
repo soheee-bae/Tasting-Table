@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { categorySchema } = require("./categoryModel");
 
 const ingredientsSchema = new mongoose.Schema({
   name: String,
@@ -19,7 +18,10 @@ const recipeSchema = new mongoose.Schema({
   description: String,
   duration: Number,
   createdDate: Date,
-  categoryType: categorySchema,
+  categoryType: {
+    id: { type: Number, required: true },
+    name: { type: String, required: true },
+  },
   amounts: { min: Number, max: Number },
   ingredients: [ingredientsSchema],
   steps: [stepsSchema],

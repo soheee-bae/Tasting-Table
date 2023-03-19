@@ -14,11 +14,12 @@ router.get("/all", async (req, res) => {
 });
 
 // Get specific recipe by recipeId
-router.get("/recipeId/:recipeId", async (req, res) => {
+router.get("/:recipeId", async (req, res) => {
   try {
     var ObjectId = require("mongodb").ObjectId;
     var id = req.params.recipeId;
     var _id = new ObjectId(id);
+
     const recipes = await Recipe.findById(_id);
     res.json(recipes);
   } catch (err) {
@@ -28,10 +29,9 @@ router.get("/recipeId/:recipeId", async (req, res) => {
 });
 
 // Get recipes by userId
-router.get("/userId/:userId", async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   try {
     const recipes = await Recipe.find({ userId: req.params.userId });
-
     res.json(recipes);
   } catch (err) {
     console.error(err);
@@ -40,7 +40,7 @@ router.get("/userId/:userId", async (req, res) => {
 });
 
 // Create recipe
-router.post("/create", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const newRecipe = new Recipe({
       ...req.body,
@@ -48,11 +48,41 @@ router.post("/create", auth, async (req, res) => {
     });
 
     const savedRecipe = await newRecipe.save();
-
     res.json(savedRecipe);
   } catch (err) {
     console.error(err);
     res.status(500).send();
   }
 });
+
+// Edit Recipe
+router.put("/:recipeId", auth, async (req, res) => {
+  try {
+    var ObjectId = require("mongodb").ObjectId;
+    var id = req.params.recipeId;
+    var _id = new ObjectId(id);
+
+    const profile = await Recipe.findOneAndUpdate(_id, req.body);
+    res.json(profile);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
+// Delete Recipe
+router.delete("/:recipeId", auth, async (req, res) => {
+  try {
+    var ObjectId = require("mongodb").ObjectId;
+    var id = req.params.recipeId;
+    var _id = new ObjectId(id);
+
+    const profile = await Recipe.findOneAndDelete(_id);
+    res.json(profile);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
 module.exports = router;
