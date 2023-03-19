@@ -14,13 +14,11 @@ router.get("/", auth, async (req, res) => {
 });
 
 // Edit Profile
-router.put("/edit", auth, async (req, res) => {
+router.put("/", auth, async (req, res) => {
   try {
-    const profile = await Profile.findOneAndUpdate(
-      { userId: req.user },
-      req.body
-    );
-    res.json(profile);
+    await Profile.findOneAndUpdate({ userId: req.user }, req.body);
+
+    res.status(200).json({ message: "Success", status: 200 });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -28,11 +26,11 @@ router.put("/edit", auth, async (req, res) => {
 });
 
 // Create Profile
-router.post("/create", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const newProfile = new Profile({ ...req.body, userId: req.user });
-    const savedProfile = await newProfile.save();
-    res.json(savedProfile);
+    await newProfile.save();
+    res.status(200).json({ message: "Success", status: 200 });
   } catch (err) {
     console.error(err);
     res.status(500).send();

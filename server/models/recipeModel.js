@@ -13,7 +13,7 @@ const stepsSchema = new mongoose.Schema({
 const recipeSchema = new mongoose.Schema({
   //image, comments
   userId: { type: String, required: true },
-  name: { type: String, required: true },
+  name: String,
   level: { type: Number, min: 1, max: 5 },
   description: String,
   duration: Number,

@@ -47,8 +47,8 @@ router.post("/", auth, async (req, res) => {
       createdDate: Date.now(),
     });
 
-    const savedRecipe = await newRecipe.save();
-    res.json(savedRecipe);
+    await newRecipe.save();
+    res.status(200).json({ message: "Success", status: 200 });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -62,8 +62,8 @@ router.put("/:recipeId", auth, async (req, res) => {
     var id = req.params.recipeId;
     var _id = new ObjectId(id);
 
-    const profile = await Recipe.findOneAndUpdate(_id, req.body);
-    res.json(profile);
+    await Recipe.findOneAndUpdate(_id, req.body);
+    res.status(200).json({ message: "Success", status: 200 });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -77,8 +77,8 @@ router.delete("/:recipeId", auth, async (req, res) => {
     var id = req.params.recipeId;
     var _id = new ObjectId(id);
 
-    const profile = await Recipe.findOneAndDelete(_id);
-    res.json(profile);
+    await Recipe.findOneAndDelete(_id);
+    res.status(200).json({ message: "Success", status: 200 });
   } catch (err) {
     console.error(err);
     res.status(500).send();

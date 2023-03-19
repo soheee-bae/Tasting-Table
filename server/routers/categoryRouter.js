@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Create Category
-router.post("/create", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const { id, name } = req.body;
 
@@ -23,9 +23,8 @@ router.post("/create", auth, async (req, res) => {
       name,
     });
 
-    const savedCategory = await newCategory.save();
-
-    res.json(savedCategory);
+    await newCategory.save();
+    res.status(200).json({ message: "Success", status: 200 });
   } catch (err) {
     console.error(err);
     res.status(500).send();
