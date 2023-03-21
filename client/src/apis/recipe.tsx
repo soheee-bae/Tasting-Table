@@ -17,7 +17,7 @@ export interface Recipe {
   description?: string;
   duration?: number;
   categoryType?: CategoryProps;
-  amounts?: { min: number; max: number };
+  amounts?: number;
   ingredients?: [{ name: string; ingredient: Ingredient[] }];
   steps?: Step[];
   _id?: string;

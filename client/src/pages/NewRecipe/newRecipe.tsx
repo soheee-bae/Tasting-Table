@@ -1,16 +1,18 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, FormEvent } from 'react';
 import styles from './newRecipe.module.scss';
 import Titles from 'components/Titles/titles';
 import { getRecipesByUserId } from 'apis/recipe';
 import AuthContext from 'contexts/authContext';
 import { getCategory, CategoryProps } from 'apis/category';
-import { Recipe } from 'apis/recipe';
+import { Recipe, createRecipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewRecipe() {
   const { userId } = useContext(AuthContext);
   const [recipe, setRecipe] = useState({ userId });
   const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const navigate = useNavigate();
 
   async function fetchCategories() {
     const categories = await getCategory();
@@ -24,7 +26,15 @@ export default function NewRecipe() {
     });
   }
 
-  console.log(recipe);
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    const res = await createRecipe(recipe);
+    console.log(res);
+    if (res.status === 200) {
+      navigate('/');
+    }
+  }
 
   useEffect(() => {
     fetchCategories();
@@ -34,7 +44,7 @@ export default function NewRecipe() {
     <div className={styles.newRecipe}>
       <div className={styles.newRecipeContainer}>
         <Titles title="NEW RECIPE" subTitle="새로운 레시피를 등록해 보세요" />
-        <form className={styles.form}>
+        <form onSubmit={onSubmit} className={styles.form}>
           <GeneralInfo categories={categories} updateField={updateField} recipe={recipe} />
           {/* <Ingredients />
           <Steps /> */}
@@ -53,7 +63,6 @@ interface GeneralProps {
 
 function GeneralInfo(props: GeneralProps) {
   const { categories, recipe, updateField } = props;
-  const [input, setInput] = useState('');
   const levels = Array(5)
     .fill(null)
     .map((_, id) => ({ id: id + 1, label: getLevels(id + 1) }));
@@ -97,9 +106,13 @@ function GeneralInfo(props: GeneralProps) {
           </label>
           <label className={styles.inputField}>
             난이도
-            <select>
+            <select
+              value={recipe?.level}
+              onChange={(e) => {
+                updateField('level', parseInt(e.target.value));
+              }}>
               {levels?.map((level) => (
-                <option key={level.id} value={level.label}>
+                <option key={level.id} value={level.id}>
                   {level.label}
                 </option>
               ))}
@@ -109,12 +122,21 @@ function GeneralInfo(props: GeneralProps) {
         <div>
           <label className={styles.inputField}>
             인원
-            <input type="number" value={input} onChange={(e) => setInput(e.target.value)} />
-            <input type="number" value={input} onChange={(e) => setInput(e.target.value)} />
+            <input
+              type="number"
+              value={recipe.amounts}
+              onChange={(e) => updateField('amounts', parseInt(e.target.value))}
+            />
+            인분
           </label>
           <label className={styles.inputField}>
             시간
-            <input type="number" value={input} onChange={(e) => setInput(e.target.value)} />분
+            <input
+              type="number"
+              value={recipe.duration}
+              onChange={(e) => updateField('duration', parseInt(e.target.value))}
+            />
+            분
           </label>
         </div>
       </div>

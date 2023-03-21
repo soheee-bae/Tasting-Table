@@ -14,15 +14,15 @@ const recipeSchema = new mongoose.Schema({
   //image, comments
   userId: { type: String, required: true },
   name: String,
-  level: { type: Number, min: 1, max: 5 },
   description: String,
   duration: Number,
+  amounts: Number,
   createdDate: Date,
+  level: { type: Number, min: 1, max: 5 },
   categoryType: {
     id: { type: Number, required: true },
     name: { type: String, required: true },
   },
-  amounts: { min: Number, max: Number },
   ingredients: [ingredientsSchema],
   steps: [stepsSchema],
 });
