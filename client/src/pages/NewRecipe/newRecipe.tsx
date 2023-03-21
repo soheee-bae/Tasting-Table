@@ -80,7 +80,14 @@ function GeneralInfo(props: GeneralProps) {
         <div>
           <label className={styles.inputField}>
             카테고리
-            <select>
+            <select
+              value={recipe?.categoryType?.name}
+              onChange={(e) => {
+                updateField('categoryType', {
+                  id: e.target.selectedIndex + 1,
+                  name: e.target.value
+                });
+              }}>
               {categories?.map((category: CategoryProps) => (
                 <option key={category.id} value={category.name}>
                   {category.name}
