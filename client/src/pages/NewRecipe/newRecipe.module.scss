@@ -1,0 +1,105 @@
+@import 'styles/size';
+.newRecipe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newRecipeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  min-height: calc(100vh - ($navbar-height + $footer-height));
+  width: 100%;
+  max-width: 1200px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.innerContent {
+  padding: 30px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+}
+
+.title {
+  padding: 20px 0;
+  font-size: var(--text-md);
+  font-family: var (--gowun-batang);
+  font-weight: var(--font-semibold);
+  border-top: 2px solid var(--primaryColor1000);
+  border-bottom: 1px solid var(--gray200);
+}
+
+.inputField {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  input {
+    outline: none;
+    padding: 10px;
+  }
+  textarea {
+    resize: none;
+    outline: none;
+    padding: 10px;
+  }
+}
+
+.newInputField {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  input {
+    outline: none;
+    padding: 10px;
+    width: 100%;
+  }
+}
+
+.submitButton {
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+  padding: 15px 0;
+  margin-top: 40px;
+  border: none;
+  background-color: var(--primaryColor1000);
+  border-radius: 2px;
+  color: var(--white100);
+  opacity: 0.9;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1.5px;
+  font-size: var(--text-sm);
+
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}

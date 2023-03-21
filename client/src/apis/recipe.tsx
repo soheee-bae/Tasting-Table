@@ -11,7 +11,6 @@ interface Step {
 }
 
 export interface Recipe {
-  // image, comment
   userId: string;
   name?: string;
   level?: number;
@@ -25,8 +24,12 @@ export interface Recipe {
 }
 
 export interface RecipeProps {
-  id?: string;
-  data?: Recipe;
+  id: string;
+  data: Recipe;
+}
+
+interface RecipeIdProps {
+  id: string;
 }
 
 export const getAllRecipes = async () => {
@@ -38,7 +41,7 @@ export const getAllRecipes = async () => {
   }
 };
 
-export const getRecipeById = async (props: RecipeProps) => {
+export const getRecipeById = async (props: RecipeIdProps) => {
   const { id } = props;
   try {
     const recipes = await axios.get(`http://localhost:5050/recipe/${id}`);
@@ -48,7 +51,7 @@ export const getRecipeById = async (props: RecipeProps) => {
   }
 };
 
-export const getRecipesByUserId = async (props: RecipeProps) => {
+export const getRecipesByUserId = async (props: RecipeIdProps) => {
   const { id } = props;
   try {
     const recipes = await axios.get(`http://localhost:5050/recipe/user/${id}`);
@@ -58,11 +61,9 @@ export const getRecipesByUserId = async (props: RecipeProps) => {
   }
 };
 
-export const createRecipe = async (props: RecipeProps) => {
-  const { data } = props;
-
+export const createRecipe = async (props: Recipe) => {
   try {
-    const recipes = await axios.post('http://localhost:5050/recipe/', { ...data });
+    const recipes = await axios.post('http://localhost:5050/recipe/', { ...props });
     return recipes.data;
   } catch (err) {
     console.error(err);
@@ -79,7 +80,7 @@ export const editRecipe = async (props: RecipeProps) => {
   }
 };
 
-export const deleteRecipe = async (props: RecipeProps) => {
+export const deleteRecipe = async (props: RecipeIdProps) => {
   const { id } = props;
 
   try {

@@ -12,6 +12,7 @@ import AuthContext from 'contexts/authContext';
 import Profile from 'pages/Profile/profile';
 import Bookmark from 'pages/Bookmark/bookmark';
 import MyRecipe from 'pages/MyRecipe/myRecipe';
+import NewRecipe from 'pages/NewRecipe/newRecipe';
 
 axios.defaults.withCredentials = true;
 
@@ -31,6 +32,7 @@ function App() {
             </>
           ) : (
             <>
+              <Route path={'/newrecipe'} element={<NewRecipe />} />
               <Route path={'/myrecipe'} element={<MyRecipe />} />
               <Route path={'/profile'} element={<Profile />} />
               <Route path={'/bookmark'} element={<Bookmark />} />

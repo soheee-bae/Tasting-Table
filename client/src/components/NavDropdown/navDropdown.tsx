@@ -33,6 +33,7 @@ export default function NavDropdown() {
         <div className={styles.navDropdownLists}>
           <Link to="/myrecipe">내 레시피</Link>
           <Link to="/bookmark">책갈피한 레시피</Link>
+          <Link to="/newrecipe">새로운 레시피 등록하기</Link>
           <Link to="/profile">회원정보 수정</Link>
           <p onClick={handleLogout}>로그아읏</p>
         </div>
