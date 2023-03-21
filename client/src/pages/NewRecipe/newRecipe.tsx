@@ -4,15 +4,15 @@ import Titles from 'components/Titles/titles';
 import { getRecipesByUserId } from 'apis/recipe';
 import AuthContext from 'contexts/authContext';
 import { getCategory, CategoryProps } from 'apis/category';
-import { Recipe, createRecipe } from 'apis/recipe';
+import { Recipe, createRecipe, Step } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
 import { useNavigate } from 'react-router-dom';
 
 export default function NewRecipe() {
-  const { userId } = useContext(AuthContext);
-  const [recipe, setRecipe] = useState({ userId });
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
   const navigate = useNavigate();
+  const { userId } = useContext(AuthContext);
+  const [recipe, setRecipe] = useState({ userId, steps: [{ details: '' }] });
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   async function fetchCategories() {
     const categories = await getCategory();
@@ -28,9 +28,7 @@ export default function NewRecipe() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-
     const res = await createRecipe(recipe);
-    console.log(res);
     if (res.status === 200) {
       navigate('/');
     }
@@ -46,8 +44,8 @@ export default function NewRecipe() {
         <Titles title="NEW RECIPE" subTitle="새로운 레시피를 등록해 보세요" />
         <form onSubmit={onSubmit} className={styles.form}>
           <GeneralInfo categories={categories} updateField={updateField} recipe={recipe} />
-          {/* <Ingredients />
-          <Steps /> */}
+          {/* <Ingredients /> */}
+          <Steps updateField={updateField} recipe={recipe} />
           <input className={styles.submitButton} type="submit" value="회원정보 수정" />
         </form>
       </div>
@@ -159,17 +157,49 @@ function Ingredients() {
   );
 }
 
-function Steps() {
-  const [input, setInput] = useState('');
+interface StepsProps {
+  recipe: Recipe;
+  updateField: (name: string, data: any) => void;
+}
+
+function Steps(props: StepsProps) {
+  const { recipe, updateField } = props;
+  console.log(recipe);
   return (
     <div className={styles.content}>
       <p className={styles.title}>요리순서</p>
       <div className={styles.innerContent}>
-        <label className={styles.newInputField}>
-          Step 1
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
-        </label>
+        {recipe.steps?.map((step, index) => (
+          <label key={index} className={styles.newInputField}>
+            Step {index + 1}
+            <input
+              type="text"
+              value={step.details}
+              onChange={(e) => {
+                const tempArr = recipe.steps?.map((step, i) =>
+                  i === index ? { details: e.target.value } : step
+                );
+                updateField('steps', tempArr);
+              }}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                const tempArr = recipe.steps?.filter((_, i) => i !== index);
+                updateField('steps', tempArr);
+              }}>
+              delete
+            </button>
+          </label>
+        ))}
       </div>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          updateField('steps', [...(recipe.steps || []), { details: '' }]);
+        }}>
+        Add
+      </button>
     </div>
   );
 }

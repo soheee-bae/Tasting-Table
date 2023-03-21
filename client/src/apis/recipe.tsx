@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { CategoryProps } from './category';
 
-interface Ingredient {
+export interface Ingredient {
   name: string;
   mensuration: string;
 }
-interface Step {
+export interface Step {
   // image:
   details: string;
 }
