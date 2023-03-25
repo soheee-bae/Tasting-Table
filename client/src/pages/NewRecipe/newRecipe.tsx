@@ -1,23 +1,15 @@
-import React, { useEffect, useContext, useState, FormEvent } from 'react';
+import React, { useEffect, useRef, useContext, useState, FormEvent } from 'react';
 import styles from './newRecipe.module.scss';
 import Titles from 'components/Titles/titles';
-import { getRecipesByUserId } from 'apis/recipe';
 import AuthContext from 'contexts/authContext';
-import { getCategory, CategoryProps } from 'apis/category';
-import { Recipe, createRecipe, Step } from 'apis/recipe';
-import { getLevels } from 'helpers/getLevels';
+import { createRecipe } from 'apis/recipe';
 import { useNavigate } from 'react-router-dom';
+import RecipeForm from 'components/RecipeForm/recipeFrom';
 
 export default function NewRecipe() {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
   const [recipe, setRecipe] = useState({ userId, steps: [{ details: '' }] });
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
-
-  async function fetchCategories() {
-    const categories = await getCategory();
-    setCategories(categories || []);
-  }
 
   function updateField(name: string, data: any) {
     setRecipe({
@@ -34,172 +26,85 @@ export default function NewRecipe() {
     }
   }
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
   return (
     <div className={styles.newRecipe}>
       <div className={styles.newRecipeContainer}>
         <Titles title="NEW RECIPE" subTitle="새로운 레시피를 등록해 보세요" />
-        <form onSubmit={onSubmit} className={styles.form}>
-          <GeneralInfo categories={categories} updateField={updateField} recipe={recipe} />
-          {/* <Ingredients /> */}
-          <Steps updateField={updateField} recipe={recipe} />
-          <input className={styles.submitButton} type="submit" value="회원정보 수정" />
-        </form>
+        <RecipeForm onSubmit={onSubmit} updateField={updateField} recipe={recipe} />
       </div>
     </div>
   );
 }
 
-interface GeneralProps {
-  categories: CategoryProps[];
-  recipe: Recipe;
-  updateField: (name: string, data: any) => void;
-}
+// function Ingredients() {
+//   const [input, setInput] = useState('');
+//   return (
+//     <div className={styles.content}>
+//       <p className={styles.title}>레시피 재료</p>
+//       <div className={styles.innerContent}>
+//         <label className={styles.inputField}>
+//           요리정보
+//           <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
+//         </label>
+//       </div>
+//     </div>
+//   );
+// }
 
-function GeneralInfo(props: GeneralProps) {
-  const { categories, recipe, updateField } = props;
-  const levels = Array(5)
-    .fill(null)
-    .map((_, id) => ({ id: id + 1, label: getLevels(id + 1) }));
+// interface StepsProps {
+//   recipe: Recipe;
+//   updateField: (name: string, data: any) => void;
+// }
 
-  return (
-    <div className={styles.content}>
-      <div className={styles.innerContent}>
-        <label className={styles.inputField}>
-          레시피 제목
-          <input
-            type="text"
-            value={recipe.name}
-            onChange={(e) => updateField('name', e.target.value)}
-          />
-        </label>
-        <label className={styles.inputField}>
-          레시피 소개
-          <textarea
-            rows={8}
-            value={recipe.description}
-            onChange={(e) => updateField('description', e.target.value)}
-          />
-        </label>
-        <div>
-          <label className={styles.inputField}>
-            카테고리
-            <select
-              value={recipe?.categoryType?.name}
-              onChange={(e) => {
-                updateField('categoryType', {
-                  id: e.target.selectedIndex + 1,
-                  name: e.target.value
-                });
-              }}>
-              {categories?.map((category: CategoryProps) => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={styles.inputField}>
-            난이도
-            <select
-              value={recipe?.level}
-              onChange={(e) => {
-                updateField('level', parseInt(e.target.value));
-              }}>
-              {levels?.map((level) => (
-                <option key={level.id} value={level.id}>
-                  {level.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label className={styles.inputField}>
-            인원
-            <input
-              type="number"
-              value={recipe.amounts}
-              onChange={(e) => updateField('amounts', parseInt(e.target.value))}
-            />
-            인분
-          </label>
-          <label className={styles.inputField}>
-            시간
-            <input
-              type="number"
-              value={recipe.duration}
-              onChange={(e) => updateField('duration', parseInt(e.target.value))}
-            />
-            분
-          </label>
-        </div>
-      </div>
-    </div>
-  );
-}
+// function Steps(props: StepsProps) {
+//   const { recipe, updateField } = props;
+//   const [steps, setSteps] = useState(['🍅 Tomato', '🥒 Cucumber', '🧀 Cheese', '🥬 Lettuce']);
+//   const y = useMotionValue(0);
 
-function Ingredients() {
-  const [input, setInput] = useState('');
-  return (
-    <div className={styles.content}>
-      <p className={styles.title}>레시피 재료</p>
-      <div className={styles.innerContent}>
-        <label className={styles.inputField}>
-          요리정보
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
-        </label>
-      </div>
-    </div>
-  );
-}
+//   console.log(recipe.steps);
+//   return (
+//     <div className={styles.content}>
+//       <p className={styles.title}>요리순서</p>
+//       <Reorder.Group
+//         axis="y"
+//         values={steps || []}
+//         onReorder={setSteps}
+//         className={styles.innerContent}>
+//         {steps?.map((step, index) => (
+//           <Reorder.Item key={index} value={step} id={step} style={{ y }}>
+//             <span>{step}</span>
+//           </Reorder.Item>
+//         ))}
+//       </Reorder.Group>
+//       <button
+//         onClick={(e) => {
+//           e.preventDefault();
+//           updateField('steps', [...(recipe.steps || []), { details: '' }]);
+//         }}>
+//         Add
+//       </button>
+//     </div>
+//   );
+// }
 
-interface StepsProps {
-  recipe: Recipe;
-  updateField: (name: string, data: any) => void;
-}
-
-function Steps(props: StepsProps) {
-  const { recipe, updateField } = props;
-  console.log(recipe);
-  return (
-    <div className={styles.content}>
-      <p className={styles.title}>요리순서</p>
-      <div className={styles.innerContent}>
-        {recipe.steps?.map((step, index) => (
-          <label key={index} className={styles.newInputField}>
-            Step {index + 1}
-            <input
-              type="text"
-              value={step.details}
-              onChange={(e) => {
-                const tempArr = recipe.steps?.map((step, i) =>
-                  i === index ? { details: e.target.value } : step
-                );
-                updateField('steps', tempArr);
-              }}
-            />
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                const tempArr = recipe.steps?.filter((_, i) => i !== index);
-                updateField('steps', tempArr);
-              }}>
-              delete
-            </button>
-          </label>
-        ))}
-      </div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          updateField('steps', [...(recipe.steps || []), { details: '' }]);
-        }}>
-        Add
-      </button>
-    </div>
-  );
-}
+// <div className={styles.newInputField}>
+// {/* Step {index + 1} */}
+// <input
+//   type="text"
+//   value={step.details}
+//   onChange={(e) => {
+//     const tempArr = recipe.steps?.map((step, i) =>
+//       i === index ? { details: e.target.value } : step
+//     );
+//     updateField('steps', tempArr);
+//   }}
+// />
+// <button
+//   onClick={(e) => {
+//     e.preventDefault();
+//     const tempArr = recipe.steps?.filter((_, i) => i !== index);
+//     updateField('steps', tempArr);
+//   }}>
+//   delete
+// </button>
+// </div>

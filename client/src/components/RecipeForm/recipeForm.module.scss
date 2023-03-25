@@ -1,0 +1,27 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+}
+
+.submitButton {
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+  padding: 15px 0;
+  margin-top: 40px;
+  border: none;
+  background-color: var(--primaryColor1000);
+  border-radius: 2px;
+  color: var(--white100);
+  opacity: 0.9;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1.5px;
+  font-size: var(--text-sm);
+
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
