@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState, FormEvent } from 'react';
+import React, { useEffect, MouseEvent, useContext, useState } from 'react';
 import styles from './newRecipe.module.scss';
 import Titles from 'components/Titles/titles';
 import AuthContext from 'contexts/authContext';
@@ -12,14 +12,13 @@ export default function NewRecipe() {
   const [recipe, setRecipe] = useState({ userId, steps: [{ id: 1, details: '' }] });
 
   function updateField(name: string, data: any) {
-    console.log(data);
     setRecipe({
       ...recipe,
       [name]: data
     });
   }
 
-  async function onSubmit(e: FormEvent) {
+  async function onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     const res = await createRecipe(recipe);
     if (res.status === 200) {

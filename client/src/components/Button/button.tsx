@@ -1,15 +1,12 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, MouseEvent } from 'react';
 import clsx from 'clsx';
-import styles from './Button.module.scss';
+import styles from './button.module.scss';
 
 export type Size = 'sm' | 'md' | 'lg' | 'xl';
-export type Variant =
-  | 'contained'
-  | 'contained-outlined'
-  | 'outlined'
-  | 'text-outlined'
-  | 'text-color'
-  | 'text';
+export type Variant = 'contained' | 'outlined' | 'text';
+//   | 'contained-outlined'
+//   | 'text-outlined'
+//   | 'text-color'
 
 interface ButtonProps {
   children: string | JSX.Element | ReactNode;
@@ -17,7 +14,7 @@ interface ButtonProps {
   size?: Size;
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   disabled?: boolean;
   selected?: boolean;
@@ -36,8 +33,8 @@ export default function Button(props: ButtonProps) {
     selected
   } = props;
 
-  const handleClick = () => {
-    onClick?.();
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    onClick?.(e);
   };
 
   return (

@@ -1,6 +1,8 @@
 import { Step } from 'apis/recipe';
-import { Reorder, useMotionValue } from 'framer-motion';
-import { useRaisedShadow } from 'hooks/useRaisedShadow';
+import Button from 'components/Button/button';
+import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
+import { Minus } from 'icons/index';
+import { ReorderIcon } from 'icons/reorder';
 import { useEffect, useState } from 'react';
 import styles from './recipeStep.module.scss';
 
@@ -23,6 +25,7 @@ export default function RecipeStep(props: RecipeStepProps) {
       <p className={styles.title}>요리순서</p>
       <div className={styles.innerContent}>
         <Reorder.Group
+          className={styles.groupItem}
           axis="y"
           onReorder={(data) => {
             setSteps(data);
@@ -38,8 +41,8 @@ export default function RecipeStep(props: RecipeStepProps) {
             />
           ))}
         </Reorder.Group>
-        <button
-          className={styles.button}
+        <Button
+          variant="outlined"
           onClick={(e) => {
             e.preventDefault();
             let unusedNum = 0;
@@ -53,7 +56,7 @@ export default function RecipeStep(props: RecipeStepProps) {
             setSteps([...steps, { id: unusedNum, details: '' }]);
           }}>
           Add
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -69,28 +72,40 @@ interface ReorderItemProps {
 export const ReorderItem = (props: ReorderItemProps) => {
   const { index, steps, step, setSteps } = props;
   const y = useMotionValue(0);
-  const boxShadow = useRaisedShadow(y);
-
+  const dragControls = useDragControls();
   return (
-    <Reorder.Item value={step} id={step.details} style={{ boxShadow, y }}>
-      <input
-        type="text"
+    <Reorder.Item
+      dragListener={false}
+      dragControls={dragControls}
+      value={step}
+      id={step.details}
+      style={{
+        y
+      }}
+      className={styles.listItem}>
+      <div className={styles.reorderIcon}>
+        <ReorderIcon dragControls={dragControls} />
+        <p>{index + 1}</p>
+      </div>
+
+      <textarea
         value={step.details}
+        rows={3}
         onChange={(e) => {
           const copied = [...steps];
           copied[index] = { ...step, details: e.target.value };
           setSteps(copied);
         }}
       />
-      <button
-        className={styles.button}
+      <Button
         onClick={(e) => {
           e.preventDefault();
           const tempArr = steps?.filter((_, i) => i !== index);
           setSteps(tempArr);
-        }}>
-        delete
-      </button>
+        }}
+        variant="text">
+        <Minus />
+      </Button>
     </Reorder.Item>
   );
 };

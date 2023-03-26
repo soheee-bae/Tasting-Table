@@ -1,9 +1,10 @@
 import Titles from 'components/Titles/titles';
-import React, { FormEvent, useContext, useEffect, useState } from 'react';
+import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import blankProfile from 'image/blankProfile.png';
 import { editProfile, getProfile } from 'apis/profile';
 import AuthContext from 'contexts/authContext';
+import Button from 'components/Button/button';
 
 export default function Profile() {
   const [nickname, setNickname] = useState('');
@@ -22,7 +23,7 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await editProfile({
       email,
@@ -37,7 +38,7 @@ export default function Profile() {
     <div className={styles.profile}>
       <div className={styles.profileContainer}>
         <Titles title="EDIT PROFILE" subTitle="회원정보 수정" />
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form className={styles.form}>
           <div className={styles.content}>
             <p className={styles.title}>프로필</p>
             <div className={styles.innerContent}>
@@ -72,7 +73,9 @@ export default function Profile() {
               </label>
             </div>
           </div>
-          <input className={styles.submitButton} type="submit" value="회원정보 수정" />
+          <Button size="md" onClick={handleSubmit} variant="contained">
+            회원정보 수정
+          </Button>
         </form>
       </div>
     </div>

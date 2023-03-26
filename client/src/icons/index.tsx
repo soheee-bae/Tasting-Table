@@ -6,3 +6,4 @@ export { ReactComponent as Github } from './github.svg';
 export { ReactComponent as Linkedin } from './linkedin.svg';
 export { ReactComponent as Hourglass } from './hourglass.svg';
 export { ReactComponent as Level } from './level.svg';
+export { ReactComponent as Minus } from './minus.svg';
