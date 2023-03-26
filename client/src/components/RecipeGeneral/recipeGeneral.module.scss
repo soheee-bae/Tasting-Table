@@ -1,10 +1,4 @@
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.innerContent {
   padding: 30px 0 40px;
   display: flex;
   flex-direction: column;
@@ -25,6 +19,15 @@
   border-bottom: 1px solid var(--gray200);
 }
 
+.fieldsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  label > p {
+    white-space: nowrap;
+  }
+}
+
 .inputField {
   width: 100%;
   display: flex;
@@ -40,5 +43,47 @@
     resize: none;
     outline: none;
     padding: 10px;
+  }
+}
+
+.newInputField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  input {
+    outline: none;
+    padding: 10px;
+    width: 60px;
+    text-align: end;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+.selectField {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  select {
+    padding: 10px;
+    appearance: none;
+    width: 75px;
+    outline: none;
+    overflow: hidden;
   }
 }

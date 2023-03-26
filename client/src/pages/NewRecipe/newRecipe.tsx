@@ -9,9 +9,10 @@ import RecipeForm from 'components/RecipeForm/recipeFrom';
 export default function NewRecipe() {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
-  const [recipe, setRecipe] = useState({ userId, steps: [{ details: '' }] });
+  const [recipe, setRecipe] = useState({ userId, steps: [{ id: 1, details: '' }] });
 
   function updateField(name: string, data: any) {
+    console.log(data);
     setRecipe({
       ...recipe,
       [name]: data
@@ -50,61 +51,3 @@ export default function NewRecipe() {
 //     </div>
 //   );
 // }
-
-// interface StepsProps {
-//   recipe: Recipe;
-//   updateField: (name: string, data: any) => void;
-// }
-
-// function Steps(props: StepsProps) {
-//   const { recipe, updateField } = props;
-//   const [steps, setSteps] = useState(['🍅 Tomato', '🥒 Cucumber', '🧀 Cheese', '🥬 Lettuce']);
-//   const y = useMotionValue(0);
-
-//   console.log(recipe.steps);
-//   return (
-//     <div className={styles.content}>
-//       <p className={styles.title}>요리순서</p>
-//       <Reorder.Group
-//         axis="y"
-//         values={steps || []}
-//         onReorder={setSteps}
-//         className={styles.innerContent}>
-//         {steps?.map((step, index) => (
-//           <Reorder.Item key={index} value={step} id={step} style={{ y }}>
-//             <span>{step}</span>
-//           </Reorder.Item>
-//         ))}
-//       </Reorder.Group>
-//       <button
-//         onClick={(e) => {
-//           e.preventDefault();
-//           updateField('steps', [...(recipe.steps || []), { details: '' }]);
-//         }}>
-//         Add
-//       </button>
-//     </div>
-//   );
-// }
-
-// <div className={styles.newInputField}>
-// {/* Step {index + 1} */}
-// <input
-//   type="text"
-//   value={step.details}
-//   onChange={(e) => {
-//     const tempArr = recipe.steps?.map((step, i) =>
-//       i === index ? { details: e.target.value } : step
-//     );
-//     updateField('steps', tempArr);
-//   }}
-// />
-// <button
-//   onClick={(e) => {
-//     e.preventDefault();
-//     const tempArr = recipe.steps?.filter((_, i) => i !== index);
-//     updateField('steps', tempArr);
-//   }}>
-//   delete
-// </button>
-// </div>

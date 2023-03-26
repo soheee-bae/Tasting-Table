@@ -7,6 +7,7 @@ export interface Ingredient {
 }
 export interface Step {
   // image:
+  id: number;
   details: string;
 }
 
