@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
 const ingredientsSchema = new mongoose.Schema({
+  id: number,
   name: String,
-  ingredient: [{ name: String, mensuration: String }],
+  ingredient: [{ id: number, name: String, mensuration: String }],
 });
 
 const stepsSchema = new mongoose.Schema({
+  id: number,
   //image
   details: String,
 });

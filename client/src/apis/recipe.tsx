@@ -2,9 +2,16 @@ import axios from 'axios';
 import { CategoryProps } from './category';
 
 export interface Ingredient {
+  id: number;
   name: string;
   mensuration: string;
 }
+export interface Ingredients {
+  id: number;
+  name: string;
+  ingredient: Ingredient[];
+}
+
 export interface Step {
   // image:
   id: number;
@@ -19,7 +26,7 @@ export interface Recipe {
   duration?: number;
   categoryType?: CategoryProps;
   amounts?: number;
-  ingredients?: [{ name: string; ingredient: Ingredient[] }];
+  ingredients?: Ingredients[];
   steps?: Step[];
   _id?: string;
 }

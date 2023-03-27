@@ -3,8 +3,9 @@ import styles from './recipeForm.module.scss';
 import { getCategory, CategoryProps } from 'apis/category';
 import RecipeGeneral from 'components/RecipeGeneral/recipeGeneral';
 import RecipeStep from 'components/RecipeStep/recipeStep';
-import { Recipe, Step } from 'apis/recipe';
+import { Recipe } from 'apis/recipe';
 import Button from 'components/Button/button';
+import RecipeIngredients from 'components/RecipeIngredients/recipeIngredients';
 
 interface RecipeStepProps {
   onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -28,7 +29,7 @@ export default function RecipeForm(props: RecipeStepProps) {
   return (
     <form className={styles.form}>
       <RecipeGeneral categories={categories} updateField={updateField} recipe={recipe} />
-      {/* <Ingredients /> */}
+      <RecipeIngredients updateField={updateField} initialIngredients={recipe.ingredients || []} />
       <RecipeStep updateField={updateField} initialSteps={recipe.steps || []} />
       <Button size="md" onClick={onSubmit} variant="contained">
         새 레시피 등록

@@ -9,7 +9,19 @@ import RecipeForm from 'components/RecipeForm/recipeFrom';
 export default function NewRecipe() {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
-  const [recipe, setRecipe] = useState({ userId, steps: [{ id: 1, details: '' }] });
+
+  const initialRecipe = {
+    userId,
+    steps: [{ id: 1, details: '' }],
+    ingredients: [
+      {
+        id: 1,
+        name: '',
+        ingredient: [{ id: 1, name: '', mensuration: '' }]
+      }
+    ]
+  };
+  const [recipe, setRecipe] = useState(initialRecipe);
 
   function updateField(name: string, data: any) {
     setRecipe({
@@ -35,18 +47,3 @@ export default function NewRecipe() {
     </div>
   );
 }
-
-// function Ingredients() {
-//   const [input, setInput] = useState('');
-//   return (
-//     <div className={styles.content}>
-//       <p className={styles.title}>레시피 재료</p>
-//       <div className={styles.innerContent}>
-//         <label className={styles.inputField}>
-//           요리정보
-//           <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
-//         </label>
-//       </div>
-//     </div>
-//   );
-// }

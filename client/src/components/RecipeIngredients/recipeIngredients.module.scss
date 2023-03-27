@@ -34,37 +34,3 @@
     margin: 0;
   }
 }
-
-.groupItem {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-}
-
-.listItem {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  position: relative;
-  border-radius: 5px;
-  textarea {
-    width: 100%;
-  }
-}
-
-.reorderIcon {
-  display: flex;
-  flex-direction: row;
-  white-space: nowrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  svg {
-    color: var(--primaryColor500);
-    cursor: grab;
-  }
-}
