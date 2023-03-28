@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './recipeIngredients.module.scss';
 import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
 import { Ingredient, Ingredients } from 'apis/recipe';
@@ -14,6 +14,10 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
   const { updateField, initialIngredients } = props;
   const [ingredients, setIngredients] = useState(initialIngredients);
   const ids = ingredients.map((ingredient) => ingredient.id);
+
+  useEffect(() => {
+    updateField('ingredients', ingredients);
+  }, [ingredients]);
 
   return (
     <div className={styles.content}>
@@ -84,7 +88,6 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
       <div className={styles.reorderIcon}>
         <ReorderIcon dragControls={dragControls} />
       </div>
-
       <input
         value={ingredient.name}
         onChange={(e) => {
@@ -93,36 +96,13 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
           setIngredients(copied);
         }}
       />
-      <div>
-        {ingredient.ingredient.map((ingredientItem, ingredientIndex) => (
-          <div key={ingredientItem.name}>
-            <input
-              value={ingredientItem.name}
-              onChange={(e) => {
-                const copiedIngredients = [...ingredients];
-                const copiedSubIngredients = [...ingredient.ingredient];
-                copiedSubIngredients[ingredientIndex] = {
-                  ...ingredientItem,
-                  name: e.target.value
-                };
-                console.log(copiedSubIngredients);
-                copiedIngredients[index] = { ...ingredient, ...copiedIngredients };
-                console.log(copiedIngredients);
-              }}
-            />
-            <input
-              value={ingredientItem.mensuration}
-              onChange={(e) => {
-                const copied = [...ingredient.ingredient];
-                copied[index] = {
-                  ...ingredientItem,
-                  mensuration: e.target.value
-                };
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      <SubIngredient
+        subIngredients={ingredient.ingredient}
+        index={index}
+        setIngredients={setIngredients}
+        ingredients={ingredients}
+        ingredient={ingredient}
+      />
       <Button
         onClick={(e) => {
           e.preventDefault();
@@ -133,5 +113,84 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
         <Minus />
       </Button>
     </Reorder.Item>
+  );
+};
+
+interface SubIngredientProps {
+  subIngredients: Ingredient[];
+  index: number;
+  setIngredients: (ingredients: Ingredients[]) => void;
+  ingredients: Ingredients[];
+  ingredient: Ingredients;
+}
+
+export const SubIngredient = (props: SubIngredientProps) => {
+  const { subIngredients, index, setIngredients, ingredients, ingredient } = props;
+  const ids = subIngredients.map((subIngredient) => subIngredient.id);
+
+  console.log(ingredients);
+  return (
+    <div>
+      {subIngredients.map((ingredientItem, ingredientIndex) => (
+        <div key={ingredientItem.id}>
+          <input
+            value={ingredientItem.name}
+            onChange={(e) => {
+              const copied = [...subIngredients];
+              copied[ingredientIndex] = { ...ingredientItem, name: e.target.value };
+              const copiedIngredient = [...ingredients];
+              copiedIngredient[index] = { ...ingredient, ingredient: copied };
+              setIngredients(copiedIngredient);
+            }}
+          />
+          <input
+            value={ingredientItem.mensuration}
+            onChange={(e) => {
+              const copied = [...subIngredients];
+              copied[ingredientIndex] = { ...ingredientItem, mensuration: e.target.value };
+              const copiedIngredient = [...ingredients];
+              copiedIngredient[index] = { ...ingredient, ingredient: copied };
+              setIngredients(copiedIngredient);
+            }}
+          />
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              const tempArr = subIngredients?.filter((_, i) => i !== ingredientIndex);
+              const copiedIngredient = [...ingredients];
+              copiedIngredient[index] = {
+                ...ingredient,
+                ingredient: tempArr
+              };
+              setIngredients(copiedIngredient);
+            }}
+            variant="text">
+            <Minus />
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={(e) => {
+              e.preventDefault();
+              let unusedNum = 0;
+              let i = 0;
+              while (unusedNum === 0 && i < 50) {
+                if (!ids.includes(i)) {
+                  unusedNum = i;
+                }
+                i++;
+              }
+              const newIngredients = { id: unusedNum, name: '', mensuration: '' };
+              const copiedIngredient = [...ingredients];
+              copiedIngredient[index] = {
+                ...ingredient,
+                ingredient: [...subIngredients, newIngredients]
+              };
+              setIngredients(copiedIngredient);
+            }}>
+            Add
+          </Button>
+        </div>
+      ))}
+    </div>
   );
 };
