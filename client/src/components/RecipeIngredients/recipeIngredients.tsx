@@ -158,9 +158,14 @@ export const SubIngredient = (props: SubIngredientProps) => {
             <Button
               onClick={(e) => {
                 e.preventDefault();
-                const filtered = subIngredients?.filter((_, i) => i !== ingredientIndex);
-                copiedIngredient[index] = { ...ingredient, ingredient: filtered };
-                setIngredients(copiedIngredient);
+                if (subIngredients.length <= 1) {
+                  const filtered = ingredients?.filter((_, i) => i !== index);
+                  setIngredients(filtered);
+                } else {
+                  const filtered = subIngredients?.filter((_, i) => i !== ingredientIndex);
+                  copiedIngredient[index] = { ...ingredient, ingredient: filtered };
+                  setIngredients(copiedIngredient);
+                }
               }}
               variant="text">
               <Minus />
