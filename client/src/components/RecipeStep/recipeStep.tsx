@@ -1,7 +1,8 @@
 import { Step } from 'apis/recipe';
 import Button from 'components/Button/button';
 import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
-import { Minus } from 'icons/index';
+import { getUnusedId } from 'helpers/getUnusedId';
+import { Minus, Plus } from 'icons/index';
 import { ReorderIcon } from 'icons/reorder';
 import { useEffect, useState } from 'react';
 import styles from './recipeStep.module.scss';
@@ -42,20 +43,14 @@ export default function RecipeStep(props: RecipeStepProps) {
           ))}
         </Reorder.Group>
         <Button
+          startIcon={<Plus />}
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            let unusedNum = 0;
-            let i = 0;
-            while (unusedNum === 0 && i < 50) {
-              if (!ids.includes(i)) {
-                unusedNum = i;
-              }
-              i++;
-            }
-            setSteps([...steps, { id: unusedNum, details: '' }]);
+            const newId = getUnusedId(ids);
+            setSteps([...steps, { id: newId, details: '' }]);
           }}>
-          Add
+          순서추가
         </Button>
       </div>
     </div>
@@ -85,8 +80,8 @@ export const ReorderItem = (props: ReorderItemProps) => {
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
       </div>
-
       <textarea
+        placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."
         value={step.details}
         rows={3}
         onChange={(e) => {

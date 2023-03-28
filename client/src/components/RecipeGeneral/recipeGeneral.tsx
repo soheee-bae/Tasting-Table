@@ -21,6 +21,7 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
       <label className={styles.inputField}>
         레시피 제목
         <input
+          placeholder="예) 소고기 미역국"
           type="text"
           value={recipe.name}
           onChange={(e) => updateField('name', e.target.value)}
@@ -29,6 +30,7 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
       <label className={styles.inputField}>
         레시피 소개
         <textarea
+          placeholder="이 레시피의 탄생배경을 적어주세요. 예) 남편의 생일을 맞아 소고기 미역국을 끓여봤어요. 어머니로부터 배운 미역국 레시피를 남편의 입맛에 맞게 고안했습니다."
           rows={8}
           value={recipe.description}
           onChange={(e) => updateField('description', e.target.value)}
@@ -57,6 +59,7 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
         <label className={styles.newInputField}>
           <p>인원</p>
           <input
+            placeholder="예) 3"
             type="number"
             value={recipe.amounts}
             onChange={(e) => updateField('amounts', parseInt(e.target.value))}
@@ -66,6 +69,7 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
         <label className={styles.newInputField}>
           <p>시간</p>
           <input
+            placeholder="예) 30"
             type="number"
             value={recipe.duration}
             onChange={(e) => updateField('duration', parseInt(e.target.value))}

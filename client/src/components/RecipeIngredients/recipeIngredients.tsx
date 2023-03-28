@@ -3,7 +3,7 @@ import styles from './recipeIngredients.module.scss';
 import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
 import { Ingredient, Ingredients } from 'apis/recipe';
 import { ReorderIcon } from 'icons/reorder';
-import { Minus } from 'icons/index';
+import { Minus, Plus } from 'icons/index';
 import Button from 'components/Button/button';
 import { getUnusedId } from 'helpers/getUnusedId';
 
@@ -42,6 +42,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
           ))}
         </Reorder.Group>
         <Button
+          startIcon={<Plus />}
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
@@ -51,7 +52,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
               { id: newId, name: '', ingredient: [{ id: 1, name: '', mensuration: '' }] }
             ]);
           }}>
-          Add
+          재료/양념 묶음 추가
         </Button>
       </div>
     </div>
@@ -83,6 +84,7 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
       </div>
       <input
         className={styles.ingredientBucketName}
+        placeholder="기본재료"
         value={ingredient.name}
         onChange={(e) => {
           const copied = [...ingredients];
@@ -97,7 +99,7 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
         subIngredients={ingredient.ingredient}
         setIngredients={setIngredients}
       />
-      <Button
+      {/* <Button
         onClick={(e) => {
           e.preventDefault();
           const filtered = ingredients?.filter((_, i) => i !== index);
@@ -105,7 +107,7 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
         }}
         variant="text">
         <Minus />
-      </Button>
+      </Button> */}
     </Reorder.Item>
   );
 };
@@ -126,31 +128,33 @@ export const SubIngredient = (props: SubIngredientProps) => {
   const copiedSubIngredient = [...subIngredients];
 
   return (
-    <div>
+    <div className={styles.subIngredientItems}>
       {subIngredients.map((ingredientItem, ingredientIndex) => (
         <div key={ingredientItem.id} className={styles.subIngredientList}>
-          <input
-            className={styles.subIngredientItem}
-            value={ingredientItem.name}
-            onChange={(e) => {
-              copiedSubIngredient[ingredientIndex] = { ...ingredientItem, name: e.target.value };
-              copiedIngredient[index] = { ...ingredient, ingredient: copiedSubIngredient };
-              setIngredients(copiedIngredient);
-            }}
-          />
-          <input
-            className={styles.subIngredientItem}
-            value={ingredientItem.mensuration}
-            onChange={(e) => {
-              copiedSubIngredient[ingredientIndex] = {
-                ...ingredientItem,
-                mensuration: e.target.value
-              };
-              copiedIngredient[index] = { ...ingredient, ingredient: copiedSubIngredient };
-              setIngredients(copiedIngredient);
-            }}
-          />
-          <div>
+          <div className={styles.subIngredientDetails}>
+            <input
+              placeholder="예) 돼지고기"
+              className={styles.subIngredientItem}
+              value={ingredientItem.name}
+              onChange={(e) => {
+                copiedSubIngredient[ingredientIndex] = { ...ingredientItem, name: e.target.value };
+                copiedIngredient[index] = { ...ingredient, ingredient: copiedSubIngredient };
+                setIngredients(copiedIngredient);
+              }}
+            />
+            <input
+              placeholder="예) 300g"
+              className={styles.subIngredientItem}
+              value={ingredientItem.mensuration}
+              onChange={(e) => {
+                copiedSubIngredient[ingredientIndex] = {
+                  ...ingredientItem,
+                  mensuration: e.target.value
+                };
+                copiedIngredient[index] = { ...ingredient, ingredient: copiedSubIngredient };
+                setIngredients(copiedIngredient);
+              }}
+            />
             <Button
               onClick={(e) => {
                 e.preventDefault();
@@ -161,24 +165,26 @@ export const SubIngredient = (props: SubIngredientProps) => {
               variant="text">
               <Minus />
             </Button>
-            <Button
-              variant="text"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                const newId = getUnusedId(ids);
-                const newIngredients = { id: newId, name: '', mensuration: '' };
-                copiedIngredient[index] = {
-                  ...ingredient,
-                  ingredient: [...subIngredients, newIngredients]
-                };
-                setIngredients(copiedIngredient);
-              }}>
-              Add
-            </Button>
           </div>
         </div>
       ))}
+      <Button
+        className={styles.subIngredientButton}
+        variant="text"
+        size="sm"
+        startIcon={<Plus />}
+        onClick={(e) => {
+          e.preventDefault();
+          const newId = getUnusedId(ids);
+          const newIngredients = { id: newId, name: '', mensuration: '' };
+          copiedIngredient[index] = {
+            ...ingredient,
+            ingredient: [...subIngredients, newIngredients]
+          };
+          setIngredients(copiedIngredient);
+        }}>
+        추가
+      </Button>
     </div>
   );
 };

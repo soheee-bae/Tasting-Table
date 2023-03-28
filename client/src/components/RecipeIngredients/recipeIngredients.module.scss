@@ -57,6 +57,7 @@
   gap: 10px;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
   svg {
     color: var(--primaryColor500);
     cursor: grab;
@@ -64,15 +65,34 @@
 }
 
 .ingredientBucketName {
-  border: 1px solid red;
+  height: 40px;
+  padding: 10px;
 }
 
 .subIngredientList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subIngredientItems {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.subIngredientItem {
+  height: 40px;
+  padding: 10px;
+}
+
+.subIngredientDetails {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
 
-.subIngredientItem{
-  
+.subIngredientButton {
+  // padding-right: 20px;
+  margin-right: 52px;
 }
