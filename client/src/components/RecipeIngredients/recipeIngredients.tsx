@@ -99,15 +99,6 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
         subIngredients={ingredient.ingredient}
         setIngredients={setIngredients}
       />
-      {/* <Button
-        onClick={(e) => {
-          e.preventDefault();
-          const filtered = ingredients?.filter((_, i) => i !== index);
-          setIngredients(filtered);
-        }}
-        variant="text">
-        <Minus />
-      </Button> */}
     </Reorder.Item>
   );
 };
