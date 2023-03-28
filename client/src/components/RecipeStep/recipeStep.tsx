@@ -79,9 +79,7 @@ export const ReorderItem = (props: ReorderItemProps) => {
       dragControls={dragControls}
       value={step}
       id={step.details}
-      style={{
-        y
-      }}
+      style={{ y }}
       className={styles.listItem}>
       <div className={styles.reorderIcon}>
         <ReorderIcon dragControls={dragControls} />

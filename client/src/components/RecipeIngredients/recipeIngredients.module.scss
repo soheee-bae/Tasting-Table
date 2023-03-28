@@ -34,3 +34,45 @@
     margin: 0;
   }
 }
+
+.ingredientBucket {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.ingredientList {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
+.reorderIcon {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  svg {
+    color: var(--primaryColor500);
+    cursor: grab;
+  }
+}
+
+.ingredientBucketName {
+  border: 1px solid red;
+}
+
+.subIngredientList {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.subIngredientItem{
+  
+}

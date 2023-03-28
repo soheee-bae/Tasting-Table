@@ -5,6 +5,7 @@ import { Ingredient, Ingredients } from 'apis/recipe';
 import { ReorderIcon } from 'icons/reorder';
 import { Minus } from 'icons/index';
 import Button from 'components/Button/button';
+import { getUnusedId } from 'helpers/getUnusedId';
 
 interface RecipeIngredientsProps {
   updateField: (name: string, data: any) => void;
@@ -24,7 +25,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
       <p className={styles.title}>레시피 재료</p>
       <div className={styles.innerContent}>
         <Reorder.Group
-          className={styles.groupItem}
+          className={styles.ingredientBucket}
           axis="y"
           onReorder={(data) => {
             setIngredients(data);
@@ -44,17 +45,10 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            let unusedNum = 0;
-            let i = 0;
-            while (unusedNum === 0 && i < 50) {
-              if (!ids.includes(i)) {
-                unusedNum = i;
-              }
-              i++;
-            }
+            const newId = getUnusedId(ids);
             setIngredients([
               ...ingredients,
-              { id: unusedNum, name: '', ingredient: [{ id: 1, name: '', mensuration: '' }] }
+              { id: newId, name: '', ingredient: [{ id: 1, name: '', mensuration: '' }] }
             ]);
           }}>
           Add
@@ -76,19 +70,19 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
   const y = useMotionValue(0);
   const dragControls = useDragControls();
 
-  console.log(ingredients);
   return (
     <Reorder.Item
+      className={styles.ingredientList}
       dragListener={false}
       dragControls={dragControls}
       value={ingredient}
       id={ingredient.name}
-      style={{ y }}
-      className={styles.listItem}>
+      style={{ y }}>
       <div className={styles.reorderIcon}>
         <ReorderIcon dragControls={dragControls} />
       </div>
       <input
+        className={styles.ingredientBucketName}
         value={ingredient.name}
         onChange={(e) => {
           const copied = [...ingredients];
@@ -97,17 +91,17 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
         }}
       />
       <SubIngredient
-        subIngredients={ingredient.ingredient}
         index={index}
-        setIngredients={setIngredients}
         ingredients={ingredients}
         ingredient={ingredient}
+        subIngredients={ingredient.ingredient}
+        setIngredients={setIngredients}
       />
       <Button
         onClick={(e) => {
           e.preventDefault();
-          const tempArr = ingredients?.filter((_, i) => i !== index);
-          setIngredients(tempArr);
+          const filtered = ingredients?.filter((_, i) => i !== index);
+          setIngredients(filtered);
         }}
         variant="text">
         <Minus />
@@ -117,78 +111,72 @@ export const ReorderIngredient = (props: ReorderIngredientProps) => {
 };
 
 interface SubIngredientProps {
-  subIngredients: Ingredient[];
   index: number;
-  setIngredients: (ingredients: Ingredients[]) => void;
   ingredients: Ingredients[];
   ingredient: Ingredients;
+  subIngredients: Ingredient[];
+  setIngredients: (ingredients: Ingredients[]) => void;
 }
 
 export const SubIngredient = (props: SubIngredientProps) => {
-  const { subIngredients, index, setIngredients, ingredients, ingredient } = props;
+  const { index, ingredients, subIngredients, ingredient, setIngredients } = props;
   const ids = subIngredients.map((subIngredient) => subIngredient.id);
 
-  console.log(ingredients);
+  const copiedIngredient = [...ingredients];
+  const copiedSubIngredient = [...subIngredients];
+
   return (
     <div>
       {subIngredients.map((ingredientItem, ingredientIndex) => (
-        <div key={ingredientItem.id}>
+        <div key={ingredientItem.id} className={styles.subIngredientList}>
           <input
+            className={styles.subIngredientItem}
             value={ingredientItem.name}
             onChange={(e) => {
-              const copied = [...subIngredients];
-              copied[ingredientIndex] = { ...ingredientItem, name: e.target.value };
-              const copiedIngredient = [...ingredients];
-              copiedIngredient[index] = { ...ingredient, ingredient: copied };
+              copiedSubIngredient[ingredientIndex] = { ...ingredientItem, name: e.target.value };
+              copiedIngredient[index] = { ...ingredient, ingredient: copiedSubIngredient };
               setIngredients(copiedIngredient);
             }}
           />
           <input
+            className={styles.subIngredientItem}
             value={ingredientItem.mensuration}
             onChange={(e) => {
-              const copied = [...subIngredients];
-              copied[ingredientIndex] = { ...ingredientItem, mensuration: e.target.value };
-              const copiedIngredient = [...ingredients];
-              copiedIngredient[index] = { ...ingredient, ingredient: copied };
+              copiedSubIngredient[ingredientIndex] = {
+                ...ingredientItem,
+                mensuration: e.target.value
+              };
+              copiedIngredient[index] = { ...ingredient, ingredient: copiedSubIngredient };
               setIngredients(copiedIngredient);
             }}
           />
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              const tempArr = subIngredients?.filter((_, i) => i !== ingredientIndex);
-              const copiedIngredient = [...ingredients];
-              copiedIngredient[index] = {
-                ...ingredient,
-                ingredient: tempArr
-              };
-              setIngredients(copiedIngredient);
-            }}
-            variant="text">
-            <Minus />
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={(e) => {
-              e.preventDefault();
-              let unusedNum = 0;
-              let i = 0;
-              while (unusedNum === 0 && i < 50) {
-                if (!ids.includes(i)) {
-                  unusedNum = i;
-                }
-                i++;
-              }
-              const newIngredients = { id: unusedNum, name: '', mensuration: '' };
-              const copiedIngredient = [...ingredients];
-              copiedIngredient[index] = {
-                ...ingredient,
-                ingredient: [...subIngredients, newIngredients]
-              };
-              setIngredients(copiedIngredient);
-            }}>
-            Add
-          </Button>
+          <div>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                const filtered = subIngredients?.filter((_, i) => i !== ingredientIndex);
+                copiedIngredient[index] = { ...ingredient, ingredient: filtered };
+                setIngredients(copiedIngredient);
+              }}
+              variant="text">
+              <Minus />
+            </Button>
+            <Button
+              variant="text"
+              size="sm"
+              onClick={(e) => {
+                e.preventDefault();
+                const newId = getUnusedId(ids);
+                const newIngredients = { id: newId, name: '', mensuration: '' };
+                copiedIngredient[index] = {
+                  ...ingredient,
+                  ingredient: [...subIngredients, newIngredients]
+                };
+                setIngredients(copiedIngredient);
+              }}>
+              Add
+            </Button>
+          </div>
         </div>
       ))}
     </div>
