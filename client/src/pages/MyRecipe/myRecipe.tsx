@@ -30,7 +30,7 @@ export default function MyRecipe() {
 
   async function handleEdit(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
-    navigate(`/editRecipe/${id}`);
+    navigate(`/editrecipe/${id}`);
   }
 
   useEffect(() => {

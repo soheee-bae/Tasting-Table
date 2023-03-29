@@ -42,7 +42,12 @@ export default function NewRecipe() {
     <div className={styles.newRecipe}>
       <div className={styles.newRecipeContainer}>
         <Titles title="NEW RECIPE" subTitle="새로운 레시피를 등록해 보세요" />
-        <RecipeForm onSubmit={onSubmit} updateField={updateField} recipe={recipe} />
+        <RecipeForm
+          onSubmit={onSubmit}
+          updateField={updateField}
+          recipe={recipe}
+          buttonLabel="새 레시피 등록하기"
+        />
       </div>
     </div>
   );

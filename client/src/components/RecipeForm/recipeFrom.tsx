@@ -8,13 +8,14 @@ import Button from 'components/Button/button';
 import RecipeIngredients from 'components/RecipeIngredients/recipeIngredients';
 
 interface RecipeStepProps {
-  onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
+  onSubmit: (e: MouseEvent<HTMLButtonElement>, id?: string, recipe?: Recipe) => void;
   updateField: (name: string, data: any) => void;
   recipe: Recipe;
+  buttonLabel: string;
 }
 
 export default function RecipeForm(props: RecipeStepProps) {
-  const { onSubmit, updateField, recipe } = props;
+  const { onSubmit, updateField, recipe, buttonLabel } = props;
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   async function fetchCategories() {
@@ -32,7 +33,7 @@ export default function RecipeForm(props: RecipeStepProps) {
       <RecipeIngredients updateField={updateField} initialIngredients={recipe.ingredients || []} />
       <RecipeStep updateField={updateField} initialSteps={recipe.steps || []} />
       <Button size="md" onClick={onSubmit} variant="contained">
-        새 레시피 등록
+        {buttonLabel}
       </Button>
     </form>
   );
