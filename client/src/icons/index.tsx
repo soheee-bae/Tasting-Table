@@ -8,3 +8,5 @@ export { ReactComponent as Hourglass } from './hourglass.svg';
 export { ReactComponent as Level } from './level.svg';
 export { ReactComponent as Minus } from './minus.svg';
 export { ReactComponent as Plus } from './plus.svg';
+export { ReactComponent as Trash } from './trash.svg';
+export { ReactComponent as Edit } from './edit.svg';
