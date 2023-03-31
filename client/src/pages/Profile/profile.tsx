@@ -1,5 +1,5 @@
 import Titles from 'components/Titles/titles';
-import React, { MouseEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useContext, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import blankProfile from 'image/blankProfile.png';
 import { editProfile, getProfile } from 'apis/profile';
@@ -7,6 +7,7 @@ import AuthContext from 'contexts/authContext';
 import Button from 'components/Button/button';
 
 export default function Profile() {
+  const [profileImg, setProfileImg] = useState('');
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
@@ -14,6 +15,7 @@ export default function Profile() {
 
   async function fetchProfile() {
     const profile = await getProfile();
+    setProfileImg(profile?.profileImg || {});
     setNickname(profile?.nickname || '');
     setBirthdate(profile?.birthdate || '');
     setName(profile?.name || '');
@@ -26,12 +28,18 @@ export default function Profile() {
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await editProfile({
+      profileImg,
       email,
       name,
       nickname,
       birthdate
     });
     // Maybe add toast for snackbar
+  };
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files) setProfileImg(URL.createObjectURL(e.target?.files[0]));
   };
 
   return (
@@ -42,7 +50,10 @@ export default function Profile() {
           <div className={styles.content}>
             <p className={styles.title}>프로필</p>
             <div className={styles.innerContent}>
-              <img src={blankProfile} alt="profile" />
+              <div>
+                <img src={profileImg || blankProfile} alt="profile" />
+                <input id="photo-upload" type="file" onChange={handleFileChange} />
+              </div>
               <label className={styles.inputField}>
                 닉네임
                 <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />

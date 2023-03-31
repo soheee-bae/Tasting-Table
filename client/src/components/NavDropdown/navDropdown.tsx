@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext, useState } from 'react';
+import React, { useRef, MouseEvent, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './navDropdown.module.scss';
@@ -6,11 +6,14 @@ import AuthContext from 'contexts/authContext';
 import { logout } from 'apis/auth';
 import { User } from 'icons/index';
 import blankProfile from 'image/blankProfile.png';
+import { getProfile } from 'apis/profile';
 
 export default function NavDropdown() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [profileImg, setProfileImg] = useState<string>('');
   const { getLoggedIn, email } = useContext(AuthContext);
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleLogout = async (e: MouseEvent) => {
     e.preventDefault();
@@ -19,15 +22,36 @@ export default function NavDropdown() {
     navigate('/');
   };
 
+  const handleClickOutside = (ev: any) => {
+    if (ref.current && !ref.current.contains(ev.target)) {
+      setOpen(false);
+    }
+  };
+  async function fetchProfile() {
+    const profile = await getProfile();
+    setProfileImg(profile?.profileImg || {});
+  }
+
+  useEffect(() => {
+    fetchProfile();
+  }, [open]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
+
   return (
-    <div className={styles.navDropdownContainer}>
+    <div ref={ref} className={styles.navDropdownContainer}>
       <li className={styles.navItem} onClick={() => setOpen(!open)}>
         <User />
         <p>마이페이지</p>
       </li>
       <div className={styles.navDropdown} data-open={open}>
         <div className={styles.navDropdownHeader}>
-          <img src={blankProfile} alt="profile" />
+          <img src={profileImg || blankProfile} alt="profile" />
           <p>{email}</p>
         </div>
         <div className={styles.navDropdownLists}>
