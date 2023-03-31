@@ -8,7 +8,7 @@ import Button from 'components/Button/button';
 import RecipeIngredients from 'components/RecipeIngredients/recipeIngredients';
 
 interface RecipeStepProps {
-  onSubmit: (e: MouseEvent<HTMLButtonElement>, id?: string, recipe?: Recipe) => void;
+  onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
   updateField: (name: string, data: any) => void;
   recipe: Recipe;
   buttonLabel: string;

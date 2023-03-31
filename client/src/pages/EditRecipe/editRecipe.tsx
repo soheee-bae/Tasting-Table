@@ -8,7 +8,7 @@ import RecipeForm from 'components/RecipeForm/recipeFrom';
 
 export default function EditRecipe() {
   const navigate = useNavigate();
-  const { recipeId } = useParams();
+  const { recipeId = '' } = useParams();
   const { userId } = useContext(AuthContext);
 
   const [recipe, setRecipe] = useState({ userId });
@@ -18,21 +18,17 @@ export default function EditRecipe() {
     setRecipe(recipe);
   }
 
-  console.log(recipe);
   function updateField(name: string, data: any) {
     setRecipe({
       ...recipe,
       [name]: data
     });
   }
-
-  async function onSubmit(e: MouseEvent<HTMLButtonElement>, id?: string, recipe?: Recipe) {
+  async function onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    if (id && recipe) {
-      const res = await editRecipe({ id, data: recipe });
-      if (res.status === 200) {
-        navigate('/');
-      }
+    const res = await editRecipe({ id: recipeId, data: recipe });
+    if (res.status === 200) {
+      navigate('/');
     }
   }
 

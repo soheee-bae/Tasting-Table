@@ -20,6 +20,10 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
     updateField('ingredients', ingredients);
   }, [ingredients]);
 
+  useEffect(() => {
+    setIngredients(initialIngredients);
+  }, [initialIngredients]);
+
   return (
     <div className={styles.content}>
       <p className={styles.title}>레시피 재료</p>

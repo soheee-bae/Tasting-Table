@@ -21,6 +21,10 @@ export default function RecipeStep(props: RecipeStepProps) {
     updateField('steps', steps);
   }, [steps]);
 
+  useEffect(() => {
+    setSteps(initialSteps);
+  }, [initialSteps]);
+
   return (
     <div className={styles.content}>
       <p className={styles.title}>요리순서</p>
