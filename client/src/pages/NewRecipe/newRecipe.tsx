@@ -12,6 +12,7 @@ export default function NewRecipe() {
 
   const initialRecipe = {
     userId,
+    img: '',
     steps: [{ id: 1, details: '' }],
     ingredients: [
       {

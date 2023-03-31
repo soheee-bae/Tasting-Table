@@ -20,6 +20,7 @@ export interface Step {
 
 export interface Recipe {
   userId: string;
+  img?: string;
   name?: string;
   level?: number;
   description?: string;

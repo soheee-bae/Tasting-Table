@@ -18,6 +18,16 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
 
   return (
     <div className={styles.content}>
+      <div className={styles.inputField}>
+        <img src={recipe.img || ''} alt="recipe" />
+        <input
+          id="photo-upload"
+          type="file"
+          onChange={(e) => {
+            if (e.target?.files) updateField('img', URL.createObjectURL(e.target?.files[0]));
+          }}
+        />
+      </div>
       <label className={styles.inputField}>
         레시피 제목
         <input

@@ -15,6 +15,7 @@ const stepsSchema = new mongoose.Schema({
 const recipeSchema = new mongoose.Schema({
   //image, comments
   userId: { type: String, required: true },
+  img: String,
   name: String,
   description: String,
   duration: Number,

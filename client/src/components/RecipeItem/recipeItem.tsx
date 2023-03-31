@@ -14,12 +14,12 @@ interface RecipeItemProps {
 
 export default function RecipeItem(props: RecipeItemProps) {
   const { recipe, handleDelete, handleEdit, allowEdit } = props;
-  const { _id, name, categoryType, level, duration } = recipe;
+  const { _id, name, categoryType, level, duration, img } = recipe;
 
   return (
     <div className={styles.recipeItem}>
       <div className={styles.recipeItemImage}>
-        <img src={food} alt={name} />
+        <img src={img || food} alt={name} />
         {allowEdit && (
           <div className={styles.editableRecipeItem}>
             <div onClick={(e) => handleEdit?.(e, _id || '')}>
