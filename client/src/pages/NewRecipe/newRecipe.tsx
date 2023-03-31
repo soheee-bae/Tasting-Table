@@ -13,7 +13,7 @@ export default function NewRecipe() {
   const initialRecipe = {
     userId,
     img: '',
-    steps: [{ id: 1, details: '' }],
+    steps: [{ id: 1, details: '', img: '' }],
     ingredients: [
       {
         id: 1,

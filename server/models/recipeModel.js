@@ -8,12 +8,12 @@ const ingredientsSchema = new mongoose.Schema({
 
 const stepsSchema = new mongoose.Schema({
   id: Number,
-  //image
+  img: String,
   details: String,
 });
 
 const recipeSchema = new mongoose.Schema({
-  //image, comments
+  // comments
   userId: { type: String, required: true },
   img: String,
   name: String,

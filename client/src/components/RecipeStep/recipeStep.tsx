@@ -52,7 +52,7 @@ export default function RecipeStep(props: RecipeStepProps) {
           onClick={(e) => {
             e.preventDefault();
             const newId = getUnusedId(ids);
-            setSteps([...steps, { id: newId, details: '' }]);
+            setSteps([...steps, { id: newId, details: '', img: '' }]);
           }}>
           순서추가
         </Button>
@@ -83,6 +83,21 @@ export const ReorderItem = (props: ReorderItemProps) => {
       <div className={styles.reorderIcon}>
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
+      </div>
+      <div className={styles.inputField}>
+        <img src={step.img || ''} alt="recipe" />
+        <input
+          id="photo-upload"
+          type="file"
+          onChange={(e) => {
+            const copied = [...steps];
+            copied[index] = {
+              ...step,
+              img: e.target?.files ? URL.createObjectURL(e.target?.files[0]) : ''
+            };
+            setSteps(copied);
+          }}
+        />
       </div>
       <textarea
         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."

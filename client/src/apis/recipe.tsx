@@ -13,8 +13,8 @@ export interface Ingredients {
 }
 
 export interface Step {
-  // image:
   id: number;
+  img: string;
   details: string;
 }
 
