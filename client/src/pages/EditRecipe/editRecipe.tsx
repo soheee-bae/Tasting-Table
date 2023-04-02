@@ -1,10 +1,12 @@
 import React, { useEffect, MouseEvent, useContext, useState } from 'react';
-import styles from './editRecipe.module.scss';
-import Titles from 'components/Titles/title';
-import AuthContext from 'contexts/authContext';
-import { createRecipe, editRecipe, getRecipeById, getRecipesByUserId, Recipe } from 'apis/recipe';
 import { useNavigate, useParams } from 'react-router-dom';
+import styles from './editRecipe.module.scss';
+
+import Titles from 'components/Titles/title';
 import RecipeForm from 'components/RecipeForm/recipeForm';
+
+import AuthContext from 'contexts/authContext';
+import { editRecipe, getRecipeById } from 'apis/recipe';
 
 export default function EditRecipe() {
   const navigate = useNavigate();
@@ -13,23 +15,24 @@ export default function EditRecipe() {
 
   const [recipe, setRecipe] = useState({ userId });
 
-  async function fetchRecipe() {
-    const recipe = await getRecipeById({ id: recipeId || '' });
-    setRecipe(recipe);
-  }
-
   function updateField(name: string, data: any) {
     setRecipe({
       ...recipe,
       [name]: data
     });
   }
+
   async function onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     const res = await editRecipe({ id: recipeId, data: recipe });
     if (res.status === 200) {
       navigate('/');
     }
+  }
+
+  async function fetchRecipe() {
+    const recipe = await getRecipeById({ id: recipeId || '' });
+    setRecipe(recipe);
   }
 
   useEffect(() => {

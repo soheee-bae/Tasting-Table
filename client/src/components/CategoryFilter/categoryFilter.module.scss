@@ -1,0 +1,30 @@
+.categoryFilter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryFilterContainer {
+  list-style-type: none;
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryFilterList {
+  border-bottom: 1px solid var(--primaryColor800);
+  padding: 10px 15px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--primaryColor800);
+    color: var(--white200);
+  }
+}
+
+.selectedFilterList {
+  background-color: var(--primaryColor800);
+  color: var(--white200);
+}

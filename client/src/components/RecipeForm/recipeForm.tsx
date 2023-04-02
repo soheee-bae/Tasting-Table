@@ -25,7 +25,7 @@ export default function RecipeForm(props: RecipeStepProps) {
       <RecipeGeneral categories={categories} updateField={updateField} recipe={recipe} />
       <RecipeIngredients updateField={updateField} initialIngredients={recipe.ingredients || []} />
       <RecipeStep updateField={updateField} initialSteps={recipe.steps || []} />
-      <Button size="md" onClick={onSubmit} variant="contained">
+      <Button size="md" onClick={onSubmit} variant="contained" className={styles.recipeButton}>
         {buttonLabel}
       </Button>
     </form>

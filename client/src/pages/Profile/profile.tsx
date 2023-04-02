@@ -79,7 +79,11 @@ export default function Profile() {
               />
             </label>
           </ProfileContent>
-          <Button size="md" onClick={handleSubmit} variant="contained">
+          <Button
+            size="md"
+            onClick={handleSubmit}
+            variant="contained"
+            className={styles.profileButton}>
             회원정보 수정
           </Button>
         </form>

@@ -1,11 +1,12 @@
-import { CategoryProps, getCategory } from 'apis/category';
+import React, { useEffect, useState } from 'react';
+import styles from './home.module.scss';
+
 import { getAllRecipes, Recipe } from 'apis/recipe';
+import { getCategories } from 'helpers/getCategories';
+
 import CategoryFilter from 'components/CategoryFilter/categoryFilter';
 import RecipeItems from 'components/RecipeItems/recipeItems';
 import Titles from 'components/Titles/title';
-import { getCategories } from 'helpers/getCategories';
-import React, { useEffect, useState } from 'react';
-import styles from './home.module.scss';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(0);
