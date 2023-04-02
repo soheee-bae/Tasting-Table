@@ -16,7 +16,7 @@ export function Toast(props: ToastProps) {
       {icon}
       <div className={styles.toastContent}>
         <p className={styles.toastTitle}>{title}</p>
-        <p className={styles.toastTitle}>{subtitle}</p>
+        {subtitle && <p className={styles.toastTitle}>{subtitle}</p>}
       </div>
     </div>
   );

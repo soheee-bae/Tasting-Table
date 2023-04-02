@@ -4,9 +4,14 @@ import styles from './myRecipe.module.scss';
 
 import RecipeItems from 'components/RecipeItems/recipeItems';
 import Titles from 'components/Titles/title';
+import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
 import { deleteRecipe, getRecipesByUserId } from 'apis/recipe';
 import AuthContext from 'contexts/authContext';
+import { Error, Success } from 'icons/index';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MyRecipe() {
   const navigate = useNavigate();
@@ -16,8 +21,10 @@ export default function MyRecipe() {
   async function handleDelete(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
     const res = await deleteRecipe({ id });
-    if (res.status === 200) {
-      //toast on success
+    if (res?.status === 200) {
+      toast(<Toast icon={<Success />} title="레시피가 삭제되었습니다." />);
+    } else {
+      toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
   }
 
@@ -46,6 +53,7 @@ export default function MyRecipe() {
           allowEdit={true}
         />
       </div>
+      <ToastSnackbar />
     </div>
   );
 }

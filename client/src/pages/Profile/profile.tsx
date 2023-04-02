@@ -3,16 +3,16 @@ import styles from './profile.module.scss';
 
 import Button from 'components/Button/button';
 import Titles from 'components/Titles/title';
-
-import { editProfile, getProfile } from 'apis/profile';
-import AuthContext from 'contexts/authContext';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import Subtitle from 'components/Subtitles/subtitle';
 import ImageUploader from 'components/ImageUploader/imageUploader';
 
+import { Error, Success } from 'icons/index';
+import { editProfile, getProfile } from 'apis/profile';
+import AuthContext from 'contexts/authContext';
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Edit } from 'icons/index';
 
 export default function Profile() {
   const { email } = useContext(AuthContext);
@@ -31,10 +31,10 @@ export default function Profile() {
       nickname,
       birthdate
     });
-    if (res.status !== 200) {
-      toast(<Toast icon={<Edit />} title="레시피가 수정되었습니다." />);
+    if (res.status === 200) {
+      toast(<Toast icon={<Success />} title="프로필이 수정되었습니다." />);
     } else {
-      toast(<Toast icon={<Edit />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
+      toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
   };
 

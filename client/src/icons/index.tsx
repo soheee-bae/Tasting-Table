@@ -9,3 +9,5 @@ export { ReactComponent as Minus } from './minus.svg';
 export { ReactComponent as Plus } from './plus.svg';
 export { ReactComponent as Trash } from './trash.svg';
 export { ReactComponent as Edit } from './edit.svg';
+export { ReactComponent as Success } from './success.svg';
+export { ReactComponent as Error } from './error.svg';

@@ -4,9 +4,14 @@ import styles from './editRecipe.module.scss';
 
 import Titles from 'components/Titles/title';
 import RecipeForm from 'components/RecipeForm/recipeForm';
+import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
 import AuthContext from 'contexts/authContext';
 import { editRecipe, getRecipeById } from 'apis/recipe';
+import { Error, Success } from 'icons/index';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditRecipe() {
   const navigate = useNavigate();
@@ -25,8 +30,11 @@ export default function EditRecipe() {
   async function onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     const res = await editRecipe({ id: recipeId, data: recipe });
-    if (res.status === 200) {
-      navigate('/');
+    if (res?.status === 200) {
+      toast(<Toast icon={<Success />} title="레시피가 수정되었습니다." />);
+      setTimeout(() => navigate('/'), 1000);
+    } else {
+      toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
   }
 
@@ -50,6 +58,7 @@ export default function EditRecipe() {
           buttonLabel="레시피 수정하기"
         />
       </div>
+      <ToastSnackbar />
     </div>
   );
 }
