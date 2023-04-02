@@ -1,0 +1,26 @@
+.toastContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: center;
+  padding: 15px;
+  svg {
+    height: 18px;
+    width: 18px;
+    color: var(--primaryColor1100);
+    stroke-width: 2;
+  }
+}
+
+.toastContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.toastTitle {
+  color: var(--primaryColor1100);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 1px;
+}

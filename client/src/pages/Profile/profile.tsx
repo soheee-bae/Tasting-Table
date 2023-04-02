@@ -6,8 +6,13 @@ import Titles from 'components/Titles/title';
 
 import { editProfile, getProfile } from 'apis/profile';
 import AuthContext from 'contexts/authContext';
+import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import Subtitle from 'components/Subtitles/subtitle';
 import ImageUploader from 'components/ImageUploader/imageUploader';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Edit } from 'icons/index';
 
 export default function Profile() {
   const { email } = useContext(AuthContext);
@@ -19,14 +24,18 @@ export default function Profile() {
 
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await editProfile({
+    const res = await editProfile({
       profileImg,
       email,
       name,
       nickname,
       birthdate
     });
-    // Maybe add toast for snackbar
+    if (res.status !== 200) {
+      toast(<Toast icon={<Edit />} title="레시피가 수정되었습니다." />);
+    } else {
+      toast(<Toast icon={<Edit />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
+    }
   };
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,6 +97,7 @@ export default function Profile() {
           </Button>
         </form>
       </div>
+      <ToastSnackbar />
     </div>
   );
 }
