@@ -29,6 +29,7 @@ export interface Recipe {
   amounts?: number;
   ingredients?: Ingredients[];
   steps?: Step[];
+  createdDate?: Date;
   _id?: string;
 }
 

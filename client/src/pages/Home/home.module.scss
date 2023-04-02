@@ -3,7 +3,7 @@
 .home {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: calc(100vh - ($navbar-height + $footer-height));
 }
 
@@ -16,4 +16,15 @@
   width: 100%;
   max-width: 1200px;
   padding: 80px 0;
+}
+
+.homeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emptyContent {
+  font-size: var(--text-sm);
+  font-family: var(--nanum-gothic);
 }

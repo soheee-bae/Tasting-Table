@@ -80,7 +80,7 @@ function SelectFields(props: SelectFieldsProps) {
       <SelectField
         title="난이도"
         options={levels}
-        value={levels.find((level) => recipe.level === level.id)?.name || 1}
+        value={levels.find((level) => recipe.level === level.id)?.name || ''}
         onChange={(e) => {
           updateField('level', e.target.selectedIndex + 1);
         }}

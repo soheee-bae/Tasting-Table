@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEventHandler } from 'react';
 import styles from './home.module.scss';
 
 import { getAllRecipes, Recipe } from 'apis/recipe';
@@ -7,9 +7,12 @@ import { getCategories } from 'helpers/getCategories';
 import CategoryFilter from 'components/CategoryFilter/categoryFilter';
 import RecipeItems from 'components/RecipeItems/recipeItems';
 import Titles from 'components/Titles/title';
+import SortingFilter from 'components/SortingFilter/sortingFilter';
+import { getListSorted } from 'helpers/getListSorted';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const [selectedSorting, setSelectedSorting] = useState(1);
   const [recipes, setRecipes] = useState([]);
 
   const { categories } = getCategories();
@@ -23,8 +26,11 @@ export default function Home() {
     fetchAllRecipe();
   }, []);
 
-  const filteredRecipes = recipes.filter(
-    (recipe: Recipe) => selectedCategory === 0 || recipe?.categoryType?.id === selectedCategory
+  const filteredRecipes = getListSorted(
+    recipes.filter(
+      (recipe: Recipe) => selectedCategory === 0 || recipe?.categoryType?.id === selectedCategory
+    ),
+    selectedSorting
   );
 
   return (
@@ -36,7 +42,17 @@ export default function Home() {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
-        <RecipeItems recipe={filteredRecipes} />
+        <div className={styles.homeContent}>
+          <SortingFilter
+            value={selectedSorting}
+            onChange={(e) => setSelectedSorting(e.target.selectedIndex + 1)}
+          />
+          {filteredRecipes?.length === 0 ? (
+            <div className={styles.emptyContent}>등록된 레시피가 없습니다.</div>
+          ) : (
+            <RecipeItems recipe={filteredRecipes || []} />
+          )}
+        </div>
       </div>
     </div>
   );
