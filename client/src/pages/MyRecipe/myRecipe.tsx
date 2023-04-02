@@ -12,11 +12,13 @@ import { Error, Success } from 'icons/index';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 
 export default function MyRecipe() {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
   const [myRecipe, setMyRecipe] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
@@ -36,6 +38,7 @@ export default function MyRecipe() {
   async function fetchMyRecipe() {
     const recipes = await getRecipesByUserId({ id: userId });
     setMyRecipe(recipes);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -46,12 +49,14 @@ export default function MyRecipe() {
     <div className={styles.myRecipe}>
       <div className={styles.myRecipeContainer}>
         <Titles title="MY RECIPE" subTitle="내 레시피를 확인해 보세요." />
-        <RecipeItems
-          recipe={myRecipe}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          allowEdit={true}
-        />
+        <LoadingIndicator isLoading={isLoading}>
+          <RecipeItems
+            recipe={myRecipe}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            allowEdit={true}
+          />
+        </LoadingIndicator>
       </div>
       <ToastSnackbar />
     </div>

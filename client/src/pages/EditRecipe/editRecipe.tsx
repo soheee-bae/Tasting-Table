@@ -12,11 +12,13 @@ import { Error, Success } from 'icons/index';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 
 export default function EditRecipe() {
   const navigate = useNavigate();
   const { recipeId = '' } = useParams();
   const { userId } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [recipe, setRecipe] = useState({ userId });
 
@@ -41,6 +43,7 @@ export default function EditRecipe() {
   async function fetchRecipe() {
     const recipe = await getRecipeById({ id: recipeId || '' });
     setRecipe(recipe);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -51,12 +54,14 @@ export default function EditRecipe() {
     <div className={styles.editRecipe}>
       <div className={styles.editRecipeContainer}>
         <Titles title="EDIT RECIPE" subTitle="등록된 레시피를 수정해보세요" />
-        <RecipeForm
-          onSubmit={onSubmit}
-          updateField={updateField}
-          recipe={recipe}
-          buttonLabel="레시피 수정하기"
-        />
+        <LoadingIndicator isLoading={isLoading}>
+          <RecipeForm
+            onSubmit={onSubmit}
+            updateField={updateField}
+            recipe={recipe}
+            buttonLabel="레시피 수정하기"
+          />
+        </LoadingIndicator>
       </div>
       <ToastSnackbar />
     </div>

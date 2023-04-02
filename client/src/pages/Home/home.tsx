@@ -40,13 +40,11 @@ export default function Home() {
     <div className={styles.home}>
       <div className={styles.homeContainer}>
         <Titles title="OUR RECIPE" subTitle="맛있는 음식을 만들어 보세요." />
-        <LoadingIndicator isLoading={isLoading}>
-          <CategoryFilter
-            categories={categories}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
-        </LoadingIndicator>
+        <CategoryFilter
+          categories={categories}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
         <div className={styles.homeContent}>
           <SortingFilter
             value={selectedSorting}
