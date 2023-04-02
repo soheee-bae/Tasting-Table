@@ -17,7 +17,7 @@ interface RecipeIngredientsProps {
 export default function RecipeIngredients(props: RecipeIngredientsProps) {
   const { updateField, initialIngredients } = props;
   const [ingredients, setIngredients] = useState(initialIngredients);
-  const ids = ingredients.map((ingredient) => ingredient.id);
+  const ingredientsIds = ingredients.map((ingredient) => ingredient.id);
 
   useEffect(() => {
     updateField('ingredients', ingredients);
@@ -28,9 +28,9 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
   }, [initialIngredients]);
 
   return (
-    <div className={styles.content}>
+    <div className={styles.recipeIngredients}>
       <Subtitle subTitle="레시피 재료" />
-      <div className={styles.innerContent}>
+      <div className={styles.recipeIngredientsContainer}>
         <Reorder.Group
           className={styles.ingredientBucket}
           axis="y"
@@ -39,7 +39,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
           }}
           values={ingredients}>
           {ingredients.map((ingredient: Ingredients, index: number) => (
-            <ReorderIngredient
+            <IngredientBucket
               key={ingredient.id}
               index={index}
               ingredient={ingredient}
@@ -53,7 +53,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
           variant="outlined"
           onClick={(e) => {
             e.preventDefault();
-            const newId = getUnusedId(ids);
+            const newId = getUnusedId(ingredientsIds);
             setIngredients([
               ...ingredients,
               { id: newId, name: '', ingredient: [{ id: 1, name: '', mensuration: '' }] }
@@ -66,21 +66,21 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
   );
 }
 
-interface ReorderIngredientProps {
+interface IngredientBucketProps {
   index: number;
   ingredients: Ingredients[];
   ingredient: Ingredients;
   setIngredients: (ingredients: Ingredients[]) => void;
 }
 
-export const ReorderIngredient = (props: ReorderIngredientProps) => {
+export const IngredientBucket = (props: IngredientBucketProps) => {
   const { index, ingredients, ingredient, setIngredients } = props;
   const y = useMotionValue(0);
   const dragControls = useDragControls();
 
   return (
     <Reorder.Item
-      className={styles.ingredientList}
+      className={styles.ingredientBucketList}
       dragListener={false}
       dragControls={dragControls}
       value={ingredient}

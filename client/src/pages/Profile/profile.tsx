@@ -52,7 +52,7 @@ export default function Profile() {
         <Titles title="EDIT PROFILE" subTitle="회원정보 수정" />
         <form className={styles.profileForm}>
           <ProfileContent subtitle="프로필">
-            <ImageUploader profileImg={profileImg} handleFileChange={handleFileChange} round />
+            <ImageUploader imgSrc={profileImg} handleFileChange={handleFileChange} round />
             <label className={styles.inputField}>
               닉네임
               <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />

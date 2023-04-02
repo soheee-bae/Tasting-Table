@@ -23,7 +23,7 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
     <div className={styles.recipeGeneral}>
       <div className={styles.recipeImage}>
         <ImageUploader
-          profileImg={recipe.img || ''}
+          imgSrc={recipe.img || ''}
           handleFileChange={handleFileChange}
           className={styles.recipeImageUploader}
           isRecipe
