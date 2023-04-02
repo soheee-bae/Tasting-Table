@@ -1,5 +1,5 @@
 import { ChangeEventHandler, ChangeEvent } from 'react';
-import styles from './recipeGeneral.module.scss';
+import styles from './recipeFormGeneral.module.scss';
 
 import ImageUploader from 'components/ImageUploader/imageUploader';
 import { CategoryProps } from 'apis/category';

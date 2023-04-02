@@ -1,5 +1,5 @@
 import { useEffect, useState, ChangeEvent } from 'react';
-import styles from './recipeStep.module.scss';
+import styles from './recipeFormStep.module.scss';
 
 import Button from 'components/Button/button';
 import Subtitle from 'components/Subtitles/subtitle';

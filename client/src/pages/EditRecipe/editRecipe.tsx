@@ -5,6 +5,7 @@ import styles from './editRecipe.module.scss';
 import Titles from 'components/Titles/title';
 import RecipeForm from 'components/RecipeForm/recipeForm';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
+import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 
 import AuthContext from 'contexts/authContext';
 import { editRecipe, getRecipeById } from 'apis/recipe';
@@ -12,7 +13,6 @@ import { Error, Success } from 'icons/index';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 
 export default function EditRecipe() {
   const navigate = useNavigate();

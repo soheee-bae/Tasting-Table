@@ -1,9 +1,9 @@
 import React, { MouseEvent } from 'react';
 import styles from './recipeForm.module.scss';
 
-import RecipeIngredients from 'components/RecipeIngredients/recipeIngredients';
-import RecipeGeneral from 'components/RecipeGeneral/recipeGeneral';
-import RecipeStep from 'components/RecipeStep/recipeStep';
+import RecipeIngredients from 'components/RecipeForm/RecipeFormIngredients/recipeFormIngredients';
+import RecipeGeneral from 'components/RecipeForm/RecipeFormGeneral/recipeFormGeneral';
+import RecipeStep from 'components/RecipeForm/RecipeFormStep/recipeFormStep';
 import Button from 'components/Button/button';
 
 import { Recipe } from 'apis/recipe';

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styles from './recipeIngredients.module.scss';
+import styles from './recipeFormIngredients.module.scss';
 
 import Button from 'components/Button/button';
 import Subtitle from 'components/Subtitles/subtitle';
