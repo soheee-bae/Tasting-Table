@@ -1,4 +1,5 @@
 import React, { MouseEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './recipeItem.module.scss';
 
 import food from 'image/food.png';
@@ -15,22 +16,30 @@ interface RecipeItemProps {
 
 export default function RecipeItem(props: RecipeItemProps) {
   const { recipe, handleDelete, handleEdit, allowEdit } = props;
+  const navigate = useNavigate();
+
   const { _id, name, categoryType, level, duration, img } = recipe;
 
   return (
-    <div className={styles.recipeItem}>
+    <div
+      className={styles.recipeItem}
+      onClick={() => {
+        !allowEdit && navigate(`recipe/${_id}`);
+      }}>
       <div className={styles.recipeItemImage}>
         <img src={img || food} alt={name} />
-        {allowEdit && (
-          <div className={styles.editableRecipeItem}>
-            <div onClick={(e) => handleEdit?.(e, _id || '')}>
-              <Edit />
+        <div className={styles.recipeImgCover}>
+          {allowEdit && (
+            <div className={styles.editableRecipeItem}>
+              <div onClick={(e) => handleEdit?.(e, _id || '')}>
+                <Edit />
+              </div>
+              <div onClick={(e) => handleDelete?.(e, _id || '')}>
+                <Trash />
+              </div>
             </div>
-            <div onClick={(e) => handleDelete?.(e, _id || '')}>
-              <Trash />
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <div className={styles.details}>
         <p className={styles.category}>{categoryType?.name}</p>

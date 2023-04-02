@@ -16,6 +16,7 @@ import Bookmark from 'pages/Bookmark/bookmark';
 import MyRecipe from 'pages/MyRecipe/myRecipe';
 import NewRecipe from 'pages/NewRecipe/newRecipe';
 import EditRecipe from 'pages/EditRecipe/editRecipe';
+import Details from 'pages/Details/details';
 
 axios.defaults.withCredentials = true;
 
@@ -40,6 +41,7 @@ function App() {
               <Route path={'/myrecipe'} element={<MyRecipe />} />
               <Route path={'/profile'} element={<Profile />} />
               <Route path={'/bookmark'} element={<Bookmark />} />
+              <Route path={`/recipe/:recipeId`} element={<Details />} />
             </>
           )}
         </Routes>
