@@ -1,6 +1,5 @@
 import React, { ChangeEvent, MouseEvent, ReactNode, useContext, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
-import BlankProfile from 'image/blankProfile.png';
 
 import Button from 'components/Button/button';
 import Titles from 'components/Titles/title';
@@ -8,8 +7,7 @@ import Titles from 'components/Titles/title';
 import { editProfile, getProfile } from 'apis/profile';
 import AuthContext from 'contexts/authContext';
 import Subtitle from 'components/Subtitles/subtitle';
-
-const titles = ['프로필', '회원정보'];
+import ImageUploader from 'components/ImageUploader/imageUploader';
 
 export default function Profile() {
   const { email } = useContext(AuthContext);
@@ -54,10 +52,7 @@ export default function Profile() {
         <Titles title="EDIT PROFILE" subTitle="회원정보 수정" />
         <form className={styles.profileForm}>
           <ProfileContent subtitle="프로필">
-            <div>
-              <img src={profileImg || BlankProfile} alt="profile" />
-              <input id="photo-upload" type="file" onChange={handleFileChange} />
-            </div>
+            <ImageUploader profileImg={profileImg} handleFileChange={handleFileChange} round />
             <label className={styles.inputField}>
               닉네임
               <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />

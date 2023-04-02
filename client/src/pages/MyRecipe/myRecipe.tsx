@@ -1,37 +1,34 @@
 import React, { useEffect, useContext, useState, MouseEvent } from 'react';
-import styles from './myRecipe.module.scss';
-import Titles from 'components/Titles/title';
-import { deleteRecipe, getRecipesByUserId, Recipe } from 'apis/recipe';
-import AuthContext from 'contexts/authContext';
-import RecipeItem from 'components/RecipeItem/recipeItem';
-import { getLevels } from 'helpers/getLevels';
-import food from 'image/food.png';
 import { useNavigate } from 'react-router-dom';
+import styles from './myRecipe.module.scss';
+
 import RecipeItems from 'components/RecipeItems/recipeItems';
+import Titles from 'components/Titles/title';
+
+import { deleteRecipe, getRecipesByUserId } from 'apis/recipe';
+import AuthContext from 'contexts/authContext';
 
 export default function MyRecipe() {
   const navigate = useNavigate();
-
-  const [myRecipe, setMyRecipe] = useState([]);
   const { userId } = useContext(AuthContext);
-
-  async function fetchMyRecipe() {
-    const recipes = await getRecipesByUserId({ id: userId });
-    setMyRecipe(recipes);
-  }
+  const [myRecipe, setMyRecipe] = useState([]);
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
     const res = await deleteRecipe({ id });
     if (res.status === 200) {
       //toast on success
-      console.log('success!!');
     }
   }
 
   async function handleEdit(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
     navigate(`/editrecipe/${id}`);
+  }
+
+  async function fetchMyRecipe() {
+    const recipes = await getRecipesByUserId({ id: userId });
+    setMyRecipe(recipes);
   }
 
   useEffect(() => {

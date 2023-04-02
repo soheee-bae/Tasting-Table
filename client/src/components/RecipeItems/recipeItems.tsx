@@ -1,10 +1,8 @@
-import { deleteRecipe, Recipe } from 'apis/recipe';
-import { Edit, Hourglass, Level, Trash } from 'icons/index';
 import React, { MouseEvent } from 'react';
 import styles from './recipeItems.module.scss';
-import food from 'image/food.png';
-import { getLevels } from 'helpers/getLevels';
+
 import RecipeItem from 'components/RecipeItem/recipeItem';
+import { Recipe } from 'apis/recipe';
 
 interface RecipeItemsProps {
   recipe: Recipe[];
