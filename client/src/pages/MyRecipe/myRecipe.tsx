@@ -7,6 +7,7 @@ import RecipeItem from 'components/RecipeItem/recipeItem';
 import { getLevels } from 'helpers/getLevels';
 import food from 'image/food.png';
 import { useNavigate } from 'react-router-dom';
+import RecipeItems from 'components/RecipeItems/recipeItems';
 
 export default function MyRecipe() {
   const navigate = useNavigate();
@@ -41,20 +42,12 @@ export default function MyRecipe() {
     <div className={styles.myRecipe}>
       <div className={styles.myRecipeContainer}>
         <Titles title="MY RECIPE" subTitle="내 레시피를 확인해 보세요." />
-        <div className={styles.myRecipeCards}>
-          {myRecipe.map((recipe: Recipe) => {
-            const { _id, name, categoryType, level, duration } = recipe;
-            return (
-              <RecipeItem
-                key={recipe._id}
-                recipe={recipe}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-                allowEdit={true}
-              />
-            );
-          })}
-        </div>
+        <RecipeItems
+          recipe={myRecipe}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          allowEdit={true}
+        />
       </div>
     </div>
   );

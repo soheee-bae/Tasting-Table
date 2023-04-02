@@ -2,7 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
-import { Logo } from 'icons/index';
 import styles from './webLogo.module.scss';
 
 interface WebLogoProps {
@@ -19,5 +18,13 @@ export default function WebLogo(props: WebLogoProps) {
       onClick={() => navigate('/')}>
       <Logo />
     </div>
+  );
+}
+
+function Logo() {
+  return (
+    <p className={styles.logo}>
+      T<span>asting</span>T<span>able</span>
+    </p>
   );
 }

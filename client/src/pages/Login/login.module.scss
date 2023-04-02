@@ -8,9 +8,10 @@
   gap: 30px;
   min-height: calc(100vh - ($navbar-height + $footer-height));
   width: 100%;
+  border: 1px solid red;
 }
 
-.form {
+.loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,7 +52,7 @@
   }
 }
 
-.others {
+.moreContent {
   display: flex;
   flex-direction: row;
   gap: 10px;

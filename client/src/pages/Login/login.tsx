@@ -1,8 +1,9 @@
 import React, { useContext, FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Titles from 'components/Titles/titles';
 import styles from './login.module.scss';
+
 import { login } from 'apis/auth';
+import Titles from 'components/Titles/titles';
 import AuthContext from 'contexts/authContext';
 
 export default function Login() {
@@ -21,7 +22,7 @@ export default function Login() {
   return (
     <div className={styles.login}>
       <Titles title="LOGIN" />
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.loginForm}>
         <label className={styles.inputField}>
           아이디
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -32,7 +33,7 @@ export default function Login() {
         </label>
         <input className={styles.submitButton} type="submit" value="로그인" />
       </form>
-      <div className={styles.others}>
+      <div className={styles.moreContent}>
         <p>회원이 아니신가요?</p>
         <Link to="/signup">회원가입하기</Link>
       </div>

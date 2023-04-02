@@ -3,16 +3,25 @@ import React from 'react';
 import styles from './categoryFilter.module.scss';
 interface CategoryFilterProps {
   categories: CategoryProps[];
+  setSelectedCategory: (id: number) => void;
+  selectedCategory: number;
 }
 export default function CategoryFilter(props: CategoryFilterProps) {
-  const { categories } = props;
+  const { categories, setSelectedCategory, selectedCategory } = props;
 
-  const newCategories = [{ id: 100, name: '모두보기' }, ...categories];
+  const newCategories = [{ id: 0, name: '모두보기' }, ...categories];
   return (
     <div className={styles.categoryFilter}>
-      <ul>
+      <ul className={styles.categoryFilterContainer}>
         {newCategories.map((category) => (
-          <li key={category.id}>{category.name}</li>
+          <li
+            key={category.id}
+            className={styles.categoryFilterList}
+            onClick={() => {
+              setSelectedCategory(category.id);
+            }}>
+            {category.name}
+          </li>
         ))}
       </ul>
     </div>

@@ -4,13 +4,23 @@
   align-items: center;
   cursor: pointer;
   pointer-events: auto;
-  svg {
-    color: var(--primaryColor1000);
-    width: auto;
-    height: 50px;
-  }
 }
 
 .disable {
   pointer-events: none;
+}
+
+.logo {
+  font-family: var(--besley);
+  color: var(--primaryColor1000);
+  font-size: 28px;
+  font-weight: var(--font-thin);
+  letter-spacing: 1.7px;
+
+  span {
+    font-weight: var(--font-normal);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    margin-right: 5px;
+  }
 }

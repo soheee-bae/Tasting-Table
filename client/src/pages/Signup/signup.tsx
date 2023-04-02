@@ -1,11 +1,13 @@
 import React, { FormEvent, useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Titles from 'components/Titles/titles';
 import styles from './signup.module.scss';
-import { register } from 'apis/auth';
+
+import Titles from 'components/Titles/titles';
 import AuthContext from 'contexts/authContext';
+import BlankProfile from 'image/blankProfile.png';
+
+import { register } from 'apis/auth';
 import { createProfile } from 'apis/profile';
-import blankProfile from 'image/blankProfile.png';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export default function Signup() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await register({ email, password, passwordVerify });
-    await createProfile({ email, name: '', nickname: '', birthdate: '', profileImg: blankProfile });
+    await createProfile({ email, name: '', nickname: '', birthdate: '', profileImg: BlankProfile });
     await getLoggedIn();
     navigate('/');
   };
@@ -26,7 +28,7 @@ export default function Signup() {
   return (
     <div className={styles.signup}>
       <Titles title="SIGN UP" />
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.signupForm}>
         <label className={styles.inputField}>
           아이디
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -45,7 +47,7 @@ export default function Signup() {
         </label>
         <input className={styles.submitButton} type="submit" value="회원가입" />
       </form>
-      <div className={styles.others}>
+      <div className={styles.moreContent}>
         <p>회원이신가요?</p>
         <Link to="/login">로그인하기</Link>
       </div>

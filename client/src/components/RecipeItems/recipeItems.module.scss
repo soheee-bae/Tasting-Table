@@ -1,0 +1,13 @@
+@import 'styles/size';
+@import 'styles/mixin';
+
+.recipeItems {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-self: center;
+  column-gap: 20px;
+  row-gap: 20px;
+  @include md {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

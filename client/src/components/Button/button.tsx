@@ -1,6 +1,6 @@
 import { ReactNode, MouseEvent } from 'react';
-import clsx from 'clsx';
 import styles from './button.module.scss';
+import clsx from 'clsx';
 
 export type Size = 'sm' | 'md' | 'lg' | 'xl';
 export type Variant = 'contained' | 'outlined' | 'text';
