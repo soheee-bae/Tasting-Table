@@ -18,7 +18,7 @@ interface RecipeStepProps {
 
 export default function RecipeForm(props: RecipeStepProps) {
   const { onSubmit, updateField, recipe, buttonLabel } = props;
-  const { categories } = getCategories();
+  const categories = getCategories();
 
   return (
     <form className={styles.recipeForm}>

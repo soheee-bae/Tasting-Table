@@ -1,9 +1,16 @@
-.ldsRing {
-  display: inline-block;
-  position: relative;
-  width: 40px;
-  height: 40px;
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.ldsRing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .ldsRing div {
   box-sizing: border-box;
   display: block;
