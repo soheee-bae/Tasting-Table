@@ -1,10 +1,11 @@
-import React, { useEffect, MouseEvent, useContext, useState } from 'react';
+import React, { MouseEvent, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './newRecipe.module.scss';
+
+import RecipeForm from 'components/RecipeForm/recipeForm';
 import Titles from 'components/Titles/title';
 import AuthContext from 'contexts/authContext';
 import { createRecipe } from 'apis/recipe';
-import { useNavigate } from 'react-router-dom';
-import RecipeForm from 'components/RecipeForm/recipeForm';
 
 export default function NewRecipe() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function NewRecipe() {
       }
     ]
   };
+
   const [recipe, setRecipe] = useState(initialRecipe);
 
   function updateField(name: string, data: any) {

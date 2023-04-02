@@ -1,11 +1,12 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent } from 'react';
 import styles from './recipeForm.module.scss';
-import { getCategory, CategoryProps } from 'apis/category';
+
+import RecipeIngredients from 'components/RecipeIngredients/recipeIngredients';
 import RecipeGeneral from 'components/RecipeGeneral/recipeGeneral';
 import RecipeStep from 'components/RecipeStep/recipeStep';
-import { Recipe } from 'apis/recipe';
 import Button from 'components/Button/button';
-import RecipeIngredients from 'components/RecipeIngredients/recipeIngredients';
+
+import { Recipe } from 'apis/recipe';
 import { getCategories } from 'helpers/getCategories';
 
 interface RecipeStepProps {
@@ -20,7 +21,7 @@ export default function RecipeForm(props: RecipeStepProps) {
   const { categories } = getCategories();
 
   return (
-    <form className={styles.form}>
+    <form className={styles.recipeForm}>
       <RecipeGeneral categories={categories} updateField={updateField} recipe={recipe} />
       <RecipeIngredients updateField={updateField} initialIngredients={recipe.ingredients || []} />
       <RecipeStep updateField={updateField} initialSteps={recipe.steps || []} />

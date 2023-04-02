@@ -1,8 +1,10 @@
+import { ChangeEventHandler, ChangeEvent } from 'react';
+import styles from './recipeGeneral.module.scss';
+
+import ImageUploader from 'components/ImageUploader/imageUploader';
 import { CategoryProps } from 'apis/category';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
-import { ChangeEventHandler } from 'react';
-import styles from './recipeGeneral.module.scss';
 
 interface RecipeGeneralProps {
   categories: CategoryProps[];
@@ -12,20 +14,19 @@ interface RecipeGeneralProps {
 
 export default function RecipeGeneral(props: RecipeGeneralProps) {
   const { categories, recipe, updateField } = props;
-  const levels = Array(5)
-    .fill(null)
-    .map((_, id) => ({ id: id + 1, name: getLevels(id + 1) || '' }));
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target?.files) updateField('img', URL.createObjectURL(e.target?.files[0]));
+  };
 
   return (
-    <div className={styles.content}>
-      <div className={styles.inputField}>
-        <img src={recipe.img || ''} alt="recipe" />
-        <input
-          id="photo-upload"
-          type="file"
-          onChange={(e) => {
-            if (e.target?.files) updateField('img', URL.createObjectURL(e.target?.files[0]));
-          }}
+    <div className={styles.recipeGeneral}>
+      <div className={styles.recipeImage}>
+        <ImageUploader
+          profileImg={recipe.img || ''}
+          handleFileChange={handleFileChange}
+          className={styles.recipeImageUploader}
+          isRecipe
         />
       </div>
       <label className={styles.inputField}>
@@ -46,47 +47,64 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
           onChange={(e) => updateField('description', e.target.value)}
         />
       </label>
-      <div className={styles.fieldsContainer}>
-        <SelectField
-          title="카테고리"
-          options={categories}
-          value={recipe?.categoryType?.name || ''}
-          onChange={(e) => {
-            updateField('categoryType', {
-              id: e.target.selectedIndex + 1,
-              name: e.target.value
-            });
-          }}
+      <SelectFields categories={categories} recipe={recipe} updateField={updateField} />
+    </div>
+  );
+}
+
+interface SelectFieldsProps {
+  categories: CategoryProps[];
+  recipe: Recipe;
+  updateField: (name: string, data: any) => void;
+}
+
+function SelectFields(props: SelectFieldsProps) {
+  const { categories, recipe, updateField } = props;
+  const levels = Array(5)
+    .fill(null)
+    .map((_, id) => ({ id: id + 1, name: getLevels(id + 1) || '' }));
+
+  return (
+    <div className={styles.fieldsContainer}>
+      <SelectField
+        title="카테고리"
+        options={categories}
+        value={recipe?.categoryType?.name || ''}
+        onChange={(e) => {
+          updateField('categoryType', {
+            id: e.target.selectedIndex + 1,
+            name: e.target.value
+          });
+        }}
+      />
+      <SelectField
+        title="난이도"
+        options={levels}
+        value={levels.find((level) => recipe.level === level.id)?.name || 1}
+        onChange={(e) => {
+          updateField('level', e.target.selectedIndex + 1);
+        }}
+      />
+      <label className={styles.newInputField}>
+        <p>인원</p>
+        <input
+          placeholder="예) 3"
+          type="number"
+          value={recipe.amounts}
+          onChange={(e) => updateField('amounts', parseInt(e.target.value))}
         />
-        <SelectField
-          title="난이도"
-          options={levels}
-          value={levels.find((level) => recipe.level === level.id)?.name || 1}
-          onChange={(e) => {
-            updateField('level', e.target.selectedIndex + 1);
-          }}
+        <span>인분</span>
+      </label>
+      <label className={styles.newInputField}>
+        <p>시간</p>
+        <input
+          placeholder="예) 30"
+          type="number"
+          value={recipe.duration}
+          onChange={(e) => updateField('duration', parseInt(e.target.value))}
         />
-        <label className={styles.newInputField}>
-          <p>인원</p>
-          <input
-            placeholder="예) 3"
-            type="number"
-            value={recipe.amounts}
-            onChange={(e) => updateField('amounts', parseInt(e.target.value))}
-          />
-          <span>인분</span>
-        </label>
-        <label className={styles.newInputField}>
-          <p>시간</p>
-          <input
-            placeholder="예) 30"
-            type="number"
-            value={recipe.duration}
-            onChange={(e) => updateField('duration', parseInt(e.target.value))}
-          />
-          <span>분</span>
-        </label>
-      </div>
+        <span>분</span>
+      </label>
     </div>
   );
 }

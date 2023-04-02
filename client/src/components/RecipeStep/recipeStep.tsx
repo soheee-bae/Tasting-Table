@@ -1,11 +1,14 @@
-import { Step } from 'apis/recipe';
+import { useEffect, useState } from 'react';
+import styles from './recipeStep.module.scss';
+
 import Button from 'components/Button/button';
+import Subtitle from 'components/Subtitles/subtitle';
+
 import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
 import { getUnusedId } from 'helpers/getUnusedId';
 import { Minus, Plus } from 'icons/index';
 import { ReorderIcon } from 'icons/reorder';
-import { useEffect, useState } from 'react';
-import styles from './recipeStep.module.scss';
+import { Step } from 'apis/recipe';
 
 interface RecipeStepProps {
   initialSteps: Step[];
@@ -27,7 +30,7 @@ export default function RecipeStep(props: RecipeStepProps) {
 
   return (
     <div className={styles.content}>
-      <p className={styles.title}>요리순서</p>
+      <Subtitle subTitle="요리순서" />
       <div className={styles.innerContent}>
         <Reorder.Group
           className={styles.groupItem}

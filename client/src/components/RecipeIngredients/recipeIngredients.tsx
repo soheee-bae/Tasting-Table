@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import styles from './recipeIngredients.module.scss';
+
+import Button from 'components/Button/button';
+import Subtitle from 'components/Subtitles/subtitle';
+
 import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
 import { Ingredient, Ingredients } from 'apis/recipe';
+import { getUnusedId } from 'helpers/getUnusedId';
 import { ReorderIcon } from 'icons/reorder';
 import { Minus, Plus } from 'icons/index';
-import Button from 'components/Button/button';
-import { getUnusedId } from 'helpers/getUnusedId';
 
 interface RecipeIngredientsProps {
   updateField: (name: string, data: any) => void;
@@ -26,7 +29,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
 
   return (
     <div className={styles.content}>
-      <p className={styles.title}>레시피 재료</p>
+      <Subtitle subTitle="레시피 재료" />
       <div className={styles.innerContent}>
         <Reorder.Group
           className={styles.ingredientBucket}
