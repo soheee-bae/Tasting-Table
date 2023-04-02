@@ -1,6 +1,6 @@
 import React, { useEffect, MouseEvent, useContext, useState } from 'react';
 import styles from './newRecipe.module.scss';
-import Titles from 'components/Titles/titles';
+import Titles from 'components/Titles/title';
 import AuthContext from 'contexts/authContext';
 import { createRecipe } from 'apis/recipe';
 import { useNavigate } from 'react-router-dom';

@@ -1,7 +1,4 @@
 @import 'styles/size';
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Besley:wght@400;500;600;700;800;900&display=swap');
 
 .nav {
   border-top: 30px solid var(--primaryColor1000);
@@ -11,7 +8,7 @@
   height: $navbar-height;
 }
 
-.innerNav {
+.navContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,5 +1,5 @@
 import RecipeItem from 'components/RecipeItem/recipeItem';
-import Titles from 'components/Titles/titles';
+import Titles from 'components/Titles/title';
 import React from 'react';
 import styles from './bookmark.module.scss';
 

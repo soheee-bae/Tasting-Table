@@ -3,17 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './navDropdown.module.scss';
 import AuthContext from 'contexts/authContext';
-import { logout } from 'apis/auth';
 import { User } from 'icons/index';
 import blankProfile from 'image/blankProfile.png';
+
+import { logout } from 'apis/auth';
 import { getProfile } from 'apis/profile';
 
 export default function NavDropdown() {
+  const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { getLoggedIn, email } = useContext(AuthContext);
+
   const [open, setOpen] = useState(false);
   const [profileImg, setProfileImg] = useState<string>('');
-  const { getLoggedIn, email } = useContext(AuthContext);
-  const ref = useRef<HTMLDivElement>(null);
 
   const handleLogout = async (e: MouseEvent) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ export default function NavDropdown() {
       setOpen(false);
     }
   };
+
   async function fetchProfile() {
     const profile = await getProfile();
     setProfileImg(profile?.profileImg || {});
@@ -44,12 +47,12 @@ export default function NavDropdown() {
   }, []);
 
   return (
-    <div ref={ref} className={styles.navDropdownContainer}>
-      <li className={styles.navItem} onClick={() => setOpen(!open)}>
+    <div ref={ref} className={styles.navDropdown}>
+      <li className={styles.navDropdownButton} onClick={() => setOpen(!open)}>
         <User />
         <p>마이페이지</p>
       </li>
-      <div className={styles.navDropdown} data-open={open}>
+      <div className={styles.navDropdownContent} data-open={open}>
         <div className={styles.navDropdownHeader}>
           <img src={profileImg || blankProfile} alt="profile" />
           <p>{email}</p>

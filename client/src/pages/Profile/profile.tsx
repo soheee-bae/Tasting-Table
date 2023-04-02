@@ -1,29 +1,23 @@
-import Titles from 'components/Titles/titles';
-import React, { ChangeEvent, MouseEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, ReactNode, useContext, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
-import blankProfile from 'image/blankProfile.png';
+import BlankProfile from 'image/blankProfile.png';
+
+import Button from 'components/Button/button';
+import Titles from 'components/Titles/title';
+
 import { editProfile, getProfile } from 'apis/profile';
 import AuthContext from 'contexts/authContext';
-import Button from 'components/Button/button';
+import Subtitle from 'components/Subtitles/subtitle';
+
+const titles = ['프로필', '회원정보'];
 
 export default function Profile() {
+  const { email } = useContext(AuthContext);
+
   const [profileImg, setProfileImg] = useState('');
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const { email } = useContext(AuthContext);
-
-  async function fetchProfile() {
-    const profile = await getProfile();
-    setProfileImg(profile?.profileImg || {});
-    setNickname(profile?.nickname || '');
-    setBirthdate(profile?.birthdate || '');
-    setName(profile?.name || '');
-  }
-
-  useEffect(() => {
-    fetchProfile();
-  }, []);
 
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -42,53 +36,73 @@ export default function Profile() {
     if (e.target.files) setProfileImg(URL.createObjectURL(e.target?.files[0]));
   };
 
+  async function fetchProfile() {
+    const profile = await getProfile();
+    setProfileImg(profile?.profileImg || {});
+    setNickname(profile?.nickname || '');
+    setBirthdate(profile?.birthdate || '');
+    setName(profile?.name || '');
+  }
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   return (
     <div className={styles.profile}>
       <div className={styles.profileContainer}>
         <Titles title="EDIT PROFILE" subTitle="회원정보 수정" />
-        <form className={styles.form}>
-          <div className={styles.content}>
-            <p className={styles.title}>프로필</p>
-            <div className={styles.innerContent}>
-              <div>
-                <img src={profileImg || blankProfile} alt="profile" />
-                <input id="photo-upload" type="file" onChange={handleFileChange} />
-              </div>
-              <label className={styles.inputField}>
-                닉네임
-                <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-              </label>
-              <label className={styles.inputField}>
-                이메일(필수)
-                <input type="email" disabled value={email} />
-              </label>
+        <form className={styles.profileForm}>
+          <ProfileContent subtitle="프로필">
+            <div>
+              <img src={profileImg || BlankProfile} alt="profile" />
+              <input id="photo-upload" type="file" onChange={handleFileChange} />
             </div>
-          </div>
-          <div className={styles.content}>
-            <p className={styles.title}>회원정보 </p>
-            <div className={styles.innerContent}>
-              <label className={styles.inputField}>
-                이름
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-              </label>
-              <label className={styles.inputField}>
-                생년월일
-                <input
-                  type="number"
-                  value={birthdate}
-                  placeholder="숫자만 입력해주세요(YYYYMMDD)"
-                  onChange={(e) => {
-                    e.target.value.length < 7 && setBirthdate(e.target.value);
-                  }}
-                />
-              </label>
-            </div>
-          </div>
+            <label className={styles.inputField}>
+              닉네임
+              <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+            </label>
+            <label className={styles.inputField}>
+              이메일(필수)
+              <input type="email" disabled value={email} />
+            </label>
+          </ProfileContent>
+          <ProfileContent subtitle="회원정보">
+            <label className={styles.inputField}>
+              이름
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            </label>
+            <label className={styles.inputField}>
+              생년월일
+              <input
+                type="number"
+                value={birthdate}
+                placeholder="숫자만 입력해주세요(YYYYMMDD)"
+                onChange={(e) => {
+                  e.target.value.length < 7 && setBirthdate(e.target.value);
+                }}
+              />
+            </label>
+          </ProfileContent>
           <Button size="md" onClick={handleSubmit} variant="contained">
             회원정보 수정
           </Button>
         </form>
       </div>
+    </div>
+  );
+}
+
+interface ProfileContentProps {
+  children: ReactNode;
+  subtitle: string;
+}
+function ProfileContent(props: ProfileContentProps) {
+  const { children, subtitle } = props;
+  return (
+    <div className={styles.profileContent}>
+      <Subtitle subTitle={subtitle} />
+      <div className={styles.innerContent}>{children}</div>
     </div>
   );
 }

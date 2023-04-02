@@ -2,7 +2,7 @@ import { CategoryProps, getCategory } from 'apis/category';
 import { getAllRecipes, Recipe } from 'apis/recipe';
 import CategoryFilter from 'components/CategoryFilter/categoryFilter';
 import RecipeItems from 'components/RecipeItems/recipeItems';
-import Titles from 'components/Titles/titles';
+import Titles from 'components/Titles/title';
 import { getCategories } from 'helpers/getCategories';
 import React, { useEffect, useState } from 'react';
 import styles from './home.module.scss';

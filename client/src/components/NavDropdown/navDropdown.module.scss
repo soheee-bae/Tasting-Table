@@ -1,4 +1,8 @@
-.navItem {
+.navDropdown {
+  position: relative;
+}
+
+.navDropdownButton {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -14,11 +18,7 @@
   }
 }
 
-.navDropdownContainer {
-  position: relative;
-}
-
-.navDropdown {
+.navDropdownContent {
   transition: all 0.3s;
   overflow: hidden;
   height: 0px;
@@ -31,7 +31,7 @@
   z-index: 100;
   background-color: var(--white100);
   &[data-open='true'] {
-    height: 300px;
+    height: 350px;
     width: 300px;
     border: 1px solid var(--primaryColor100);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

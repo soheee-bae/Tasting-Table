@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './titles.module.scss';
+import styles from './title.module.scss';
 
 interface TitleProps {
   title: string;

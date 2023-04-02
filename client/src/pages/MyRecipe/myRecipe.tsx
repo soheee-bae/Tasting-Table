@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState, MouseEvent } from 'react';
 import styles from './myRecipe.module.scss';
-import Titles from 'components/Titles/titles';
+import Titles from 'components/Titles/title';
 import { deleteRecipe, getRecipesByUserId, Recipe } from 'apis/recipe';
 import AuthContext from 'contexts/authContext';
 import RecipeItem from 'components/RecipeItem/recipeItem';
