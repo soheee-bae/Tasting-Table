@@ -4,7 +4,7 @@ import Titles from 'components/Titles/titles';
 import AuthContext from 'contexts/authContext';
 import { createRecipe, editRecipe, getRecipeById, getRecipesByUserId, Recipe } from 'apis/recipe';
 import { useNavigate, useParams } from 'react-router-dom';
-import RecipeForm from 'components/RecipeForm/recipeFrom';
+import RecipeForm from 'components/RecipeForm/recipeForm';
 
 export default function EditRecipe() {
   const navigate = useNavigate();
