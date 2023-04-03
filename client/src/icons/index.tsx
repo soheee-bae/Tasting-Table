@@ -11,3 +11,6 @@ export { ReactComponent as Trash } from './trash.svg';
 export { ReactComponent as Edit } from './edit.svg';
 export { ReactComponent as Success } from './success.svg';
 export { ReactComponent as Error } from './error.svg';
+export { ReactComponent as CopyLink } from './copyLink.svg';
+export { ReactComponent as Bookmark } from './bookmark.svg';
+export { ReactComponent as BookmarkAdded } from './bookmarkAdded.svg';

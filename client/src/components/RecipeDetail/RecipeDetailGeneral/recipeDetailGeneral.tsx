@@ -3,6 +3,8 @@ import React from 'react';
 import { format } from 'date-fns';
 
 import styles from './recipeDetailGeneral.module.scss';
+import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
+import { CopyLink, Bookmark } from 'icons/index';
 
 interface RecipeDetailGeneralProps {
   recipe: Recipe;
@@ -26,7 +28,11 @@ function GeneralHeader(props: RecipeDetailGeneralProps) {
           <p>{recipe.categoryType?.name}</p>
           <p>{recipe.name}</p>
         </div>
-        <div></div>
+        <div>
+          {/* <IconWithLabel icon={<BookmarkAdded />} label="책갈피" /> */}
+          <IconWithLabel icon={<Bookmark />} label="책갈피" />
+          <IconWithLabel icon={<CopyLink />} label="공유" />
+        </div>
       </div>
       <div className={styles.otherGeneralDetail}>
         <div>

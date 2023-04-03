@@ -41,3 +41,4 @@ app.use("/auth", require("./routers/userRouter"));
 app.use("/profile", require("./routers/profileRouter"));
 app.use("/category", require("./routers/categoryRouter"));
 app.use("/recipe", require("./routers/recipeRouter"));
+app.use("/bookmark", require("./routers/bookmarkRouter"));
