@@ -1,5 +1,5 @@
 import { Recipe } from 'apis/recipe';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { format } from 'date-fns';
 
 import styles from './recipeDetailGeneral.module.scss';
@@ -7,21 +7,23 @@ import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
 import { CopyLink, Bookmark } from 'icons/index';
 import Bio from 'components/Bio/bio';
 import BlankProfile from 'image/blankProfile.png';
+import { ProfileProps, getProfile } from 'apis/profile';
 
 interface RecipeDetailGeneralProps {
   recipe: Recipe;
+  profile: ProfileProps;
 }
 export default function RecipeDetailGeneral(props: RecipeDetailGeneralProps) {
-  const { recipe } = props;
+  const { recipe, profile } = props;
   return (
     <div className={styles.recipeDetailGeneral}>
       <GeneralHeader recipe={recipe} />
-      <GeneralDescription recipe={recipe} />
+      <GeneralDescription recipe={recipe} profile={profile} />
     </div>
   );
 }
 
-function GeneralHeader(props: RecipeDetailGeneralProps) {
+function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
   const { recipe } = props;
   return (
     <div className={styles.generalHeader}>
@@ -52,12 +54,13 @@ function GeneralHeader(props: RecipeDetailGeneralProps) {
 }
 
 function GeneralDescription(props: RecipeDetailGeneralProps) {
-  const { recipe } = props;
+  const { recipe, profile } = props;
+
   return (
     <div className={styles.generalDescription}>
       <Bio
-        imgSrc={BlankProfile}
-        title={recipe.name ?? ''}
+        imgSrc={profile?.profileImg || BlankProfile}
+        title={profile.nickname ?? ''}
         subtitle={recipe.name}
         className={styles.generalBio}
       />
