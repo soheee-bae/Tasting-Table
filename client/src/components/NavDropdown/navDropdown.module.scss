@@ -41,16 +41,10 @@
 }
 
 .navDropdownBio {
-  // display: flex;
   align-items: center;
-  border: 1px solid red;
-  // padding: 5px 0 10px;
   font-size: var(--text-xs);
   font-family: var(--nanum-gothic);
   font-weight: var(--font-bold);
-  img {
-    border: 1px solid red;
-  }
 }
 
 .navDropdownLists {

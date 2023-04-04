@@ -55,7 +55,12 @@ function GeneralDescription(props: RecipeDetailGeneralProps) {
   const { recipe } = props;
   return (
     <div className={styles.generalDescription}>
-      <Bio imgSrc={BlankProfile} title={recipe.name ?? ''} subtitle={recipe.name} />
+      <Bio
+        imgSrc={BlankProfile}
+        title={recipe.name ?? ''}
+        subtitle={recipe.name}
+        className={styles.generalBio}
+      />
       <p className={styles.description}>{recipe.description}</p>
     </div>
   );
