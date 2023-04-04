@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEventHandler } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './home.module.scss';
 
 import { getAllRecipes, Recipe } from 'apis/recipe';
@@ -30,7 +30,7 @@ export default function Home() {
   }, []);
 
   const filteredRecipes = getListSorted(
-    recipes.filter(
+    recipes?.filter(
       (recipe: Recipe) => selectedCategory === 0 || recipe?.categoryType?.id === selectedCategory
     ),
     selectedSorting

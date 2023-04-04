@@ -5,6 +5,8 @@ import { format } from 'date-fns';
 import styles from './recipeDetailGeneral.module.scss';
 import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
 import { CopyLink, Bookmark } from 'icons/index';
+import Bio from 'components/Bio/bio';
+import BlankProfile from 'image/blankProfile.png';
 
 interface RecipeDetailGeneralProps {
   recipe: Recipe;
@@ -22,25 +24,27 @@ export default function RecipeDetailGeneral(props: RecipeDetailGeneralProps) {
 function GeneralHeader(props: RecipeDetailGeneralProps) {
   const { recipe } = props;
   return (
-    <div className={styles.recipeDetailGeneralContent}>
-      <div className={styles.generalHeader}>
-        <div>
-          <p>{recipe.categoryType?.name}</p>
-          <p>{recipe.name}</p>
+    <div className={styles.generalHeader}>
+      <div className={styles.generalInnerContent}>
+        <div className={styles.generalNames}>
+          <p className={styles.categoryName}>{recipe.categoryType?.name}</p>
+          <p className={styles.name}>{recipe.name}</p>
         </div>
-        <div>
+        <div className={styles.generalButtons}>
           {/* <IconWithLabel icon={<BookmarkAdded />} label="책갈피" /> */}
           <IconWithLabel icon={<Bookmark />} label="책갈피" />
           <IconWithLabel icon={<CopyLink />} label="공유" />
         </div>
       </div>
-      <div className={styles.otherGeneralDetail}>
-        <div>
+      <div className={styles.generalInnerContent}>
+        <div className={styles.generalOthers}>
           <p>난이도 {recipe.level}</p>
           <p>소요시간 {recipe.duration}분</p>
         </div>
         {recipe?.createdDate ? (
-          <p>{format(new Date(recipe.createdDate), 'yyyy년 M월 d일')}</p>
+          <p className={styles.generalDates}>
+            {format(new Date(recipe.createdDate), 'yyyy년 M월 d일')}
+          </p>
         ) : null}
       </div>
     </div>
@@ -50,9 +54,9 @@ function GeneralHeader(props: RecipeDetailGeneralProps) {
 function GeneralDescription(props: RecipeDetailGeneralProps) {
   const { recipe } = props;
   return (
-    <div className={styles.recipeDetailGeneralContent}>
-      <div></div>
-      <p>{recipe.description}</p>
+    <div className={styles.generalDescription}>
+      <Bio imgSrc={BlankProfile} title={recipe.name ?? ''} subtitle={recipe.name} />
+      <p className={styles.description}>{recipe.description}</p>
     </div>
   );
 }

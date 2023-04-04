@@ -1,0 +1,76 @@
+.recipeDetailGeneral {
+  display: flex;
+  flex-direction: column;
+}
+
+.generalHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.generalInnerContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generalNames {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  font-family: var(--gowun-batang);
+  .categoryName {
+    font-size: var(--text-md);
+    font-weight: var(--font-medium);
+  }
+  .name {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+  }
+}
+
+.generalButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.generalInnerContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generalOthers {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}
+
+.generalDates {
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}
+
+.generalDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gray200);
+  .description {
+    line-height: 1.5;
+    font-family: var(--nanum-gothic);
+    font-size: var(--text-sm);
+    opacity: 0.7;
+  }
+}

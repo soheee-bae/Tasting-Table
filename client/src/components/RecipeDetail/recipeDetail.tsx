@@ -2,6 +2,7 @@ import { Recipe } from 'apis/recipe';
 import React from 'react';
 import styles from './recipeDetail.module.scss';
 
+import food from '../../image/food.png';
 import RecipeDetailGeneral from './RecipeDetailGeneral/recipeDetailGeneral';
 import RecipeDetailIngredients from './RecipeDetailIngredients/recipeDetailIngredients';
 import RecipeDetailOtherRecom from './RecipeDetailOtherRecom/recipeDetailOtherRecom';
@@ -15,6 +16,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   const { recipe } = props;
   return (
     <div className={styles.recipeDetail}>
+      <img src={food} alt="food" />
       <RecipeDetailGeneral recipe={recipe} />
       <RecipeDetailIngredients recipe={recipe} />
       <RecipeDetailSteps recipe={recipe} />

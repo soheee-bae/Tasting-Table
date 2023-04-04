@@ -8,6 +8,7 @@ import blankProfile from 'image/blankProfile.png';
 
 import { logout } from 'apis/auth';
 import { getProfile } from 'apis/profile';
+import Bio from 'components/Bio/bio';
 
 export default function NavDropdown() {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,10 +54,7 @@ export default function NavDropdown() {
         <p>마이페이지</p>
       </li>
       <div className={styles.navDropdownContent} data-open={open}>
-        <div className={styles.navDropdownHeader}>
-          <img src={profileImg || blankProfile} alt="profile" />
-          <p>{email}</p>
-        </div>
+        <Bio imgSrc={profileImg || blankProfile} title={email} className={styles.navDropdownBio} />
         <div className={styles.navDropdownLists}>
           <Link to="/myrecipe">내 레시피</Link>
           <Link to="/bookmark">책갈피한 레시피</Link>
