@@ -7,6 +7,7 @@ const profileSchema = new mongoose.Schema({
   name: { type: String },
   nickname: { type: String },
   birthdate: { type: String },
+  intro: { type: String },
 });
 
 const Profile = mongoose.model("profile", profileSchema);

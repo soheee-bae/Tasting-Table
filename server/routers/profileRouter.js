@@ -13,6 +13,17 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// Get User Profile By UserId
+router.get("/:userId", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ userId: req.params.userId });
+    res.json(profile);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
 // Edit Profile
 router.put("/", auth, async (req, res) => {
   try {

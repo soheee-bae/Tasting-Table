@@ -21,6 +21,7 @@ export default function Profile() {
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [intro, setIntro] = useState('');
 
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -29,7 +30,8 @@ export default function Profile() {
       email,
       name,
       nickname,
-      birthdate
+      birthdate,
+      intro
     });
     if (res.status === 200) {
       toast(<Toast icon={<Success />} title="프로필이 수정되었습니다." />);
@@ -49,6 +51,7 @@ export default function Profile() {
     setNickname(profile?.nickname || '');
     setBirthdate(profile?.birthdate || '');
     setName(profile?.name || '');
+    setIntro(profile?.intro || '');
   }
 
   useEffect(() => {
@@ -69,6 +72,15 @@ export default function Profile() {
             <label className={styles.inputField}>
               이메일(필수)
               <input type="email" disabled value={email} />
+            </label>
+            <label className={styles.inputField}>
+              자기소개 (20자 이내)
+              <input
+                maxLength={20}
+                type="text"
+                value={intro}
+                onChange={(e) => setIntro(e.target.value)}
+              />
             </label>
           </ProfileContent>
           <ProfileContent subtitle="회원정보">

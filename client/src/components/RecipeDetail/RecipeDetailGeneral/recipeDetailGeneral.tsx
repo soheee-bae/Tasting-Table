@@ -1,13 +1,15 @@
-import { Recipe } from 'apis/recipe';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { format } from 'date-fns';
-
 import styles from './recipeDetailGeneral.module.scss';
+
 import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
-import { CopyLink, Bookmark } from 'icons/index';
 import Bio from 'components/Bio/bio';
+
+import { CopyLink, Bookmark } from 'icons/index';
 import BlankProfile from 'image/blankProfile.png';
-import { ProfileProps, getProfile } from 'apis/profile';
+import { ProfileProps } from 'apis/profile';
+import { Recipe } from 'apis/recipe';
+import { getLevels } from 'helpers/getLevels';
 
 interface RecipeDetailGeneralProps {
   recipe: Recipe;
@@ -40,8 +42,12 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
       </div>
       <div className={styles.generalInnerContent}>
         <div className={styles.generalOthers}>
-          <p>난이도 {recipe.level}</p>
-          <p>소요시간 {recipe.duration}분</p>
+          <p>
+            난이도 <span>{getLevels(recipe?.level ?? 0)}</span>{' '}
+          </p>
+          <p>
+            소요시간 <span>{recipe.duration}분</span>
+          </p>
         </div>
         {recipe?.createdDate ? (
           <p className={styles.generalDates}>
@@ -60,11 +66,11 @@ function GeneralDescription(props: RecipeDetailGeneralProps) {
     <div className={styles.generalDescription}>
       <Bio
         imgSrc={profile?.profileImg || BlankProfile}
-        title={profile.nickname ?? ''}
-        subtitle={recipe.name}
+        title={profile?.nickname ?? ''}
+        subtitle={profile?.intro ?? ''}
         className={styles.generalBio}
       />
-      <p className={styles.description}>{recipe.description}</p>
+      <p className={styles.description}>{recipe?.description}</p>
     </div>
   );
 }
