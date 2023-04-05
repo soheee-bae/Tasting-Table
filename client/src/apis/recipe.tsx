@@ -42,6 +42,10 @@ interface RecipeIdProps {
   id: string;
 }
 
+interface CategoryIdProps {
+  id: number;
+}
+
 export const getAllRecipes = async () => {
   try {
     const recipes = await axios.get('http://localhost:5050/recipe/all');
@@ -65,6 +69,16 @@ export const getRecipesByUserId = async (props: RecipeIdProps) => {
   const { id } = props;
   try {
     const recipes = await axios.get(`http://localhost:5050/recipe/user/${id}`);
+    return recipes.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getRecipesByCategory = async (props: CategoryIdProps) => {
+  const { id } = props;
+  try {
+    const recipes = await axios.get(`http://localhost:5050/recipe/category/${id}`);
     return recipes.data;
   } catch (err) {
     console.error(err);

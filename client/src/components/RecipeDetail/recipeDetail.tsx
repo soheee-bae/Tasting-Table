@@ -1,4 +1,4 @@
-import { Recipe, getRecipesByUserId } from 'apis/recipe';
+import { Recipe, getRecipesByCategory, getRecipesByUserId } from 'apis/recipe';
 import React, { useEffect, useState } from 'react';
 import styles from './recipeDetail.module.scss';
 
@@ -18,12 +18,15 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   const { recipe } = props;
   const [profile, setProfile] = useState({});
   const [otherRecom, setotherRecom] = useState([]);
+  const [similarRecipe, setSimilarRecipe] = useState([]);
 
   async function fetchProfile() {
     const profile = await getProfileByUserId({ id: recipe?.userId });
     const otherRecom = await getRecipesByUserId({ id: recipe?.userId });
+    const similarRecipe = await getRecipesByCategory({ id: recipe?.categoryType?.id || 0 });
     setProfile(profile);
     setotherRecom(otherRecom);
+    setSimilarRecipe(similarRecipe);
   }
 
   useEffect(() => {
@@ -37,7 +40,10 @@ export default function RecipeDetail(props: RecipeDetailProps) {
       <RecipeDetailIngredients recipe={recipe} />
       <RecipeDetailSteps recipe={recipe} />
       <RecipeDetailOtherRecom otherRecom={otherRecom} />
-      <RecipeDetailSimilarType recipe={recipe} />
+      <RecipeDetailSimilarType
+        category={recipe?.categoryType?.name || ''}
+        similarRecipe={similarRecipe}
+      />
     </div>
   );
 }

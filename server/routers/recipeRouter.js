@@ -39,6 +39,20 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
+// Get recipes by userId
+router.get("/category/:categoryId", async (req, res) => {
+  try {
+    var id = req.params.categoryId;
+    const recipes = await Recipe.find({
+      "categoryType.id": id,
+    });
+    res.json(recipes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
 // Create recipe
 router.post("/", auth, async (req, res) => {
   try {
