@@ -18,7 +18,7 @@ export default function RecipeDetailSteps(props: RecipeDetailStepsProps) {
           <li key={step.details} className={styles.recipeStepList}>
             <img src={step.img || food} alt={step.details} />
             <div className={styles.stepDetail}>
-              <p className={styles.stepDetailTitle}>Step {index + 1}</p>
+              <p className={styles.title}>Step {index + 1}</p>
               <p>{step.details}</p>
             </div>
           </li>

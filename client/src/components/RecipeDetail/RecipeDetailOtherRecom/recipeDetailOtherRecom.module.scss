@@ -1,0 +1,30 @@
+.recipeDetailOtherRecom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 50px;
+  .title {
+    font-family: var(--gowun-batang);
+    font-size: var(--text-md);
+    font-weight: var(--font-bold);
+  }
+}
+
+.otherRecomLists {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px;
+  column-gap: 30px;
+}
+
+.otherRecom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  p {
+    font-family: var(--nanum-gothic);
+    font-size: var(--text-xs);
+  }
+}

@@ -1,4 +1,4 @@
-import { Recipe } from 'apis/recipe';
+import { Recipe, getRecipesByUserId } from 'apis/recipe';
 import React, { useEffect, useState } from 'react';
 import styles from './recipeDetail.module.scss';
 
@@ -17,10 +17,13 @@ interface RecipeDetailProps {
 export default function RecipeDetail(props: RecipeDetailProps) {
   const { recipe } = props;
   const [profile, setProfile] = useState({});
+  const [otherRecom, setotherRecom] = useState([]);
 
   async function fetchProfile() {
     const profile = await getProfileByUserId({ id: recipe?.userId });
+    const otherRecom = await getRecipesByUserId({ id: recipe?.userId });
     setProfile(profile);
+    setotherRecom(otherRecom);
   }
 
   useEffect(() => {
@@ -33,7 +36,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
       <RecipeDetailGeneral recipe={recipe} profile={profile} />
       <RecipeDetailIngredients recipe={recipe} />
       <RecipeDetailSteps recipe={recipe} />
-      <RecipeDetailOtherRecom recipe={recipe} />
+      <RecipeDetailOtherRecom otherRecom={otherRecom} />
       <RecipeDetailSimilarType recipe={recipe} />
     </div>
   );
