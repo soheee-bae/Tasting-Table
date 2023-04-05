@@ -1,0 +1,54 @@
+.recipeDetailIngredients {
+  width: 100%;
+  .title {
+    font-family: var(--gowun-batang);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    border-bottom: 2px solid var(--primaryColor1100);
+    padding: 7px 0;
+    margin-bottom: 20px;
+  }
+}
+
+.recipeDetailIngredientsContent {
+  .innerContent {
+    .header {
+      font-family: var(--gowun-batang);
+      font-size: var(--text-md);
+      font-weight: var(--font-bold);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray200);
+      padding: 10px 0;
+    }
+    .name {
+    }
+
+    .amounts {
+      font-family: var(--nanum-gothic);
+    }
+  }
+}
+
+.subIngredientLists {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 0;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-sm);
+
+  .subIngredientList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px 0;
+
+    .name {
+    }
+    .mensuration {
+      color: var(--gray600);
+    }
+  }
+}

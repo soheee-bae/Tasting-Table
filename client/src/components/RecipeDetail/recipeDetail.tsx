@@ -26,8 +26,6 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   useEffect(() => {
     fetchProfile();
   }, []);
-  console.log(recipe.userId);
-  console.log(profile);
 
   return (
     <div className={styles.recipeDetail}>
