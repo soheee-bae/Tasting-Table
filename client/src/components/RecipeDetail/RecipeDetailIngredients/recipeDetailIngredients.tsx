@@ -8,6 +8,7 @@ interface RecipeDetailIngredientsProps {
 }
 export default function RecipeDetailIngredients(props: RecipeDetailIngredientsProps) {
   const { recipe } = props;
+
   return (
     <div className={styles.recipeDetailIngredients}>
       <p className={styles.title}>재료</p>
@@ -15,15 +16,17 @@ export default function RecipeDetailIngredients(props: RecipeDetailIngredientsPr
         {recipe.ingredients?.map((ingredient, index) => {
           const subIngredients = ingredient.ingredient;
           return (
-            <div key={ingredient.id} className={styles.innerContent}>
+            <div key={ingredient.id}>
               <div className={styles.header}>
-                <p className={styles.name}>{ingredient.name}</p>
-                {index === 0 && <p className={styles.amounts}>{recipe.amounts}</p>}
+                <p>{ingredient.name}</p>
+                {index === 0 && recipe.amounts && (
+                  <p className={styles.amounts}>{recipe.amounts}인분</p>
+                )}
               </div>
               <ul className={styles.subIngredientLists}>
                 {subIngredients.map((sub) => (
                   <li key={sub.id} className={styles.subIngredientList}>
-                    <p className={styles.name}>{sub.name}</p>
+                    <p>{sub.name}</p>
                     <p className={styles.mensuration}>{sub.mensuration}</p>
                   </li>
                 ))}
