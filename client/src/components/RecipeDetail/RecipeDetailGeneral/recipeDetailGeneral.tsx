@@ -4,12 +4,16 @@ import styles from './recipeDetailGeneral.module.scss';
 
 import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
 import Bio from 'components/Bio/bio';
+import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
-import { CopyLink, Bookmark } from 'icons/index';
+import { CopyLink, Bookmark, Success } from 'icons/index';
 import BlankProfile from 'image/blankProfile.png';
 import { ProfileProps } from 'apis/profile';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface RecipeDetailGeneralProps {
   recipe: Recipe;
@@ -27,6 +31,13 @@ export default function RecipeDetailGeneral(props: RecipeDetailGeneralProps) {
 
 function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
   const { recipe } = props;
+
+  const handleCopyLink = () => {
+    console.log('here');
+    navigator.clipboard.writeText(window.location.href);
+    toast(<Toast icon={<Success />} title="링크가 복사되었습니다." />);
+  };
+
   return (
     <div className={styles.generalHeader}>
       <div className={styles.generalInnerContent}>
@@ -37,7 +48,7 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
         <div className={styles.generalButtons}>
           {/* <IconWithLabel icon={<BookmarkAdded />} label="책갈피" /> */}
           <IconWithLabel icon={<Bookmark />} label="책갈피" />
-          <IconWithLabel icon={<CopyLink />} label="공유" />
+          <IconWithLabel icon={<CopyLink />} label="공유" onClick={handleCopyLink} />
         </div>
       </div>
       <div className={styles.generalInnerContent}>
@@ -55,6 +66,7 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
           </p>
         ) : null}
       </div>
+      <ToastSnackbar />
     </div>
   );
 }
