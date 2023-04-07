@@ -33,7 +33,6 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
   const { recipe } = props;
 
   const handleCopyLink = () => {
-    console.log('here');
     navigator.clipboard.writeText(window.location.href);
     toast(<Toast icon={<Success />} title="링크가 복사되었습니다." />);
   };
