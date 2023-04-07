@@ -6,14 +6,12 @@ import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 import RecipeDetail from 'components/RecipeDetail/recipeDetail';
 
 import { getRecipeById } from 'apis/recipe';
-import AuthContext from 'contexts/authContext';
 
 export default function Details() {
-  const { userId } = useContext(AuthContext);
   const { recipeId = '' } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [recipe, setRecipe] = useState({ userId });
+  const [recipe, setRecipe] = useState({ userId: '' });
 
   async function fetchRecipe() {
     const recipe = await getRecipeById({ id: recipeId });

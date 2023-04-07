@@ -1,25 +1,26 @@
+@import 'styles/size';
+
 .bookmark {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  min-height: calc(100vh - ($navbar-height + $footer-height));
 }
 
-.innerBookmark {
+.bookmarkContainer {
   display: flex;
   flex-direction: column;
-
-  gap: 30px;
-  max-width: 1200px;
-}
-
-.sorting {
-}
-
-.bookmarkLists {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 30px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 80px 0;
+}
+
+.emptyContent {
+  font-size: var(--text-sm);
+  font-family: var(--nanum-gothic);
+  text-align: center;
+  padding: 20px 0;
 }

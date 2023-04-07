@@ -24,19 +24,23 @@ export default function RecipeItem(props: RecipeItemProps) {
     <div
       className={styles.recipeItem}
       onClick={() => {
-        !allowEdit && navigate(`recipe/${_id}`);
+        !allowEdit && navigate(`/recipe/${_id}`);
       }}>
       <div className={styles.recipeItemImage}>
         <img src={img || food} alt={name} />
         <div className={styles.recipeImgCover}>
           {allowEdit && (
             <div className={styles.editableRecipeItem}>
-              <div onClick={(e) => handleEdit?.(e, _id || '')}>
-                <Edit />
-              </div>
-              <div onClick={(e) => handleDelete?.(e, _id || '')}>
-                <Trash />
-              </div>
+              {handleEdit && (
+                <div onClick={(e) => handleEdit?.(e, _id || '')}>
+                  <Edit />
+                </div>
+              )}
+              {handleDelete && (
+                <div onClick={(e) => handleDelete?.(e, _id || '')}>
+                  <Trash />
+                </div>
+              )}
             </div>
           )}
         </div>

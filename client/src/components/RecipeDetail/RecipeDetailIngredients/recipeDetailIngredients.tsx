@@ -8,6 +8,7 @@ interface RecipeDetailIngredientsProps {
 }
 export default function RecipeDetailIngredients(props: RecipeDetailIngredientsProps) {
   const { recipe } = props;
+  if (!recipe) return null;
 
   return (
     <div className={styles.recipeDetailIngredients}>

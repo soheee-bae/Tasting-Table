@@ -1,16 +1,17 @@
 import axios from 'axios';
 
 export interface BookmarkProps {
-  userId: string;
   recipeId: string;
+  userId: string;
 }
 
 interface BookmarkIdProps {
   id: string;
 }
-export const getBookmarksByUserId = async () => {
+export const getBookmarksByUserId = async (props: BookmarkIdProps) => {
+  const { id } = props;
   try {
-    const bookmarks = await axios.get(`http://localhost:5050/bookmark/`);
+    const bookmarks = await axios.get(`http://localhost:5050/bookmark/${id}`);
     return bookmarks.data;
   } catch (err) {
     console.error(err);

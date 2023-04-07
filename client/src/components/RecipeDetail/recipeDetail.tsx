@@ -35,7 +35,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
 
   return (
     <div className={styles.recipeDetail}>
-      <img src={recipe.img || food} alt="food" />
+      <img src={recipe?.img || food} alt="food" />
       <RecipeDetailGeneral recipe={recipe} profile={profile} />
       <RecipeDetailIngredients recipe={recipe} />
       <RecipeDetailSteps recipe={recipe} />

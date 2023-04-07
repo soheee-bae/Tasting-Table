@@ -2,10 +2,10 @@ const auth = require("../middleware/auth");
 const Bookmark = require("../models/bookMarkModel");
 const router = require("express").Router();
 
-// Get bookmarks by userId
-router.get("/", auth, async (req, res) => {
+// Get Bookmark by userId
+router.get("/:userId", auth, async (req, res) => {
   try {
-    const bookmarks = await Bookmark.find({ userId: req.user });
+    const bookmarks = await Bookmark.find({ userId: req.params.userId });
     res.json(bookmarks);
   } catch (err) {
     console.error(err);
@@ -13,12 +13,11 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// Add bookmark
+// Add Bookmark
 router.post("/", auth, async (req, res) => {
   try {
     const newBookmark = new Bookmark({
-      userId: req.user,
-      recipeId: req.recipeId,
+      ...req.body,
     });
     await newBookmark.save();
     res.status(200).json({ message: "Success", status: 200 });
@@ -28,7 +27,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// Delete Recipe
+// Delete Bookmark
 router.delete("/:bookmarkId", auth, async (req, res) => {
   try {
     var ObjectId = require("mongodb").ObjectId;
