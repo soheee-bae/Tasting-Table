@@ -17,6 +17,7 @@ import MyRecipe from 'pages/MyRecipe/myRecipe';
 import NewRecipe from 'pages/NewRecipe/newRecipe';
 import EditRecipe from 'pages/EditRecipe/editRecipe';
 import Details from 'pages/Details/details';
+import Search from 'pages/Search/search';
 
 axios.defaults.withCredentials = true;
 
@@ -29,6 +30,8 @@ function App() {
       <div className={styles.main}>
         <Routes>
           <Route index element={<Home />} />
+          <Route path={`/search`} element={<Search />} />
+
           {!loggedIn ? (
             <>
               <Route path={'/login'} element={<Login />} />

@@ -1,0 +1,54 @@
+@import 'styles/size';
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - ($navbar-height + $footer-height));
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 80px 0;
+}
+
+.searchContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.emptyContent {
+  font-size: var(--text-sm);
+  font-family: var(--nanum-gothic);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.inputField {
+  position: relative;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  input {
+    outline: none;
+    padding: 10px 10px 10px 40px;
+  }
+  svg {
+    position: absolute;
+    left: 10px;
+    top: 11px;
+    height: 18px;
+    width: 18px;
+  }
+}
