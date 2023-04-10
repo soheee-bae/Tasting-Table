@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { Recipe } from './recipe';
 
 export interface BookmarkProps {
-  recipeId: string;
+  recipe: Recipe;
   userId: string;
+  _id?: string;
 }
 
 interface BookmarkIdProps {

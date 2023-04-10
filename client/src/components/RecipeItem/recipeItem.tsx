@@ -12,10 +12,11 @@ interface RecipeItemProps {
   handleDelete?: (e: MouseEvent<HTMLDivElement>, id: string) => void;
   handleEdit?: (e: MouseEvent<HTMLDivElement>, id: string) => void;
   allowEdit?: boolean;
+  noHoverEdit?: boolean;
 }
 
 export default function RecipeItem(props: RecipeItemProps) {
-  const { recipe, handleDelete, handleEdit, allowEdit } = props;
+  const { recipe, handleDelete, handleEdit, allowEdit, noHoverEdit } = props;
   const navigate = useNavigate();
 
   const { _id, name, categoryType, level, duration, img } = recipe;
@@ -30,7 +31,7 @@ export default function RecipeItem(props: RecipeItemProps) {
         <img src={img || food} alt={name} />
         <div className={styles.recipeImgCover}>
           {allowEdit && (
-            <div className={styles.editableRecipeItem}>
+            <div className={styles.editableRecipeItem} data-edit={noHoverEdit}>
               {handleEdit && (
                 <div onClick={(e) => handleEdit?.(e, _id || '')}>
                   <Edit />

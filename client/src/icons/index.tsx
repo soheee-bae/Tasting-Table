@@ -14,3 +14,5 @@ export { ReactComponent as Error } from './error.svg';
 export { ReactComponent as CopyLink } from './copyLink.svg';
 export { ReactComponent as Bookmark } from './bookmark.svg';
 export { ReactComponent as BookmarkAdded } from './bookmarkAdded.svg';
+export { ReactComponent as Checked } from './checked.svg';
+export { ReactComponent as UnChecked } from './unchecked.svg';

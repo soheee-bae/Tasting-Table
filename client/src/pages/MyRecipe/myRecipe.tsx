@@ -8,17 +8,19 @@ import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
 import { deleteRecipe, getRecipesByUserId } from 'apis/recipe';
 import AuthContext from 'contexts/authContext';
-import { Error, Success } from 'icons/index';
+import { Checked, Error, Success, UnChecked } from 'icons/index';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
+import Button from 'components/Button/button';
 
 export default function MyRecipe() {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
   const [myRecipe, setMyRecipe] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
@@ -41,6 +43,10 @@ export default function MyRecipe() {
     setIsLoading(false);
   }
 
+  const handleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
   useEffect(() => {
     fetchMyRecipe();
   }, [handleDelete]);
@@ -49,12 +55,18 @@ export default function MyRecipe() {
     <div className={styles.myRecipe}>
       <div className={styles.myRecipeContainer}>
         <Titles title="MY RECIPE" subTitle="내 레시피를 확인해 보세요." />
+        <div className={styles.editButton}>
+          <Button onClick={handleEditMode} startIcon={editMode ? <Checked /> : <UnChecked />}>
+            편집 모드
+          </Button>
+        </div>
         <LoadingIndicator isLoading={isLoading}>
           <RecipeItems
             recipe={myRecipe}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
-            allowEdit={true}
+            allowEdit={editMode}
+            noHoverEdit
           />
         </LoadingIndicator>
       </div>

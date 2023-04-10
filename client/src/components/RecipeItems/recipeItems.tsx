@@ -9,10 +9,11 @@ interface RecipeItemsProps {
   handleDelete?: (e: MouseEvent<HTMLDivElement>, id: string) => void;
   handleEdit?: (e: MouseEvent<HTMLDivElement>, id: string) => void;
   allowEdit?: boolean;
+  noHoverEdit?: boolean;
 }
 
 export default function RecipeItems(props: RecipeItemsProps) {
-  const { recipe, handleDelete, handleEdit, allowEdit } = props;
+  const { recipe, handleDelete, handleEdit, allowEdit, noHoverEdit } = props;
 
   return (
     <div className={styles.recipeItems}>
@@ -24,6 +25,7 @@ export default function RecipeItems(props: RecipeItemsProps) {
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             allowEdit={allowEdit}
+            noHoverEdit={noHoverEdit}
           />
         );
       })}

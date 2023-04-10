@@ -20,7 +20,9 @@ router.post("/", auth, async (req, res) => {
       ...req.body,
     });
     await newBookmark.save();
-    res.status(200).json({ message: "Success", status: 200 });
+    res
+      .status(200)
+      .json({ message: "Success", status: 200, bookmarkId: newBookmark._id });
   } catch (err) {
     console.error(err);
     res.status(500).send();

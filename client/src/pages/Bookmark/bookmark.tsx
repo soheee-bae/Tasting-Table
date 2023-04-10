@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState, MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './bookmark.module.scss';
 
 import Titles from 'components/Titles/title';
@@ -8,22 +7,25 @@ import RecipeItems from 'components/RecipeItems/recipeItems';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
 import AuthContext from 'contexts/authContext';
-import { getBookmarksByUserId, deleteBookmark } from 'apis/bookmark';
-import { Error, Success } from 'icons/index';
+import { getBookmarksByUserId, deleteBookmark, BookmarkProps } from 'apis/bookmark';
+import { Error, Success, Checked, UnChecked } from 'icons/index';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Recipe } from 'apis/recipe';
+import Button from 'components/Button/button';
 
 export default function Bookmark() {
-  const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
 
-  const [bookmarks, setBookmarks] = useState([]);
+  const [bookmarks, setBookmarks] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);
 
   async function fetchMyBookmarks() {
     const bookmarks = await getBookmarksByUserId({ id: userId });
-    setBookmarks(bookmarks);
+    const recipes = bookmarks.map((recipe: BookmarkProps) => recipe.recipe);
+    setBookmarks(recipes);
     setIsLoading(false);
   }
 
@@ -37,19 +39,33 @@ export default function Bookmark() {
     }
   }
 
+  const handleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
   useEffect(() => {
     fetchMyBookmarks();
-  }, [handleDelete]);
+  }, []);
 
   return (
     <div className={styles.bookmark}>
       <div className={styles.bookmarkContainer}>
         <Titles title="BOOKMARK LIST" subTitle="책갈피한 레시피를 확인해보세요" />
+        <div className={styles.editButton}>
+          <Button onClick={handleEditMode} startIcon={editMode ? <Checked /> : <UnChecked />}>
+            편집 모드
+          </Button>
+        </div>
         <LoadingIndicator isLoading={isLoading}>
           {bookmarks.length === 0 ? (
             <div className={styles.emptyContent}>등록된 책갈피가 없습니다.</div>
           ) : (
-            <RecipeItems recipe={bookmarks} allowEdit handleDelete={handleDelete} />
+            <RecipeItems
+              recipe={bookmarks}
+              allowEdit={editMode}
+              noHoverEdit
+              handleDelete={handleDelete}
+            />
           )}
         </LoadingIndicator>
       </div>

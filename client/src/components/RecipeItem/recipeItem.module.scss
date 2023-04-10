@@ -89,6 +89,8 @@
       opacity: 0.8;
       cursor: pointer;
       &:hover {
+        transform: scale(1.2);
+        transition: all 0.2s;
         border-radius: 2px;
         opacity: 1;
       }
@@ -96,5 +98,23 @@
   }
   svg {
     opacity: 0;
+  }
+
+  &[data-edit='true'] {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+
+    svg {
+      border: 1px solid transparent;
+      padding: 5px;
+      color: var(--whiteColor100);
+      height: 30px;
+      width: 30px;
+      opacity: 0.8;
+      cursor: pointer;
+      &:hover {
+        border-radius: 2px;
+        opacity: 1;
+      }
+    }
   }
 }

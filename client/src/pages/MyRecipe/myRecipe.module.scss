@@ -17,3 +17,14 @@
   max-width: 1200px;
   padding: 80px 0;
 }
+
+.editButton {
+  width: 100%;
+  button {
+    float: right;
+  }
+  svg {
+    height: 15px;
+    width: 15px;
+  }
+}
