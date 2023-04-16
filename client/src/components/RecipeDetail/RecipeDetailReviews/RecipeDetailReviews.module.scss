@@ -1,0 +1,102 @@
+.recipeDetailReviews {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.recipeTitle {
+  font-family: var(--gowun-batang);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  border-bottom: 2px solid var(--primaryColor1100);
+  padding-bottom: 10px;
+}
+
+.reviewLists {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 20px 0;
+  border-bottom: 0.5px solid var(--gray200);
+}
+
+.reviewBio {
+  width: 120px;
+  min-width: 120px;
+}
+
+.reviewListContent {
+  font-family: var(--nanum-gothic);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  img {
+    width: 165px;
+    aspect-ratio: 1/1;
+  }
+}
+
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.reviewDate {
+  font-size: var(--text-sm);
+  color: var(--gray400);
+  font-weight: var(--font-semibold);
+}
+
+.reviewText {
+  white-space: pre-line;
+  font-size: var(--text-sm);
+}
+
+.reviewField {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--nanum-gothic);
+}
+
+.reviewImageUploader {
+  aspect-ratio: 1/1;
+  height: 95px;
+}
+
+.reviewFieldText {
+  height: 100%;
+  width: 100%;
+  textarea {
+    height: 100%;
+    width: 100%;
+    resize: none;
+    outline: none;
+    padding: 10px;
+  }
+}
+
+.reviewFieldContent {
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.reviewButton {
+  height: 118px;
+}

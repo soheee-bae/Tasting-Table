@@ -10,6 +10,7 @@
   &[data-disabled='true'] {
     pointer-events: none;
     background-color: var(--whiteColor400);
+    opacity: 0.4;
   }
 }
 
