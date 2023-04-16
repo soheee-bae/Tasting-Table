@@ -12,6 +12,7 @@ import RecipeDetailSimilarType from './RecipeDetailSimilarType/recipeDetailSimil
 import RecipeDetailSteps from './RecipeDetailSteps/recipeDetailSteps';
 import { BookmarkProps, getBookmarksByUserId } from 'apis/bookmark';
 import AuthContext from 'contexts/authContext';
+import RecipeDetailReviews from './RecipeDetailReviews/RecipeDetailReviews';
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -56,6 +57,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
         category={recipe?.categoryType?.name || ''}
         similarRecipe={similarRecipe}
       />
+      <RecipeDetailReviews recipe={recipe} />
     </div>
   );
 }

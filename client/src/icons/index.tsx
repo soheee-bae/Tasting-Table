@@ -16,3 +16,5 @@ export { ReactComponent as Bookmark } from './bookmark.svg';
 export { ReactComponent as BookmarkAdded } from './bookmarkAdded.svg';
 export { ReactComponent as Checked } from './checked.svg';
 export { ReactComponent as UnChecked } from './unchecked.svg';
+export { ReactComponent as StarFilled } from './starFilled.svg';
+export { ReactComponent as StarEmpty } from './starEmpty.svg';

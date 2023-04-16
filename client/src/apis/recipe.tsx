@@ -18,6 +18,16 @@ export interface Step {
   details: string;
 }
 
+export interface Review {
+  rating?: number;
+  img?: string;
+  review: string;
+  dateCreated: Date;
+  userId: string;
+  profileImg: string;
+  nickname: string;
+}
+
 export interface Recipe {
   userId: string;
   img?: string;
@@ -31,6 +41,7 @@ export interface Recipe {
   steps?: Step[];
   createdDate?: Date;
   _id?: string;
+  reviews?: Review[];
 }
 
 export interface RecipeProps {

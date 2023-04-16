@@ -12,8 +12,17 @@ const stepsSchema = new mongoose.Schema({
   details: String,
 });
 
+const reviewSchema = new mongoose.Schema({
+  rating: Number,
+  img: String,
+  review: String,
+  dateCreated: Date,
+  userId: String,
+  profileImg: String,
+  nickname: String,
+});
+
 const recipeSchema = new mongoose.Schema({
-  // comments
   userId: { type: String, required: true },
   img: String,
   name: String,
@@ -28,6 +37,7 @@ const recipeSchema = new mongoose.Schema({
   },
   ingredients: [ingredientsSchema],
   steps: [stepsSchema],
+  reviews: [reviewSchema],
 });
 
 const Recipe = mongoose.model("recipe", recipeSchema);
