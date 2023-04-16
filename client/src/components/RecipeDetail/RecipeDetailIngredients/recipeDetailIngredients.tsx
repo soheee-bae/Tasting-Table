@@ -17,7 +17,7 @@ export default function RecipeDetailIngredients(props: RecipeDetailIngredientsPr
         {recipe.ingredients?.map((ingredient, index) => {
           const subIngredients = ingredient.ingredient;
           return (
-            <div key={ingredient.id}>
+            <div key={index}>
               <div className={styles.header}>
                 <p>{ingredient.name}</p>
                 {index === 0 && recipe.amounts && (
@@ -25,8 +25,8 @@ export default function RecipeDetailIngredients(props: RecipeDetailIngredientsPr
                 )}
               </div>
               <ul className={styles.subIngredientLists}>
-                {subIngredients.map((sub) => (
-                  <li key={sub.id} className={styles.subIngredientList}>
+                {subIngredients.map((sub, i) => (
+                  <li key={i} className={styles.subIngredientList}>
                     <p>{sub.name}</p>
                     <p className={styles.mensuration}>{sub.mensuration}</p>
                   </li>

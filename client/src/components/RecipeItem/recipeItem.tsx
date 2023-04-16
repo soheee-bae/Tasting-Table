@@ -6,6 +6,7 @@ import food from 'image/food.png';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
 import { Edit, Hourglass, Level, Trash } from 'icons/index';
+import clsx from 'clsx';
 
 interface RecipeItemProps {
   recipe: Recipe;
@@ -13,19 +14,21 @@ interface RecipeItemProps {
   handleEdit?: (e: MouseEvent<HTMLDivElement>, id: string) => void;
   allowEdit?: boolean;
   noHoverEdit?: boolean;
+  noDetails?: boolean;
+  className?: string;
 }
 
 export default function RecipeItem(props: RecipeItemProps) {
-  const { recipe, handleDelete, handleEdit, allowEdit, noHoverEdit } = props;
+  const { recipe, handleDelete, handleEdit, allowEdit, noHoverEdit, noDetails, className } = props;
   const navigate = useNavigate();
 
   const { _id, name, categoryType, level, duration, img } = recipe;
 
   return (
     <div
-      className={styles.recipeItem}
-      onClick={() => {
-        !allowEdit && navigate(`/recipe/${_id}`);
+      className={clsx(className, styles.recipeItem)}
+      onClick={(e: MouseEvent) => {
+        !allowEdit && navigate(`/recipe/${_id}`, { replace: true });
       }}>
       <div className={styles.recipeItemImage}>
         <img src={img || food} alt={name} />
@@ -47,18 +50,20 @@ export default function RecipeItem(props: RecipeItemProps) {
         </div>
       </div>
       <div className={styles.details}>
-        <p className={styles.category}>{categoryType?.name}</p>
+        {!noDetails && <p className={styles.category}>{categoryType?.name}</p>}
         <p className={styles.name}>{name}</p>
-        <div className={styles.otherDetails}>
-          <div className={styles.detailItem}>
-            <Level />
-            {getLevels(level || 0)}
+        {!noDetails && (
+          <div className={styles.otherDetails}>
+            <div className={styles.detailItem}>
+              <Level />
+              {getLevels(level || 0)}
+            </div>
+            <div className={styles.detailItem}>
+              <Hourglass />
+              {duration}분
+            </div>
           </div>
-          <div className={styles.detailItem}>
-            <Hourglass />
-            {duration}분
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

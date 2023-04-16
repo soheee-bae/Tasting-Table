@@ -19,9 +19,17 @@ export default function Details() {
     setIsLoading(false);
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   useEffect(() => {
     fetchRecipe();
-  }, []);
+    scrollToTop();
+  }, [recipeId]);
 
   return (
     <div className={styles.details}>

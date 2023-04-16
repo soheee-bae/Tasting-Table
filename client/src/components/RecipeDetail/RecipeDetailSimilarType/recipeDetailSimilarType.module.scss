@@ -19,12 +19,9 @@
 }
 
 .similarRecipe {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
   p {
     font-family: var(--nanum-gothic);
+    font-weight: var(--font-medium);
     font-size: var(--text-xs);
   }
 }

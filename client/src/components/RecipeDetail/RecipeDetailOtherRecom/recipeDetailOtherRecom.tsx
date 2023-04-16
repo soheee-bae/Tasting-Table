@@ -1,8 +1,10 @@
 import { Recipe } from 'apis/recipe';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import food from 'image/food.png';
 
 import styles from './recipeDetailOtherRecom.module.scss';
+import RecipeItem from 'components/RecipeItem/recipeItem';
 
 interface RecipeDetailOtherRecomProps {
   otherRecom: Recipe[];
@@ -16,10 +18,12 @@ export default function RecipeDetailOtherRecom(props: RecipeDetailOtherRecomProp
       <p className={styles.title}>레시피 작성자의 다른 레시피들</p>
       <div className={styles.otherRecomLists}>
         {slicedOtherRecom.map((recipe) => (
-          <div key={recipe.name} className={styles.otherRecom}>
-            <img src={recipe.img || food} alt={recipe.name} />
-            <p>{recipe.name}</p>
-          </div>
+          <RecipeItem
+            key={recipe._id}
+            recipe={recipe}
+            className={styles.otherRecom}
+            noDetails={true}
+          />
         ))}
       </div>
     </div>

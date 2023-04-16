@@ -11,15 +11,16 @@ interface ImageUploaderProps {
   className?: string;
   round?: boolean;
   isRecipe?: boolean;
+  multiple?: boolean;
 }
 export default function ImageUploader(props: ImageUploaderProps) {
-  const { imgSrc, handleFileChange, round, className, isRecipe } = props;
+  const { imgSrc, handleFileChange, round, className, isRecipe, multiple } = props;
   const blank = isRecipe ? AddImage : BlankProfile;
 
   return (
     <div className={clsx(styles.imageUploader, className)} data-round={round}>
       <img src={imgSrc || blank} alt="profile" />
-      <input id="photo-upload" type="file" onChange={handleFileChange} />
+      <input id="photo-upload" type="file" onChange={handleFileChange} multiple={multiple} />
     </div>
   );
 }
