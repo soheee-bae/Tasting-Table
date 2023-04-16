@@ -1,7 +1,5 @@
-import { Recipe } from 'apis/recipe';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import food from 'image/food.png';
+import { Recipe } from 'apis/recipe';
 
 import styles from './recipeDetailSimilarType.module.scss';
 import RecipeItem from 'components/RecipeItem/recipeItem';
@@ -12,8 +10,9 @@ interface RecipeDetailSimilarTypeProps {
 }
 export default function RecipeDetailSimilarType(props: RecipeDetailSimilarTypeProps) {
   const { category, similarRecipe } = props;
-  const navigate = useNavigate();
   const slicedSimilarRecipe = similarRecipe.slice(0, 6);
+
+  if (!similarRecipe || similarRecipe.length === 0) return null;
 
   return (
     <div className={styles.recipeDetailSimilarTyped}>

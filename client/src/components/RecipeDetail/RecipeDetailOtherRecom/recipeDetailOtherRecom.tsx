@@ -1,7 +1,5 @@
-import { Recipe } from 'apis/recipe';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import food from 'image/food.png';
+import { Recipe } from 'apis/recipe';
 
 import styles from './recipeDetailOtherRecom.module.scss';
 import RecipeItem from 'components/RecipeItem/recipeItem';
@@ -13,6 +11,7 @@ export default function RecipeDetailOtherRecom(props: RecipeDetailOtherRecomProp
   const { otherRecom } = props;
   const slicedOtherRecom = otherRecom.slice(0, 6);
 
+  if (!otherRecom || otherRecom.length === 0) return null;
   return (
     <div className={styles.recipeDetailOtherRecom}>
       <p className={styles.title}>레시피 작성자의 다른 레시피들</p>

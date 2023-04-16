@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './details.module.scss';
 
+import { getRecipeById } from 'apis/recipe';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 import RecipeDetail from 'components/RecipeDetail/recipeDetail';
-
-import { getRecipeById } from 'apis/recipe';
 
 export default function Details() {
   const { recipeId = '' } = useParams();

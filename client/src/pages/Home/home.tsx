@@ -3,12 +3,12 @@ import styles from './home.module.scss';
 
 import { getAllRecipes, Recipe } from 'apis/recipe';
 import { getCategories } from 'helpers/getCategories';
+import { getListSorted } from 'helpers/getListSorted';
 
 import CategoryFilter from 'components/CategoryFilter/categoryFilter';
 import RecipeItems from 'components/RecipeItems/recipeItems';
 import Titles from 'components/Titles/title';
 import SortingFilter from 'components/SortingFilter/sortingFilter';
-import { getListSorted } from 'helpers/getListSorted';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 
 export default function Home() {

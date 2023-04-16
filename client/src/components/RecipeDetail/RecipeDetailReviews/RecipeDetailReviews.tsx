@@ -4,16 +4,17 @@ import { format } from 'date-fns';
 import styles from './RecipeDetailReviews.module.scss';
 import AuthContext from 'contexts/authContext';
 import { Recipe, Review, editRecipe, getRecipeById } from 'apis/recipe';
-import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import { Success, Error, StarEmpty, StarFilled } from 'icons/index';
+import BlankProfile from 'image/blankProfile.png';
+
+import ReactStars from 'react-rating-stars-component';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import ImageUploader from 'components/ImageUploader/imageUploader';
-import ReactStars from 'react-rating-stars-component';
 import Button from 'components/Button/button';
 import Bio from 'components/Bio/bio';
-import BlankProfile from 'image/blankProfile.png';
 
 interface RecipeDetailReviewsProps {
   recipe: Recipe;
@@ -31,7 +32,7 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
 
   useEffect(() => {
     fetchReviews();
-  }, []);
+  }, [recipe?._id]);
 
   const { userId, profileImg, nickname } = useContext(AuthContext);
   const initialReview = {

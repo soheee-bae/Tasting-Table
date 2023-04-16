@@ -1,5 +1,5 @@
-import { Recipe } from 'apis/recipe';
 import React from 'react';
+import { Recipe } from 'apis/recipe';
 
 import styles from './recipeDetailIngredients.module.scss';
 

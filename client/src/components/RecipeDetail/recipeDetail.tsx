@@ -2,6 +2,8 @@ import { Recipe, getRecipesByCategory, getRecipesByUserId } from 'apis/recipe';
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './recipeDetail.module.scss';
 
+import AuthContext from 'contexts/authContext';
+import { BookmarkProps, getBookmarksByUserId } from 'apis/bookmark';
 import { getProfileByUserId } from 'apis/profile';
 import food from 'image/food.png';
 
@@ -10,8 +12,6 @@ import RecipeDetailIngredients from './RecipeDetailIngredients/recipeDetailIngre
 import RecipeDetailOtherRecom from './RecipeDetailOtherRecom/recipeDetailOtherRecom';
 import RecipeDetailSimilarType from './RecipeDetailSimilarType/recipeDetailSimilarType';
 import RecipeDetailSteps from './RecipeDetailSteps/recipeDetailSteps';
-import { BookmarkProps, getBookmarksByUserId } from 'apis/bookmark';
-import AuthContext from 'contexts/authContext';
 import RecipeDetailReviews from './RecipeDetailReviews/RecipeDetailReviews';
 
 interface RecipeDetailProps {
@@ -30,9 +30,11 @@ export default function RecipeDetail(props: RecipeDetailProps) {
     const profile = await getProfileByUserId({ id: recipe?.userId });
     const otherRecom = await getRecipesByUserId({ id: recipe?.userId });
     const similarRecipe = await getRecipesByCategory({ id: recipe?.categoryType?.id || 0 });
+    const filteredSimilar = similarRecipe?.filter((similar) => similar._id !== recipe._id);
+    const filteredOther = otherRecom?.filter((other) => other._id !== recipe._id);
     setProfile(profile);
-    setOtherRecom(otherRecom);
-    setSimilarRecipe(similarRecipe);
+    setOtherRecom(filteredOther);
+    setSimilarRecipe(filteredSimilar);
   }
 
   async function fetchMyBookmarks() {
@@ -44,7 +46,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   useEffect(() => {
     fetchProfile();
     fetchMyBookmarks();
-  }, []);
+  }, [recipe._id]);
 
   return (
     <div className={styles.recipeDetail}>

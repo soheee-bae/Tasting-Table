@@ -27,8 +27,8 @@ export default function RecipeItem(props: RecipeItemProps) {
   return (
     <div
       className={clsx(className, styles.recipeItem)}
-      onClick={(e: MouseEvent) => {
-        !allowEdit && navigate(`/recipe/${_id}`, { replace: true });
+      onClick={() => {
+        !allowEdit && navigate(`/recipe/${_id}`);
       }}>
       <div className={styles.recipeItemImage}>
         <img src={img || food} alt={name} />
