@@ -4,6 +4,7 @@ import ImageUploading from 'react-images-uploading';
 
 import styles from './imageUploaderSingle.module.scss';
 import { Plus, Edit, Trash } from 'icons/index';
+import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 
 interface ImageUploaderSingleProps {
   handleFileChange: (urlLists: string[]) => void;
@@ -15,19 +16,26 @@ interface ImageUploaderSingleProps {
 export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
   const { handleFileChange, className, imgSrc, round } = props;
   const [image, setImage] = useState<any>([]);
+  const { dataURLtoBlob, blobToDataURL } = useConvertDataUrlBlob();
 
   const onChange = (imageList, _addUpdateIndex) => {
-    const url = imageList.map((image) => image.data_url);
+    const blob = imageList.map((image) => dataURLtoBlob(image.data_url));
     setImage(imageList);
-    handleFileChange(url);
+    handleFileChange(blob);
+  };
+
+  const convertBlobToUrl = async () => {
+    const dataUrl = await blobToDataURL(imgSrc);
+    setImage([{ data_url: dataUrl }]);
   };
 
   useEffect(() => {
     if (imgSrc) {
-      setImage([{ data_url: imgSrc }]);
+      convertBlobToUrl();
     }
   }, [imgSrc]);
 
+  console.log(image);
   return (
     <div className={clsx(styles.imageUploader, className)}>
       <ImageUploading value={image} onChange={onChange} maxNumber={3} dataURLKey="data_url">

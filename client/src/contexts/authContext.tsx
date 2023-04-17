@@ -7,8 +7,8 @@ export type AuthContextContent = {
   getLoggedIn: () => void;
   email: string;
   userId: string;
-  profileImg: string;
-  setProfileImage: (img: string) => void;
+  profileImg: Blob;
+  setProfileImage: (img: Blob) => void;
   nickname: string;
   name: string;
 };
@@ -18,10 +18,10 @@ const AuthContext = createContext<AuthContextContent>({
   getLoggedIn: () => undefined,
   email: '',
   userId: '',
-  profileImg: '',
+  profileImg: new Blob(),
   nickname: '',
   name: '',
-  setProfileImage: (img: string) => undefined
+  setProfileImage: (img: Blob) => undefined
 });
 
 interface AuthContextProps {
@@ -34,7 +34,7 @@ function AuthContextProvider(props: AuthContextProps) {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
-  const [profileImg, setProfileImage] = useState<string>('');
+  const [profileImg, setProfileImage] = useState<Blob>(new Blob());
   const [nickname, setNickname] = useState<string>('');
   const [name, setName] = useState<string>('');
 

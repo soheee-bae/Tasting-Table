@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Profile() {
   const { email, setProfileImage } = useContext(AuthContext);
 
-  const [profileImg, setProfileImg] = useState('');
+  const [profileImg, setProfileImg] = useState<Blob>(new Blob());
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
@@ -35,19 +35,21 @@ export default function Profile() {
     });
     if (res.status === 200) {
       toast(<Toast icon={<Success />} title="프로필이 수정되었습니다." />);
-      setProfileImage(profileImg);
+      if (profileImg) setProfileImage(profileImg);
     } else {
       toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
   };
 
-  const handleFileChange = (urlLists: string[]) => {
-    if (urlLists.length > 0) setProfileImg(urlLists[0]);
+  const handleFileChange = (blobs: string[]) => {
+    console.log('handlefidnsaf');
+    console.log(blobs[0]);
+    if (blobs.length > 0) setProfileImg(blobs[0]);
   };
 
   async function fetchProfile() {
     const profile = await getProfile();
-    setProfileImg(profile?.profileImg || {});
+    setProfileImg(profile?.profileImg);
     setNickname(profile?.nickname || '');
     setBirthdate(profile?.birthdate || '');
     setName(profile?.name || '');

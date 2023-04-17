@@ -14,7 +14,7 @@ const stepsSchema = new mongoose.Schema({
 
 const reviewSchema = new mongoose.Schema({
   rating: Number,
-  img: String,
+  img: [String],
   review: String,
   dateCreated: Date,
   userId: String,
