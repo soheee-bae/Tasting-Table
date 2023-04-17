@@ -23,6 +23,7 @@
 .reviewList {
   display: flex;
   flex-direction: row;
+  width: 100%;
   gap: 30px;
   padding: 20px 0;
   border-bottom: 0.5px solid var(--gray200);
@@ -65,16 +66,25 @@
 
 .reviewField {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  width: 100%;
   gap: 10px;
   font-family: var(--nanum-gothic);
 }
 
 .reviewImageUploader {
-  aspect-ratio: 1/1;
-  height: 95px;
+  // aspect-ratio: 1/1;
+  // height: 95px;
+}
+
+.reviewFieldContent {
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .reviewFieldText {
@@ -87,14 +97,6 @@
     outline: none;
     padding: 10px;
   }
-}
-
-.reviewFieldContent {
-  width: auto;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .reviewButton {

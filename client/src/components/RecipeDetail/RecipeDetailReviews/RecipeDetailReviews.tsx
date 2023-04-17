@@ -15,6 +15,9 @@ import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import ImageUploader from 'components/ImageUploader/imageUploader';
 import Button from 'components/Button/button';
 import Bio from 'components/Bio/bio';
+import { getProfileByUserId } from 'apis/profile';
+import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
+import { blob } from 'node:stream/consumers';
 
 interface RecipeDetailReviewsProps {
   recipe: Recipe;
@@ -34,13 +37,11 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
     fetchReviews();
   }, [recipe?._id]);
 
-  const { userId, profileImg, nickname } = useContext(AuthContext);
+  const { userId } = useContext(AuthContext);
   const initialReview = {
     review: '',
     dateCreated: new Date(),
-    userId,
-    profileImg,
-    nickname
+    userId
   };
   const [newReview, setNewReview] = useState<Review>(initialReview);
   const [starsKey, setStarsKey] = useState(Math.random());
@@ -95,32 +96,55 @@ interface ReviewListProps {
 
 function ReviewList(props: ReviewListProps) {
   const { review } = props;
+  const [profile, setProfile] = useState({ profileImg: '', nickname: '', name: '' });
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function fetchProfile() {
+    const profile = await getProfileByUserId({ id: review?.userId });
+    setProfile(profile);
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    fetchProfile();
+  }, [review?.userId]);
 
   return (
-    <div className={styles.reviewList}>
-      <div className={styles.reviewBio}>
-        <Bio imgSrc={review?.profileImg || BlankProfile} title={review?.nickname ?? ''} />
-      </div>
-      <div className={styles.reviewListContent}>
-        <div className={styles.reviewListHeader}>
-          {review.rating && (
-            <ReactStars
-              count={5}
-              edit={false}
-              value={review.rating}
-              size={20}
-              emptyIcon={<StarEmpty />}
-              fullIcon={<StarFilled />}
-              activeColor="#563624"
-              color="#d0d0d0"
-            />
-          )}
-          <p className={styles.reviewDate}>{format(new Date(review.dateCreated), 'yyyy.MM.d')}</p>
+    <LoadingIndicator isLoading={isLoading}>
+      <div className={styles.reviewList}>
+        <div className={styles.reviewBio}>
+          <Bio
+            imgSrc={profile?.profileImg || BlankProfile}
+            title={profile?.nickname ?? profile.name}
+          />
         </div>
-        <p className={styles.reviewText}>{review.review}</p>
-        {review.img && <img src={review.img} alt={review.img} />}
+        <div className={styles.reviewListContent}>
+          <div className={styles.reviewListHeader}>
+            {review.rating && (
+              <ReactStars
+                count={5}
+                edit={false}
+                value={review.rating}
+                size={20}
+                emptyIcon={<StarEmpty />}
+                fullIcon={<StarFilled />}
+                activeColor="#563624"
+                color="#d0d0d0"
+              />
+            )}
+            <p className={styles.reviewDate}>{format(new Date(review.dateCreated), 'yyyy.MM.d')}</p>
+          </div>
+          <p className={styles.reviewText}>{review.review}</p>
+          {review.img && review.img.length > 0 && (
+            <div>
+              {review.img?.map((img, i) => (
+                <img key={i} src={img} alt={img} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </LoadingIndicator>
   );
 }
 
@@ -134,51 +158,52 @@ interface ReviewFieldProps {
 function ReviewField(props: ReviewFieldProps) {
   const { newReview, setNewReview, onSubmit, starsKey } = props;
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target?.files)
-      setNewReview({ ...newReview, img: URL.createObjectURL(e.target?.files[0]) });
+  const handleFileChange = (urlLists: string[]) => {
+    if (urlLists.length > 0) setNewReview({ ...newReview, img: urlLists });
   };
 
   return (
     <div className={styles.reviewField}>
+      <ReactStars
+        key={starsKey}
+        count={5}
+        onChange={(newRating: number) => {
+          setNewReview({ ...newReview, rating: newRating });
+        }}
+        value={0}
+        size={20}
+        s
+        emptyIcon={<StarEmpty />}
+        fullIcon={<StarFilled />}
+        activeColor="#563624"
+        color="#d0d0d0"
+      />
+
       <div className={styles.reviewFieldContent}>
-        <ImageUploader
-          imgSrc={newReview.img || ''}
-          handleFileChange={handleFileChange}
-          className={styles.reviewImageUploader}
-          isRecipe
-        />
-        <ReactStars
-          key={starsKey}
-          count={5}
-          onChange={(newRating: number) => {
-            setNewReview({ ...newReview, rating: newRating });
-          }}
-          value={0}
-          size={20}
-          emptyIcon={<StarEmpty />}
-          fullIcon={<StarFilled />}
-          activeColor="#563624"
-          color="#d0d0d0"
-        />
+        <div className={styles.reviewFieldText}>
+          <textarea
+            placeholder="리뷰를 작성해주세요."
+            rows={6}
+            value={newReview?.review}
+            onChange={(e) => {
+              setNewReview({ ...newReview, review: e.target.value });
+            }}
+          />
+        </div>
+        <Button
+          variant="outlined"
+          onClick={onSubmit}
+          className={styles.reviewButton}
+          disabled={newReview?.review === ''}>
+          등록
+        </Button>
       </div>
-      <div className={styles.reviewFieldText}>
-        <textarea
-          placeholder="리뷰를 작성해주세요."
-          rows={6}
-          value={newReview?.review}
-          onChange={(e) => {
-            setNewReview({ ...newReview, review: e.target.value });
-          }}
-        />
-      </div>
-      <Button
-        variant="outlined"
-        onClick={onSubmit}
-        className={styles.reviewButton}
-        disabled={newReview?.review === ''}>
-        등록
-      </Button>
+      <ImageUploader
+        handleFileChange={handleFileChange}
+        className={styles.reviewImageUploader}
+        isRecipe
+        multiple
+      />
     </div>
   );
 }

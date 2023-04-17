@@ -7,17 +7,13 @@ export type AuthContextContent = {
   getLoggedIn: () => void;
   email: string;
   userId: string;
-  profileImg: string;
-  nickname: string;
 };
 
 const AuthContext = createContext<AuthContextContent>({
   loggedIn: false,
   getLoggedIn: () => undefined,
   email: '',
-  userId: '',
-  profileImg: '',
-  nickname: ''
+  userId: ''
 });
 
 interface AuthContextProps {
@@ -29,8 +25,6 @@ function AuthContextProvider(props: AuthContextProps) {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
-  const [profileImg, setProfileImg] = useState<string>('');
-  const [nickname, setNickname] = useState<string>('');
 
   async function getLoggedIn() {
     const loggedInRes = await loggedInReq();
@@ -38,8 +32,6 @@ function AuthContextProvider(props: AuthContextProps) {
       const profile = await getProfile();
       setEmail(profile?.email || '');
       setUserId(profile?.userId || '');
-      setProfileImg(profile?.profileImg || '');
-      setNickname(profile?.nickname || '');
     }
     setLoggedIn(loggedInRes || false);
   }
@@ -49,7 +41,7 @@ function AuthContextProvider(props: AuthContextProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loggedIn, getLoggedIn, email, userId, profileImg, nickname }}>
+    <AuthContext.Provider value={{ loggedIn, getLoggedIn, email, userId }}>
       {children}
     </AuthContext.Provider>
   );

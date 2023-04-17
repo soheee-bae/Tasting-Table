@@ -92,12 +92,12 @@ export const StepItem = (props: StepItemProps) => {
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
       </div>
-      <ImageUploader
+      {/* <ImageUploader
         imgSrc={step.img}
         handleFileChange={handleFileChange}
         className={styles.stepImg}
         isRecipe
-      />
+      /> */}
       <textarea
         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."
         value={step.details}

@@ -20,12 +20,10 @@ export interface Step {
 
 export interface Review {
   rating?: number;
-  img?: string;
+  img?: string[];
   review: string;
   dateCreated: Date;
   userId: string;
-  profileImg: string;
-  nickname: string;
 }
 
 export interface Recipe {

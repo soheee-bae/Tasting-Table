@@ -22,12 +22,12 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
   return (
     <div className={styles.recipeGeneral}>
       <div className={styles.recipeImage}>
-        <ImageUploader
+        {/* <ImageUploader
           imgSrc={recipe.img || ''}
           handleFileChange={handleFileChange}
           className={styles.recipeImageUploader}
           isRecipe
-        />
+        /> */}
       </div>
       <label className={styles.inputField}>
         레시피 제목
