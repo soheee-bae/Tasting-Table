@@ -25,6 +25,7 @@ interface RecipeDetailGeneralProps {
 export default function RecipeDetailGeneral(props: RecipeDetailGeneralProps) {
   const { recipe, profile, bookmark } = props;
   if (!recipe) return null;
+
   return (
     <div className={styles.recipeDetailGeneral}>
       <GeneralHeader recipe={recipe} />

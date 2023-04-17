@@ -1,7 +1,7 @@
 import { ChangeEventHandler, ChangeEvent } from 'react';
 import styles from './recipeFormGeneral.module.scss';
 
-import ImageUploader from 'components/ImageUploader/imageUploader';
+import ImageUploader from 'components/ImageUploaderMulti/imageUploaderMulti';
 import { CategoryProps } from 'apis/category';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';

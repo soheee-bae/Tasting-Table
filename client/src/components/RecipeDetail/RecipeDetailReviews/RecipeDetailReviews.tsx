@@ -1,9 +1,10 @@
-import React, { useContext, MouseEvent, useState, ChangeEvent, useEffect } from 'react';
+import React, { useContext, MouseEvent, useState, useEffect } from 'react';
 import { format } from 'date-fns';
 
 import styles from './RecipeDetailReviews.module.scss';
 import AuthContext from 'contexts/authContext';
 import { Recipe, Review, editRecipe, getRecipeById } from 'apis/recipe';
+import { ProfileProps, getProfileByUserId } from 'apis/profile';
 import { Success, Error, StarEmpty, StarFilled } from 'icons/index';
 import BlankProfile from 'image/blankProfile.png';
 
@@ -12,19 +13,18 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
-import ImageUploader from 'components/ImageUploader/imageUploader';
 import Button from 'components/Button/button';
 import Bio from 'components/Bio/bio';
-import { getProfileByUserId } from 'apis/profile';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
-import { blob } from 'node:stream/consumers';
+import ImageUploaderMulti from 'components/ImageUploaderMulti/imageUploaderMulti';
 
 interface RecipeDetailReviewsProps {
   recipe: Recipe;
+  profile: ProfileProps;
 }
 
 export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
-  const { recipe } = props;
+  const { recipe, profile } = props;
 
   const [prevReview, setPrevReview] = useState<Review[]>([]);
 
@@ -84,6 +84,7 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
         setNewReview={setNewReview}
         onSubmit={onSubmit}
         starsKey={starsKey}
+        profile={profile}
       />
       <ToastSnackbar />
     </div>
@@ -136,7 +137,7 @@ function ReviewList(props: ReviewListProps) {
           </div>
           <p className={styles.reviewText}>{review.review}</p>
           {review.img && review.img.length > 0 && (
-            <div>
+            <div className={styles.reviewImg}>
               {review.img?.map((img, i) => (
                 <img key={i} src={img} alt={img} />
               ))}
@@ -153,10 +154,11 @@ interface ReviewFieldProps {
   setNewReview: (review: Review) => void;
   onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
   starsKey: number;
+  profile: ProfileProps;
 }
 
 function ReviewField(props: ReviewFieldProps) {
-  const { newReview, setNewReview, onSubmit, starsKey } = props;
+  const { newReview, setNewReview, onSubmit, starsKey, profile } = props;
 
   const handleFileChange = (urlLists: string[]) => {
     if (urlLists.length > 0) setNewReview({ ...newReview, img: urlLists });
@@ -164,21 +166,26 @@ function ReviewField(props: ReviewFieldProps) {
 
   return (
     <div className={styles.reviewField}>
-      <ReactStars
-        key={starsKey}
-        count={5}
-        onChange={(newRating: number) => {
-          setNewReview({ ...newReview, rating: newRating });
-        }}
-        value={0}
-        size={20}
-        s
-        emptyIcon={<StarEmpty />}
-        fullIcon={<StarFilled />}
-        activeColor="#563624"
-        color="#d0d0d0"
-      />
-
+      <div className={styles.reviewFieldHeader}>
+        <Bio
+          imgSrc={profile?.profileImg || BlankProfile}
+          title={profile?.nickname || profile?.name || ''}
+        />
+        <ReactStars
+          key={starsKey}
+          count={5}
+          onChange={(newRating: number) => {
+            setNewReview({ ...newReview, rating: newRating });
+          }}
+          value={0}
+          size={20}
+          s
+          emptyIcon={<StarEmpty />}
+          fullIcon={<StarFilled />}
+          activeColor="#563624"
+          color="#d0d0d0"
+        />
+      </div>
       <div className={styles.reviewFieldContent}>
         <div className={styles.reviewFieldText}>
           <textarea
@@ -198,12 +205,7 @@ function ReviewField(props: ReviewFieldProps) {
           등록
         </Button>
       </div>
-      <ImageUploader
-        handleFileChange={handleFileChange}
-        className={styles.reviewImageUploader}
-        isRecipe
-        multiple
-      />
+      <ImageUploaderMulti handleFileChange={handleFileChange} />
     </div>
   );
 }

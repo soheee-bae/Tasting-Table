@@ -1,0 +1,95 @@
+.imageUploader {
+  position: relative;
+  height: 100px;
+  width: 100px;
+}
+
+.imageButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.imageButton {
+  aspect-ratio: 1/1;
+  height: 100px;
+  cursor: pointer;
+  background-color: var(--white100);
+  border: 1px solid var(--gray400);
+  border-radius: 5px;
+  &:hover {
+    background-color: var(--white200);
+  }
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  &[data-disabled='true'] {
+    pointer-events: none;
+    background-color: var(--white200);
+    opacity: 0.6;
+  }
+}
+
+.imageLists {
+  display: flex;
+  flex-direction: row;
+}
+
+.imageList {
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  &[data-round='true'] {
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+
+.reviewImgCover {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  &:hover {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+  }
+}
+
+.editableReviewImg {
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  cursor: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    svg {
+      border: 1px solid transparent;
+      padding: 5px;
+      color: var(--whiteColor100);
+      height: 25px;
+      width: 25px;
+      opacity: 0.8;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.2);
+        transition: all 0.2s;
+        border-radius: 2px;
+        opacity: 1;
+      }
+    }
+  }
+  svg {
+    opacity: 0;
+  }
+}

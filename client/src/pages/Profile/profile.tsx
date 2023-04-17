@@ -1,11 +1,11 @@
-import React, { ChangeEvent, MouseEvent, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { MouseEvent, ReactNode, useContext, useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 
 import Button from 'components/Button/button';
 import Titles from 'components/Titles/title';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import Subtitle from 'components/Subtitles/subtitle';
-import ImageUploader from 'components/ImageUploader/imageUploader';
+import ImageUploaderSingle from 'components/ImageUploaderSingle/imageUploaderSingle';
 
 import { Error, Success } from 'icons/index';
 import { editProfile, getProfile } from 'apis/profile';
@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
-  const { email } = useContext(AuthContext);
+  const { email, setProfileImage } = useContext(AuthContext);
 
   const [profileImg, setProfileImg] = useState('');
   const [nickname, setNickname] = useState('');
@@ -35,14 +35,14 @@ export default function Profile() {
     });
     if (res.status === 200) {
       toast(<Toast icon={<Success />} title="프로필이 수정되었습니다." />);
+      setProfileImage(profileImg);
     } else {
       toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
   };
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (e.target.files) setProfileImg(URL.createObjectURL(e.target?.files[0]));
+  const handleFileChange = (urlLists: string[]) => {
+    if (urlLists.length > 0) setProfileImg(urlLists[0]);
   };
 
   async function fetchProfile() {
@@ -64,7 +64,7 @@ export default function Profile() {
         <Titles title="EDIT PROFILE" subTitle="회원정보 수정" />
         <form className={styles.profileForm}>
           <ProfileContent subtitle="프로필">
-            {/* <ImageUploader imgSrc={profileImg} handleFileChange={handleFileChange} round /> */}
+            <ImageUploaderSingle handleFileChange={handleFileChange} imgSrc={profileImg} />
             <label className={styles.inputField}>
               닉네임
               <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />

@@ -3,7 +3,7 @@ import styles from './recipeFormStep.module.scss';
 
 import Button from 'components/Button/button';
 import Subtitle from 'components/Subtitles/subtitle';
-import ImageUploader from 'components/ImageUploader/imageUploader';
+import ImageUploader from 'components/ImageUploaderMulti/imageUploaderMulti';
 
 import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
 import { getUnusedId } from 'helpers/getUnusedId';

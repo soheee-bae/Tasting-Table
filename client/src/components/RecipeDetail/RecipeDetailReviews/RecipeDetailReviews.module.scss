@@ -34,6 +34,15 @@
   min-width: 120px;
 }
 
+.reviewFieldHeader {
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
 .reviewListContent {
   font-family: var(--nanum-gothic);
   display: flex;
@@ -72,10 +81,15 @@
   gap: 10px;
   font-family: var(--nanum-gothic);
 }
-
-.reviewImageUploader {
-  // aspect-ratio: 1/1;
-  // height: 95px;
+.reviewImg {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  img {
+    object-fit: cover;
+    height: 150px;
+    width: 150px;
+  }
 }
 
 .reviewFieldContent {

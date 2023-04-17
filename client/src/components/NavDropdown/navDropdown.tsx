@@ -13,6 +13,7 @@ import Bio from 'components/Bio/bio';
 export default function NavDropdown() {
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
   const { getLoggedIn, email } = useContext(AuthContext);
 
   const [open, setOpen] = useState(false);

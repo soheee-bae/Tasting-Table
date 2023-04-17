@@ -28,12 +28,12 @@ export default function RecipeDetail(props: RecipeDetailProps) {
 
   async function fetchProfile() {
     const profile = await getProfileByUserId({ id: recipe?.userId });
+    setProfile(profile);
     const otherRecom = await getRecipesByUserId({ id: recipe?.userId });
+    const filteredOther = otherRecom?.filter((other) => other._id !== recipe._id);
+    setOtherRecom(filteredOther);
     const similarRecipe = await getRecipesByCategory({ id: recipe?.categoryType?.id || 0 });
     const filteredSimilar = similarRecipe?.filter((similar) => similar._id !== recipe._id);
-    const filteredOther = otherRecom?.filter((other) => other._id !== recipe._id);
-    setProfile(profile);
-    setOtherRecom(filteredOther);
     setSimilarRecipe(filteredSimilar);
   }
 
@@ -46,7 +46,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   useEffect(() => {
     fetchProfile();
     fetchMyBookmarks();
-  }, [recipe._id]);
+  }, [recipe?._id]);
 
   return (
     <div className={styles.recipeDetail}>
@@ -59,7 +59,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
         category={recipe?.categoryType?.name || ''}
         similarRecipe={similarRecipe}
       />
-      <RecipeDetailReviews recipe={recipe} />
+      <RecipeDetailReviews recipe={recipe} profile={profile} />
     </div>
   );
 }

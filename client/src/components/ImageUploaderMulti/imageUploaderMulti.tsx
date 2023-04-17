@@ -1,37 +1,30 @@
-import React, { ChangeEvent } from 'react';
-import BlankProfile from 'image/blankProfile.png';
-import AddImage from 'image/addImage.png';
+import React, { MouseEvent } from 'react';
+import clsx from 'clsx';
 import ImageUploading from 'react-images-uploading';
 
-import styles from './imageUploader.module.scss';
-import clsx from 'clsx';
+import styles from './imageUploaderMulti.module.scss';
 import { Plus, Edit, Trash } from 'icons/index';
 
-interface ImageUploaderProps {
+interface ImageUploaderMultiProps {
   handleFileChange: (urlLists: string[]) => void;
   className?: string;
-  round?: boolean;
-  isRecipe?: boolean;
-  multiple?: boolean;
 }
 
-export default function ImageUploader(props: ImageUploaderProps) {
-  const { handleFileChange, round, className, isRecipe, multiple } = props;
-  // const blank = isRecipe ? AddImage : BlankProfile;
+export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
+  const { handleFileChange, className } = props;
   const [images, setImages] = React.useState([]);
   const isMax = images.length === 3;
 
-  const onChange = (imageList, addUpdateIndex) => {
+  const onChange = (imageList, _addUpdateIndex) => {
     const urlLists = imageList.map((image) => image.data_url);
-
     setImages(imageList);
     handleFileChange(urlLists);
   };
 
   return (
-    <div className={clsx(styles.imageUploader, className)} data-round={round}>
+    <div className={clsx(styles.imageUploader, className)}>
       <ImageUploading
-        multiple={multiple}
+        multiple
         value={images}
         onChange={onChange}
         maxNumber={3}
@@ -40,7 +33,10 @@ export default function ImageUploader(props: ImageUploaderProps) {
           <div className={styles.imageButtons}>
             <button
               className={styles.imageButton}
-              onClick={onImageUpload}
+              onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                e.preventDefault();
+                onImageUpload();
+              }}
               data-disabled={isMax}
               {...dragProps}
               disabled={isMax}>
