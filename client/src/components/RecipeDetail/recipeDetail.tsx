@@ -13,6 +13,7 @@ import RecipeDetailOtherRecom from './RecipeDetailOtherRecom/recipeDetailOtherRe
 import RecipeDetailSimilarType from './RecipeDetailSimilarType/recipeDetailSimilarType';
 import RecipeDetailSteps from './RecipeDetailSteps/recipeDetailSteps';
 import RecipeDetailReviews from './RecipeDetailReviews/RecipeDetailReviews';
+import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -25,6 +26,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   const [otherRecom, setOtherRecom] = useState([]);
   const [similarRecipe, setSimilarRecipe] = useState([]);
   const [bookmark, setBookmark] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   async function fetchProfile() {
     const profile = await getProfileByUserId({ id: recipe?.userId });
@@ -46,20 +48,23 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   useEffect(() => {
     fetchProfile();
     fetchMyBookmarks();
+    setIsLoading(false);
   }, [recipe?._id]);
 
   return (
-    <div className={styles.recipeDetail}>
-      <img src={recipe?.img || food} alt="food" />
-      <RecipeDetailGeneral recipe={recipe} profile={profile} bookmark={bookmark} />
-      <RecipeDetailIngredients recipe={recipe} />
-      <RecipeDetailSteps recipe={recipe} />
-      <RecipeDetailOtherRecom otherRecom={otherRecom} />
-      <RecipeDetailSimilarType
-        category={recipe?.categoryType?.name || ''}
-        similarRecipe={similarRecipe}
-      />
-      <RecipeDetailReviews recipe={recipe} profile={profile} />
-    </div>
+    <LoadingIndicator isLoading={isLoading}>
+      <div className={styles.recipeDetail}>
+        <img src={recipe?.img || food} alt="food" className={styles.recipeImg} />
+        <RecipeDetailGeneral recipe={recipe} profile={profile} bookmark={bookmark} />
+        <RecipeDetailIngredients recipe={recipe} />
+        <RecipeDetailSteps recipe={recipe} />
+        <RecipeDetailOtherRecom otherRecom={otherRecom} />
+        <RecipeDetailSimilarType
+          category={recipe?.categoryType?.name || ''}
+          similarRecipe={similarRecipe}
+        />
+        <RecipeDetailReviews recipe={recipe} profile={profile} />
+      </div>
+    </LoadingIndicator>
   );
 }

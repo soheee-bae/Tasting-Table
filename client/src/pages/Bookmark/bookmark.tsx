@@ -14,6 +14,7 @@ import { Error, Success, Checked, UnChecked } from 'icons/index';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EmptyContent from 'components/EmptyContent/emptyContent';
 
 export default function Bookmark() {
   const { userId } = useContext(AuthContext);
@@ -58,7 +59,7 @@ export default function Bookmark() {
         </div>
         <LoadingIndicator isLoading={isLoading}>
           {bookmarks.length === 0 ? (
-            <div className={styles.emptyContent}>등록된 책갈피가 없습니다.</div>
+            <EmptyContent text="등록된 책갈피가 없습니다." />
           ) : (
             <RecipeItems
               recipe={bookmarks}

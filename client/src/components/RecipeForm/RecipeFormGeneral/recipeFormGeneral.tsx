@@ -1,10 +1,10 @@
-import { ChangeEventHandler, ChangeEvent } from 'react';
+import { ChangeEventHandler } from 'react';
 import styles from './recipeFormGeneral.module.scss';
 
-import ImageUploader from 'components/ImageUploaderMulti/imageUploaderMulti';
 import { CategoryProps } from 'apis/category';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
+import ImageUploaderSingle from 'components/ImageUploaderSingle/imageUploaderSingle';
 
 interface RecipeGeneralProps {
   categories: CategoryProps[];
@@ -15,19 +15,14 @@ interface RecipeGeneralProps {
 export default function RecipeGeneral(props: RecipeGeneralProps) {
   const { categories, recipe, updateField } = props;
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target?.files) updateField('img', URL.createObjectURL(e.target?.files[0]));
+  const handleFileChange = (urlLists: string[]) => {
+    if (urlLists) updateField('img', urlLists[0]);
   };
 
   return (
     <div className={styles.recipeGeneral}>
       <div className={styles.recipeImage}>
-        {/* <ImageUploader
-          imgSrc={recipe.img || ''}
-          handleFileChange={handleFileChange}
-          className={styles.recipeImageUploader}
-          isRecipe
-        /> */}
+        <ImageUploaderSingle handleFileChange={handleFileChange} />
       </div>
       <label className={styles.inputField}>
         레시피 제목

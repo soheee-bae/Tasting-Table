@@ -24,6 +24,7 @@
   img {
     aspect-ratio: 1/1;
     object-fit: cover;
+    width: 100%;
   }
 
   .stepDetail {
@@ -31,6 +32,7 @@
     font-family: var(--nanum-gothic);
     font-size: var(--text-sm);
     color: var(--gray600);
+    white-space: pre-line;
 
     .stepDetailTitle {
       border-bottom: 1px solid var(--gray200);

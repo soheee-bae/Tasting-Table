@@ -1,11 +1,12 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
+import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
+
 import styles from './recipeFormStep.module.scss';
 
 import Button from 'components/Button/button';
 import Subtitle from 'components/Subtitles/subtitle';
-import ImageUploader from 'components/ImageUploaderMulti/imageUploaderMulti';
+import ImageUploaderSingle from 'components/ImageUploaderSingle/imageUploaderSingle';
 
-import { Reorder, useMotionValue, useDragControls } from 'framer-motion';
 import { getUnusedId } from 'helpers/getUnusedId';
 import { Minus, Plus } from 'icons/index';
 import { ReorderIcon } from 'icons/reorder';
@@ -71,11 +72,11 @@ export const StepItem = (props: StepItemProps) => {
   const y = useMotionValue(0);
   const dragControls = useDragControls();
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (urlLists: string[]) => {
     const copied = [...steps];
     copied[index] = {
       ...step,
-      img: e.target?.files ? URL.createObjectURL(e.target?.files[0]) : ''
+      img: urlLists[0]
     };
     setSteps(copied);
   };
@@ -92,16 +93,11 @@ export const StepItem = (props: StepItemProps) => {
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
       </div>
-      {/* <ImageUploader
-        imgSrc={step.img}
-        handleFileChange={handleFileChange}
-        className={styles.stepImg}
-        isRecipe
-      /> */}
+      <ImageUploaderSingle handleFileChange={handleFileChange} />
       <textarea
         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."
         value={step.details}
-        rows={3}
+        rows={5}
         onChange={(e) => {
           const copied = [...steps];
           copied[index] = { ...step, details: e.target.value };

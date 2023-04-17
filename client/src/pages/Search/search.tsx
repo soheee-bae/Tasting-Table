@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './search.module.scss';
 
 import { Search as SearchIcon } from 'icons/index';
@@ -6,6 +6,7 @@ import Titles from 'components/Titles/title';
 import { Recipe, getAllRecipes } from 'apis/recipe';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 import RecipeItems from 'components/RecipeItems/recipeItems';
+import EmptyContent from 'components/EmptyContent/emptyContent';
 
 export default function Search() {
   const [search, setSearch] = useState('');
@@ -44,7 +45,7 @@ export default function Search() {
         <div className={styles.searchContent}>
           <LoadingIndicator isLoading={isLoading}>
             {filteredRecipes?.length === 0 ? (
-              <div className={styles.emptyContent}>찾으시는 레시피가 없습니다.</div>
+              <EmptyContent text="찾으시는 레시피가 없습니다." />
             ) : (
               <RecipeItems recipe={filteredRecipes || []} />
             )}

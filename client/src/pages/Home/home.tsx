@@ -10,6 +10,7 @@ import RecipeItems from 'components/RecipeItems/recipeItems';
 import Titles from 'components/Titles/title';
 import SortingFilter from 'components/SortingFilter/sortingFilter';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
+import EmptyContent from 'components/EmptyContent/emptyContent';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(0);
@@ -52,7 +53,7 @@ export default function Home() {
           />
           <LoadingIndicator isLoading={isLoading}>
             {filteredRecipes?.length === 0 ? (
-              <div className={styles.emptyContent}>등록된 레시피가 없습니다.</div>
+              <EmptyContent text="등록된 레시피가 없습니다." />
             ) : (
               <RecipeItems recipe={filteredRecipes || []} />
             )}

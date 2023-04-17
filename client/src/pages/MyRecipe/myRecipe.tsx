@@ -27,6 +27,7 @@ export default function MyRecipe() {
     const res = await deleteRecipe({ id });
     if (res?.status === 200) {
       toast(<Toast icon={<Success />} title="레시피가 삭제되었습니다." />);
+      fetchMyRecipe();
     } else {
       toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
@@ -49,7 +50,7 @@ export default function MyRecipe() {
 
   useEffect(() => {
     fetchMyRecipe();
-  }, [handleDelete]);
+  }, []);
 
   return (
     <div className={styles.myRecipe}>
@@ -61,13 +62,17 @@ export default function MyRecipe() {
           </Button>
         </div>
         <LoadingIndicator isLoading={isLoading}>
-          <RecipeItems
-            recipe={myRecipe}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            allowEdit={editMode}
-            noHoverEdit
-          />
+          {myRecipe?.length === 0 ? (
+            <div className={styles.emptyContent}>등록된 레시피가 없습니다.</div>
+          ) : (
+            <RecipeItems
+              recipe={myRecipe}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              allowEdit={editMode}
+              noHoverEdit
+            />
+          )}
         </LoadingIndicator>
       </div>
       <ToastSnackbar />
