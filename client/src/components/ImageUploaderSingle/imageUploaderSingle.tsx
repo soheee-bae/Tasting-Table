@@ -4,7 +4,6 @@ import ImageUploading from 'react-images-uploading';
 
 import styles from './imageUploaderSingle.module.scss';
 import { Plus, Edit, Trash } from 'icons/index';
-import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 
 interface ImageUploaderSingleProps {
   handleFileChange: (file: File[]) => void;
@@ -16,7 +15,6 @@ interface ImageUploaderSingleProps {
 export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
   const { handleFileChange, className, imgSrc, round } = props;
   const [image, setImage] = useState<any>([]);
-  const { dataURLtoBlob, blobToDataURL } = useConvertDataUrlBlob();
 
   const onChange = (imageList, _addUpdateIndex) => {
     const file = imageList.map((image) => image.file);
