@@ -23,7 +23,7 @@ export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
   };
 
   useEffect(() => {
-    setImage([{ data_url: imgSrc }]);
+    if (imgSrc) setImage([{ data_url: imgSrc }]);
   }, [imgSrc]);
 
   return (

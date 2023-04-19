@@ -3,7 +3,7 @@
 .editRecipe {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: calc(100vh - ($navbar-height + $footer-height));
 }
 

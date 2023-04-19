@@ -1,4 +1,4 @@
-export async function resize(file: any) {
+export async function resize(file: any, size: number) {
   const img = document.createElement('img');
   img.src = await new Promise<any>((resolve) => {
     const reader = new FileReader();
@@ -12,8 +12,8 @@ export async function resize(file: any) {
 
   ctx?.drawImage(img, 0, 0);
 
-  const MAX_WIDTH = 200;
-  const MAX_HEIGHT = 200;
+  const MAX_WIDTH = size;
+  const MAX_HEIGHT = size;
   let width = img.naturalWidth;
   let height = img.naturalHeight;
 

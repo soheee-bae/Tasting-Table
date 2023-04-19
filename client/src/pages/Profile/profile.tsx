@@ -45,10 +45,8 @@ export default function Profile() {
   };
 
   const handleFileChange = async (file: File[]) => {
-    const blob = await resize(file && file[0]);
-    console.log(blob);
+    const blob = await resize(file && file[0], 100);
     const dataUrl = await blobToDataURL(blob);
-    console.log(dataUrl);
 
     if (dataUrl.length > 0) setProfileImg(dataUrl);
   };

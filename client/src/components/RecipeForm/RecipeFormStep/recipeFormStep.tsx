@@ -11,6 +11,8 @@ import { getUnusedId } from 'helpers/getUnusedId';
 import { Minus, Plus } from 'icons/index';
 import { ReorderIcon } from 'icons/reorder';
 import { Step } from 'apis/recipe';
+import { resize } from 'hooks/useResizeImage';
+import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 
 interface RecipeStepProps {
   initialSteps: Step[];
@@ -71,15 +73,21 @@ export const StepItem = (props: StepItemProps) => {
   const { index, steps, step, setSteps } = props;
   const y = useMotionValue(0);
   const dragControls = useDragControls();
+  const { blobToDataURL } = useConvertDataUrlBlob();
 
-  const handleFileChange = (urlLists: string[]) => {
-    const copied = [...steps];
-    copied[index] = {
-      ...step,
-      img: urlLists[0]
-    };
-    setSteps(copied);
-  };
+  // const handleFileChange = async (file: File[]) => {
+  //   const blob = await resize(file && file[0], 300);
+  //   const dataUrl = await blobToDataURL(blob);
+
+  //   if (dataUrl.length > 0) {
+  //     const copied = [...steps];
+  //     copied[index] = {
+  //       ...step,
+  //       img: dataUrl
+  //     };
+  //     setSteps(copied);
+  //   }
+  // };
 
   return (
     <Reorder.Item
@@ -93,7 +101,7 @@ export const StepItem = (props: StepItemProps) => {
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
       </div>
-      {/* <ImageUploaderSingle handleFileChange={handleFileChange} /> */}
+      {/* <ImageUploaderSingle handleFileChange={handleFileChange} imgSrc={step.img} /> */}
       <textarea
         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."
         value={step.details}
