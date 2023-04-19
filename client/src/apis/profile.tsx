@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export interface ProfileProps {
-  profileImg?: Blob;
+  profileImg?: string;
   email?: string;
   name?: string;
   nickname?: string;

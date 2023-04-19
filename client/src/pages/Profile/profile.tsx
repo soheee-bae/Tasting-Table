@@ -13,16 +13,18 @@ import AuthContext from 'contexts/authContext';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 
 export default function Profile() {
   const { email, setProfileImage } = useContext(AuthContext);
 
-  const [profileImg, setProfileImg] = useState<Blob>(new Blob());
+  const [profileImg, setProfileImg] = useState('');
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [intro, setIntro] = useState('');
 
+  const { blobToDataURL } = useConvertDataUrlBlob();
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const res = await editProfile({
@@ -41,10 +43,10 @@ export default function Profile() {
     }
   };
 
-  const handleFileChange = (blobs: string[]) => {
-    console.log('handlefidnsaf');
-    console.log(blobs[0]);
-    if (blobs.length > 0) setProfileImg(blobs[0]);
+  const handleFileChange = async (file: File[]) => {
+    const blob = await resize(file && file[0]);
+    const dataUrl = await blobToDataURL(blob);
+    if (dataUrl.length > 0) setProfileImg(dataUrl);
   };
 
   async function fetchProfile() {
@@ -128,4 +130,44 @@ function ProfileContent(props: ProfileContentProps) {
       <div className={styles.innerContent}>{children}</div>
     </div>
   );
+}
+
+async function resize(file: any) {
+  const img = document.createElement('img');
+  img.src = await new Promise<any>((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e: any) => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  });
+
+  await new Promise((resolve) => (img.onload = resolve));
+  const canvas = document.createElement('canvas');
+  let ctx = canvas.getContext('2d');
+
+  ctx?.drawImage(img, 0, 0);
+
+  const MAX_WIDTH = 200;
+  const MAX_HEIGHT = 200;
+  let width = img.naturalWidth;
+  let height = img.naturalHeight;
+
+  if (width > height) {
+    if (width > MAX_WIDTH) {
+      height *= MAX_WIDTH / width;
+      width = MAX_WIDTH;
+    }
+  } else {
+    if (height > MAX_HEIGHT) {
+      width *= MAX_HEIGHT / height;
+      height = MAX_HEIGHT;
+    }
+  }
+  canvas.width = width;
+  canvas.height = height;
+  ctx = canvas.getContext('2d');
+  ctx?.drawImage(img, 0, 0, width, height);
+  const result = await new Promise((resolve) => {
+    canvas.toBlob(resolve, 'image/jpeg', 0.95);
+  });
+  return result;
 }

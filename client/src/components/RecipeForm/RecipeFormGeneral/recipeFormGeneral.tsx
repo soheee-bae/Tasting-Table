@@ -22,7 +22,7 @@ export default function RecipeGeneral(props: RecipeGeneralProps) {
   return (
     <div className={styles.recipeGeneral}>
       <div className={styles.recipeImage}>
-        <ImageUploaderSingle handleFileChange={handleFileChange} />
+        {/* <ImageUploaderSingle handleFileChange={handleFileChange} /> */}
       </div>
       <label className={styles.inputField}>
         레시피 제목

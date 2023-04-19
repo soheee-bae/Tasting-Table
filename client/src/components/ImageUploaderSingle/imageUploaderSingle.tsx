@@ -7,7 +7,7 @@ import { Plus, Edit, Trash } from 'icons/index';
 import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 
 interface ImageUploaderSingleProps {
-  handleFileChange: (urlLists: string[]) => void;
+  handleFileChange: (file: File[]) => void;
   className?: string;
   imgSrc?: string;
   round?: boolean;
@@ -19,23 +19,15 @@ export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
   const { dataURLtoBlob, blobToDataURL } = useConvertDataUrlBlob();
 
   const onChange = (imageList, _addUpdateIndex) => {
-    const blob = imageList.map((image) => dataURLtoBlob(image.data_url));
+    const file = imageList.map((image) => image.file);
     setImage(imageList);
-    handleFileChange(blob);
-  };
-
-  const convertBlobToUrl = async () => {
-    const dataUrl = await blobToDataURL(imgSrc);
-    setImage([{ data_url: dataUrl }]);
+    handleFileChange(file);
   };
 
   useEffect(() => {
-    if (imgSrc) {
-      convertBlobToUrl();
-    }
+    setImage([{ data_url: imgSrc }]);
   }, [imgSrc]);
 
-  console.log(image);
   return (
     <div className={clsx(styles.imageUploader, className)}>
       <ImageUploading value={image} onChange={onChange} maxNumber={3} dataURLKey="data_url">

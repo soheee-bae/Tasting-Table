@@ -16,7 +16,7 @@ export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
   const isMax = images.length === 3;
 
   const onChange = (imageList, _addUpdateIndex) => {
-    const urlLists = imageList.map((image) => image.data_url);
+    const urlLists = imageList.map((image) => image.file);
     setImages(imageList);
     handleFileChange(urlLists);
   };
