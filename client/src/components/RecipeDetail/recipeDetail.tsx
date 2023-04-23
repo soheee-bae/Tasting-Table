@@ -5,7 +5,6 @@ import styles from './recipeDetail.module.scss';
 import AuthContext from 'contexts/authContext';
 import { BookmarkProps, getBookmarksByUserId } from 'apis/bookmark';
 import { getProfileByUserId } from 'apis/profile';
-import food from 'image/food.png';
 
 import RecipeDetailGeneral from './RecipeDetailGeneral/recipeDetailGeneral';
 import RecipeDetailIngredients from './RecipeDetailIngredients/recipeDetailIngredients';
@@ -54,7 +53,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   return (
     <LoadingIndicator isLoading={isLoading}>
       <div className={styles.recipeDetail}>
-        <img src={recipe?.img || food} alt="food" className={styles.recipeImg} />
+        <img src={recipe?.img} alt="recipe" className={styles.recipeImg} />
         <RecipeDetailGeneral recipe={recipe} profile={profile} bookmark={bookmark} />
         <RecipeDetailIngredients recipe={recipe} />
         <RecipeDetailSteps recipe={recipe} />

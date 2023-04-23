@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import styles from './recipeForm.module.scss';
 
 import RecipeIngredients from 'components/RecipeForm/RecipeFormIngredients/recipeFormIngredients';
@@ -8,6 +8,7 @@ import Button from 'components/Button/button';
 
 import { Recipe } from 'apis/recipe';
 import { getCategories } from 'helpers/getCategories';
+import { LoadingIcon } from 'components/LoadingIndicator/loadingIndicator';
 
 interface RecipeStepProps {
   onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -19,8 +20,10 @@ interface RecipeStepProps {
 export default function RecipeForm(props: RecipeStepProps) {
   const { onSubmit, updateField, recipe, buttonLabel } = props;
   const categories = getCategories();
+  const [isLoading, setIsLoading] = useState(false);
 
   const disabled =
+    isLoading ||
     recipe.img === '' ||
     !recipe.name ||
     !recipe.description ||
@@ -34,16 +37,25 @@ export default function RecipeForm(props: RecipeStepProps) {
 
   return (
     <form className={styles.recipeForm}>
-      <RecipeGeneral categories={categories} updateField={updateField} recipe={recipe} />
+      <RecipeGeneral
+        categories={categories}
+        updateField={updateField}
+        recipe={recipe}
+        setIsLoading={setIsLoading}
+      />
       <RecipeIngredients updateField={updateField} initialIngredients={recipe.ingredients || []} />
-      <RecipeStep updateField={updateField} initialSteps={recipe.steps || []} />
+      <RecipeStep
+        updateField={updateField}
+        initialSteps={recipe.steps || []}
+        setIsLoading={setIsLoading}
+      />
       <Button
         size="md"
         onClick={onSubmit}
         variant="contained"
         className={styles.recipeButton}
         disabled={disabled}>
-        {buttonLabel}
+        {isLoading ? <LoadingIcon /> : buttonLabel}
       </Button>
     </form>
   );

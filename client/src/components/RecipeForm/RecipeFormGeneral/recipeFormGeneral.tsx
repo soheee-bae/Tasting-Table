@@ -11,15 +11,22 @@ interface RecipeGeneralProps {
   categories: CategoryProps[];
   recipe: Recipe;
   updateField: (name: string, data: any) => void;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export default function RecipeGeneral(props: RecipeGeneralProps) {
-  const { categories, recipe, updateField } = props;
+  const { categories, recipe, updateField, setIsLoading } = props;
 
   const handleFileChange = async (file: File[]) => {
     if (file.length > 0) {
+      setIsLoading(true);
       const imgUrl: any = await uploadImage(file[0]);
-      if (imgUrl) updateField('img', imgUrl.location);
+      if (imgUrl) {
+        updateField('img', imgUrl.location);
+        setIsLoading(false);
+      }
+    } else {
+      updateField('img', '');
     }
   };
 

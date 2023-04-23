@@ -19,12 +19,14 @@ import EmptyContent from 'components/EmptyContent/emptyContent';
 export default function Bookmark() {
   const { userId } = useContext(AuthContext);
 
+  const [bookmarkLists, setBookmarkLists] = useState<BookmarkProps[]>([]);
   const [bookmarks, setBookmarks] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
 
   async function fetchMyBookmarks() {
     const bookmarks = await getBookmarksByUserId({ id: userId });
+    setBookmarkLists(bookmarks);
     const recipes = bookmarks.map((recipe: BookmarkProps) => recipe.recipe);
     setBookmarks(recipes);
     setIsLoading(false);
@@ -32,11 +34,18 @@ export default function Bookmark() {
 
   async function handleDelete(e: MouseEvent<HTMLDivElement>, id: string) {
     e.preventDefault();
-    const res = await deleteBookmark({ id });
-    if (res?.status === 200) {
-      toast(<Toast icon={<Success />} title="레시피가 삭제되었습니다." />);
-    } else {
-      toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
+    const bookmark = bookmarkLists.find((marks: BookmarkProps) => marks?.recipe?._id === id);
+    const bookmarkId = bookmark?._id || '';
+    if (bookmarkId) {
+      const res = await deleteBookmark({ id: bookmarkId });
+      if (res?.status === 200) {
+        toast(<Toast icon={<Success />} title="레시피가 삭제되었습니다." />);
+        fetchMyBookmarks();
+      } else {
+        toast(
+          <Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />
+        );
+      }
     }
   }
 

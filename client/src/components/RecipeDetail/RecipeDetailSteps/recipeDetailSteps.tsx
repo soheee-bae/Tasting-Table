@@ -1,7 +1,6 @@
 import { Recipe } from 'apis/recipe';
 import React from 'react';
 
-import food from 'image/food.png';
 import styles from './recipeDetailSteps.module.scss';
 
 interface RecipeDetailStepsProps {
@@ -16,7 +15,10 @@ export default function RecipeDetailSteps(props: RecipeDetailStepsProps) {
       <ul className={styles.recipeStepLists}>
         {recipe?.steps?.map((step, index) => (
           <li key={step.details} className={styles.recipeStepList}>
-            <img src={step.img || food} alt={step.details} />
+            <img
+              src={step.img || 'https://tastingtable.s3.amazonaws.com/noImage.jpeg'}
+              alt={step.details}
+            />
             <div className={styles.stepDetail}>
               <p className={styles.stepDetailTitle}>Step {index + 1}</p>
               <p>{step.details}</p>

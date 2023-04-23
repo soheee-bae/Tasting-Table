@@ -13,7 +13,7 @@ export default function Bio(props: BioProps) {
 
   return (
     <div className={clsx(styles.bio, className)}>
-      <img src={imgSrc ?? 'https://tastingtable.s3.amazonaws.com/blankProfile.png'} alt="profile" />
+      <img src={imgSrc || 'https://tastingtable.s3.amazonaws.com/blankProfile.png'} alt="profile" />
       <div className={styles.bioContent}>
         <p className={styles.bioTitle}>{title}</p>
         {subtitle && <p className={styles.bioSubtitle}>{subtitle}</p>}

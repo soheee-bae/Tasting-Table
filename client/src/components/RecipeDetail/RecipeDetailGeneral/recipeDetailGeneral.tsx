@@ -120,7 +120,7 @@ function GeneralDescription(props: RecipeDetailGeneralProps) {
     <div className={styles.generalDescription}>
       <Bio
         imgSrc={profile?.profileImg ?? ''}
-        title={profile?.nickname ?? ''}
+        title={(profile?.nickname || profile?.email) ?? ''}
         subtitle={profile?.intro ?? ''}
         className={styles.generalBio}
       />

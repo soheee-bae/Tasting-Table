@@ -14,6 +14,7 @@ import AuthContext from 'contexts/authContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { uploadImage } from 'helpers/uploadImage';
+import { LoadingIcon } from 'components/LoadingIndicator/loadingIndicator';
 
 export default function Profile() {
   const { email, setProfileImage } = useContext(AuthContext);
@@ -24,11 +25,13 @@ export default function Profile() {
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [intro, setIntro] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     let imgUrl;
     if (selectedFile) {
+      setIsLoading(true);
       imgUrl = await uploadImage(selectedFile);
     }
     const res = await editProfile({
@@ -45,6 +48,7 @@ export default function Profile() {
     } else {
       toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
+    setIsLoading(false);
   };
 
   const handleFileChange = async (file: File[]) => {
@@ -113,7 +117,7 @@ export default function Profile() {
             onClick={handleSubmit}
             variant="contained"
             className={styles.profileButton}>
-            회원정보 수정
+            {isLoading ? <LoadingIcon /> : '회원정보 수정'}
           </Button>
         </form>
       </div>

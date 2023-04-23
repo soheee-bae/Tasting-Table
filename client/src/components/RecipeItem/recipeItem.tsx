@@ -2,7 +2,6 @@ import React, { MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './recipeItem.module.scss';
 
-import food from 'image/food.png';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
 import { Edit, Hourglass, Level, Trash } from 'icons/index';
@@ -31,7 +30,7 @@ export default function RecipeItem(props: RecipeItemProps) {
         !allowEdit && navigate(`/recipe/${_id}`);
       }}>
       <div className={styles.recipeItemImage}>
-        <img src={img || food} alt={name} />
+        <img src={img} alt={name} />
         <div className={styles.recipeImgCover}>
           {allowEdit && (
             <div className={styles.editableRecipeItem} data-edit={noHoverEdit}>

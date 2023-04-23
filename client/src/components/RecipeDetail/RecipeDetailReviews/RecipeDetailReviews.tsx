@@ -75,7 +75,7 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
       <p className={styles.recipeTitle}>리뷰</p>
       <div className={styles.reviewLists}>
         {prevReview?.map((review, i) => (
-          <ReviewList key={i} review={review} />
+          <ReviewList key={i} review={review} index={i} />
         ))}
       </div>
       <ReviewField
@@ -92,11 +92,12 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
 
 interface ReviewListProps {
   review: Review;
+  index: number;
 }
 
 function ReviewList(props: ReviewListProps) {
-  const { review } = props;
-  const [profile, setProfile] = useState({ profileImg: '', nickname: '', name: '' });
+  const { review, index } = props;
+  const [profile, setProfile] = useState({ profileImg: '', nickname: '', name: '', email: '' });
   const [isLoading, setIsLoading] = useState(true);
 
   async function fetchProfile() {
@@ -111,24 +112,26 @@ function ReviewList(props: ReviewListProps) {
 
   return (
     <LoadingIndicator isLoading={isLoading}>
-      <div className={styles.reviewList}>
-        <div className={styles.reviewBio}>
-          <Bio imgSrc={profile?.profileImg ?? ''} title={profile?.nickname ?? profile.name} />
+      <div className={styles.reviewList} data-first={index === 0}>
+        <div>
+          <Bio
+            imgSrc={profile?.profileImg ?? ''}
+            title={(profile?.nickname || profile?.email) ?? profile.name}
+          />
         </div>
         <div className={styles.reviewListContent}>
           <div className={styles.reviewListHeader}>
-            {review.rating && (
-              <ReactStars
-                count={5}
-                edit={false}
-                value={review.rating}
-                size={20}
-                emptyIcon={<StarEmpty />}
-                fullIcon={<StarFilled />}
-                activeColor="#563624"
-                color="#d0d0d0"
-              />
-            )}
+            <ReactStars
+              count={5}
+              edit={false}
+              value={review.rating}
+              size={20}
+              emptyIcon={<StarEmpty />}
+              fullIcon={<StarFilled />}
+              activeColor="#563624"
+              color="#d0d0d0"
+            />
+
             <p className={styles.reviewDate}>{format(new Date(review.dateCreated), 'yyyy.MM.d')}</p>
           </div>
           <p className={styles.reviewText}>{review.review}</p>
@@ -159,11 +162,11 @@ function ReviewField(props: ReviewFieldProps) {
   const handleFileChange = (urlLists: string[]) => {
     if (urlLists.length > 0) setNewReview({ ...newReview, img: urlLists });
   };
-
+  const disabled = !newReview.rating;
   return (
     <div className={styles.reviewField}>
       <div className={styles.reviewFieldHeader}>
-        <Bio imgSrc={profile?.profileImg ?? ''} title={profile?.nickname || profile?.name || ''} />
+        <Bio imgSrc={profile?.profileImg ?? ''} title={profile?.nickname || profile?.email || ''} />
         <ReactStars
           key={starsKey}
           count={5}
@@ -172,7 +175,6 @@ function ReviewField(props: ReviewFieldProps) {
           }}
           value={0}
           size={20}
-          s
           emptyIcon={<StarEmpty />}
           fullIcon={<StarFilled />}
           activeColor="#563624"
@@ -194,7 +196,7 @@ function ReviewField(props: ReviewFieldProps) {
           variant="outlined"
           onClick={onSubmit}
           className={styles.reviewButton}
-          disabled={newReview?.review === ''}>
+          disabled={disabled}>
           등록
         </Button>
       </div>

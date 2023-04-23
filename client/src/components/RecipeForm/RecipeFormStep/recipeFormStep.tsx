@@ -11,16 +11,16 @@ import { getUnusedId } from 'helpers/getUnusedId';
 import { Minus, Plus } from 'icons/index';
 import { ReorderIcon } from 'icons/reorder';
 import { Step } from 'apis/recipe';
-import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 import { uploadImage } from 'helpers/uploadImage';
 
 interface RecipeStepProps {
   initialSteps: Step[];
   updateField: (name: string, data: any) => void;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export default function RecipeStep(props: RecipeStepProps) {
-  const { initialSteps, updateField } = props;
+  const { initialSteps, updateField, setIsLoading } = props;
   const [steps, setSteps] = useState(initialSteps);
   const stepIds = steps.map((step) => step.id);
 
@@ -44,7 +44,14 @@ export default function RecipeStep(props: RecipeStepProps) {
           }}
           values={steps}>
           {steps.map((step: Step, index: number) => (
-            <StepItem key={step.id} index={index} steps={steps} step={step} setSteps={setSteps} />
+            <StepItem
+              key={step.id}
+              index={index}
+              steps={steps}
+              step={step}
+              setSteps={setSteps}
+              setIsLoading={setIsLoading}
+            />
           ))}
         </Reorder.Group>
         <Button
@@ -67,24 +74,34 @@ interface StepItemProps {
   steps: Step[];
   step: Step;
   setSteps: (step: Step[]) => void;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export const StepItem = (props: StepItemProps) => {
-  const { index, steps, step, setSteps } = props;
+  const { index, steps, step, setSteps, setIsLoading } = props;
   const y = useMotionValue(0);
   const dragControls = useDragControls();
 
   const handleFileChange = async (file: File[]) => {
+    const copied = [...steps];
+
     if (file.length > 0) {
+      setIsLoading(true);
       const imgUrl: any = await uploadImage(file[0]);
       if (imgUrl) {
-        const copied = [...steps];
         copied[index] = {
           ...step,
           img: imgUrl.location
         };
+        setIsLoading(false);
         setSteps(copied);
       }
+    } else {
+      copied[index] = {
+        ...step,
+        img: ''
+      };
+      setSteps(copied);
     }
   };
   return (

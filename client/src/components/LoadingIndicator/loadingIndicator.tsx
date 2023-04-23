@@ -17,7 +17,7 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
   );
 }
 
-function LoadingIcon(props: Omit<LoadingIndicatorProps, 'isLoading' | 'children'>) {
+export function LoadingIcon(props: Omit<LoadingIndicatorProps, 'isLoading' | 'children'>) {
   const { className } = props;
   return (
     <div className={clsx(styles.ldsRing, className)}>
