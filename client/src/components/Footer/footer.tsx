@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './footer.module.scss';
-import { Linkedin, Email, Github } from 'icons/index';
+import { Linkedin, Email, Github, Blog } from 'icons/index';
 
 export default function Footer() {
   return (
@@ -14,6 +14,9 @@ export default function Footer() {
         </a>
         <a target="_blank" rel="noreferrer" href="https://github.com/soheee-bae">
           <Github />
+        </a>
+        <a target="_blank" rel="noreferrer" href="https://soheee-bae.github.io/">
+          <Blog />
         </a>
       </div>
       <p>&#169; 2023 SoHeeBae. All rights reserved. </p>

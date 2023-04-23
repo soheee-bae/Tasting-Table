@@ -18,3 +18,4 @@ export { ReactComponent as Checked } from './checked.svg';
 export { ReactComponent as UnChecked } from './unchecked.svg';
 export { ReactComponent as StarFilled } from './starFilled.svg';
 export { ReactComponent as StarEmpty } from './starEmpty.svg';
+export { ReactComponent as Blog } from './blog.svg';
