@@ -28,6 +28,14 @@ export default function Search() {
     (recipe: Recipe) => recipe?.name?.includes(search) || search === ''
   );
 
+  const typewatch = (function () {
+    let timer;
+    return function (callback, ms) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
   return (
     <div className={styles.search}>
       <div className={styles.searchContainer}>
@@ -36,9 +44,10 @@ export default function Search() {
           <SearchIcon />
           <input
             type="text"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
+            onKeyUp={(e: any) => {
+              typewatch(() => {
+                setSearch(e.target.value);
+              }, 500);
             }}
           />
         </div>
