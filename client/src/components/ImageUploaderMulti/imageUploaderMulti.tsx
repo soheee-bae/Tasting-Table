@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useEffect } from 'react';
 import clsx from 'clsx';
 import ImageUploading from 'react-images-uploading';
 
@@ -6,12 +6,13 @@ import styles from './imageUploaderMulti.module.scss';
 import { Plus, Edit, Trash } from 'icons/index';
 
 interface ImageUploaderMultiProps {
-  handleFileChange: (urlLists: string[]) => void;
+  handleFileChange: (file: File[]) => void;
+  selectedFiles: File[];
   className?: string;
 }
 
 export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
-  const { handleFileChange, className } = props;
+  const { handleFileChange, selectedFiles, className } = props;
   const [images, setImages] = React.useState([]);
   const isMax = images.length === 3;
 
@@ -20,6 +21,12 @@ export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
     setImages(imageList);
     handleFileChange(urlLists);
   };
+
+  useEffect(() => {
+    if (selectedFiles.length === 0) {
+      setImages([]);
+    }
+  }, [selectedFiles]);
 
   return (
     <div className={clsx(styles.imageUploader, className)}>

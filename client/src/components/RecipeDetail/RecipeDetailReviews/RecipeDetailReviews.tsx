@@ -14,8 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
 import Button from 'components/Button/button';
 import Bio from 'components/Bio/bio';
-import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
+import LoadingIndicator, { LoadingIcon } from 'components/LoadingIndicator/loadingIndicator';
 import ImageUploaderMulti from 'components/ImageUploaderMulti/imageUploaderMulti';
+import { uploadImage } from 'helpers/uploadImage';
 
 interface RecipeDetailReviewsProps {
   recipe: Recipe;
@@ -43,13 +44,28 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
     userId
   };
   const [newReview, setNewReview] = useState<Review>(initialReview);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [starsKey, setStarsKey] = useState(Math.random());
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getImgUrl = async (files) => {
+    const urls: string[] = [];
+    for (const file of files) {
+      const url = await uploadImage(file);
+      urls.push(url.location);
+    }
+    return urls;
+  };
 
   async function onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    const reviews = [...(prevReview ?? []), newReview];
-
+    let imgUrl;
+    if (selectedFiles) {
+      setIsLoading(true);
+      imgUrl = await getImgUrl(selectedFiles);
+    }
     if (recipe._id) {
+      const reviews = [...(prevReview ?? []), { ...newReview, img: imgUrl ?? [] }];
       const res = await editRecipe({
         id: recipe?._id,
         data: {
@@ -61,6 +77,7 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
         toast(<Toast icon={<Success />} title="리뷰가 등록되었습니다." />);
         setNewReview(initialReview);
         setPrevReview(reviews);
+        setSelectedFiles([]);
         setStarsKey(Math.random());
       } else {
         toast(
@@ -68,6 +85,7 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
         );
       }
     }
+    setIsLoading(false);
   }
 
   return (
@@ -84,6 +102,9 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
         onSubmit={onSubmit}
         starsKey={starsKey}
         profile={profile}
+        selectedFiles={selectedFiles}
+        setSelectedFiles={setSelectedFiles}
+        isLoading={isLoading}
       />
       <ToastSnackbar />
     </div>
@@ -154,14 +175,27 @@ interface ReviewFieldProps {
   onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
   starsKey: number;
   profile: ProfileProps;
+  selectedFiles: File[];
+  setSelectedFiles: (files: File[]) => void;
+  isLoading: boolean;
 }
 
 function ReviewField(props: ReviewFieldProps) {
-  const { newReview, setNewReview, onSubmit, starsKey, profile } = props;
+  const {
+    newReview,
+    setNewReview,
+    onSubmit,
+    starsKey,
+    profile,
+    selectedFiles,
+    setSelectedFiles,
+    isLoading
+  } = props;
 
-  const handleFileChange = (urlLists: string[]) => {
-    if (urlLists.length > 0) setNewReview({ ...newReview, img: urlLists });
+  const handleFileChange = async (file: File[]) => {
+    setSelectedFiles(file);
   };
+
   const disabled = !newReview.rating;
   return (
     <div className={styles.reviewField}>
@@ -197,10 +231,10 @@ function ReviewField(props: ReviewFieldProps) {
           onClick={onSubmit}
           className={styles.reviewButton}
           disabled={disabled}>
-          등록
+          {isLoading ? <LoadingIcon /> : '등록'}
         </Button>
       </div>
-      <ImageUploaderMulti handleFileChange={handleFileChange} />
+      <ImageUploaderMulti handleFileChange={handleFileChange} selectedFiles={selectedFiles} />
     </div>
   );
 }
