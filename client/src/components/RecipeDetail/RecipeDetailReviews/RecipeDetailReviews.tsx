@@ -6,7 +6,6 @@ import AuthContext from 'contexts/authContext';
 import { Recipe, Review, editRecipe, getRecipeById } from 'apis/recipe';
 import { ProfileProps, getProfileByUserId } from 'apis/profile';
 import { Success, Error, StarEmpty, StarFilled } from 'icons/index';
-import BlankProfile from 'image/blankProfile.png';
 
 import ReactStars from 'react-rating-stars-component';
 import { toast } from 'react-toastify';
@@ -114,10 +113,7 @@ function ReviewList(props: ReviewListProps) {
     <LoadingIndicator isLoading={isLoading}>
       <div className={styles.reviewList}>
         <div className={styles.reviewBio}>
-          <Bio
-            imgSrc={profile?.profileImg || BlankProfile}
-            title={profile?.nickname ?? profile.name}
-          />
+          <Bio imgSrc={profile?.profileImg ?? ''} title={profile?.nickname ?? profile.name} />
         </div>
         <div className={styles.reviewListContent}>
           <div className={styles.reviewListHeader}>
@@ -167,10 +163,7 @@ function ReviewField(props: ReviewFieldProps) {
   return (
     <div className={styles.reviewField}>
       <div className={styles.reviewFieldHeader}>
-        <Bio
-          imgSrc={profile?.profileImg || BlankProfile}
-          title={profile?.nickname || profile?.name || ''}
-        />
+        <Bio imgSrc={profile?.profileImg ?? ''} title={profile?.nickname || profile?.name || ''} />
         <ReactStars
           key={starsKey}
           count={5}

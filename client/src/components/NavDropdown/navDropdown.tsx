@@ -1,11 +1,9 @@
 import React, { useRef, MouseEvent, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import styles from './navDropdown.module.scss';
+
 import AuthContext from 'contexts/authContext';
 import { User } from 'icons/index';
-import blankProfile from 'image/blankProfile.png';
-
 import { logout } from 'apis/auth';
 import { getProfile } from 'apis/profile';
 import Bio from 'components/Bio/bio';
@@ -34,7 +32,7 @@ export default function NavDropdown() {
 
   async function fetchProfile() {
     const profile = await getProfile();
-    setProfileImg(profile?.profileImg || {});
+    setProfileImg(profile?.profileImg);
   }
 
   useEffect(() => {
@@ -55,7 +53,7 @@ export default function NavDropdown() {
         <p>마이페이지</p>
       </li>
       <div className={styles.navDropdownContent} data-open={open}>
-        <Bio imgSrc={profileImg || blankProfile} title={email} className={styles.navDropdownBio} />
+        <Bio imgSrc={profileImg} title={email} className={styles.navDropdownBio} />
         <div className={styles.navDropdownLists}>
           <Link to="/myrecipe">내 레시피</Link>
           <Link to="/bookmark">책갈피한 레시피</Link>

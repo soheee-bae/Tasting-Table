@@ -27,9 +27,12 @@ export default function Profile() {
 
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const imgUrl: any = await uploadImage(selectedFile);
+    let imgUrl;
+    if (selectedFile) {
+      imgUrl = await uploadImage(selectedFile);
+    }
     const res = await editProfile({
-      profileImg: imgUrl.location,
+      profileImg: imgUrl?.location ?? profileImg,
       email,
       name,
       nickname,

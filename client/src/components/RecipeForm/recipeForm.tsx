@@ -20,12 +20,29 @@ export default function RecipeForm(props: RecipeStepProps) {
   const { onSubmit, updateField, recipe, buttonLabel } = props;
   const categories = getCategories();
 
+  const disabled =
+    recipe.img === '' ||
+    !recipe.name ||
+    !recipe.description ||
+    !recipe.amounts ||
+    !recipe.duration ||
+    (recipe.steps && (!recipe.steps[0]?.details || !recipe.steps[0]?.img)) ||
+    (recipe.ingredients &&
+      (!recipe.ingredients[0]?.name ||
+        !recipe.ingredients[0].ingredient[0]?.name ||
+        !recipe.ingredients[0].ingredient[0]?.mensuration));
+
   return (
     <form className={styles.recipeForm}>
       <RecipeGeneral categories={categories} updateField={updateField} recipe={recipe} />
       <RecipeIngredients updateField={updateField} initialIngredients={recipe.ingredients || []} />
       <RecipeStep updateField={updateField} initialSteps={recipe.steps || []} />
-      <Button size="md" onClick={onSubmit} variant="contained" className={styles.recipeButton}>
+      <Button
+        size="md"
+        onClick={onSubmit}
+        variant="contained"
+        className={styles.recipeButton}
+        disabled={disabled}>
         {buttonLabel}
       </Button>
     </form>

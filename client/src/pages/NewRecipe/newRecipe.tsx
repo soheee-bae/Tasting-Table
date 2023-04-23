@@ -7,7 +7,7 @@ import RecipeForm from 'components/RecipeForm/recipeForm';
 import Titles from 'components/Titles/title';
 
 import AuthContext from 'contexts/authContext';
-import { createRecipe } from 'apis/recipe';
+import { Recipe, createRecipe } from 'apis/recipe';
 import { Error, Success } from 'icons/index';
 
 import { toast } from 'react-toastify';
@@ -20,7 +20,9 @@ export default function NewRecipe() {
   const initialRecipe = {
     userId,
     img: '',
+    level: 1,
     steps: [{ id: 1, details: '', img: '' }],
+    categoryType: { id: 1, name: '메인요리' },
     ingredients: [
       {
         id: 1,
@@ -30,7 +32,7 @@ export default function NewRecipe() {
     ]
   };
 
-  const [recipe, setRecipe] = useState(initialRecipe);
+  const [recipe, setRecipe] = useState<Recipe>(initialRecipe);
 
   function updateField(name: string, data: any) {
     setRecipe({

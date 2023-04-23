@@ -8,7 +8,6 @@ import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
 import { CopyLink, Bookmark, Success, Error, BookmarkAdded } from 'icons/index';
 import AuthContext from 'contexts/authContext';
-import BlankProfile from 'image/blankProfile.png';
 import { ProfileProps } from 'apis/profile';
 import { Recipe } from 'apis/recipe';
 import { BookmarkProps, addBookmark, deleteBookmark, getBookmarksByUserId } from 'apis/bookmark';
@@ -120,7 +119,7 @@ function GeneralDescription(props: RecipeDetailGeneralProps) {
   return (
     <div className={styles.generalDescription}>
       <Bio
-        imgSrc={profile?.profileImg || BlankProfile}
+        imgSrc={profile?.profileImg ?? ''}
         title={profile?.nickname ?? ''}
         subtitle={profile?.intro ?? ''}
         className={styles.generalBio}

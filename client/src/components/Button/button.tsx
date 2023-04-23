@@ -4,9 +4,6 @@ import clsx from 'clsx';
 
 export type Size = 'sm' | 'md' | 'lg' | 'xl';
 export type Variant = 'contained' | 'outlined' | 'text';
-//   | 'contained-outlined'
-//   | 'text-outlined'
-//   | 'text-color'
 
 interface ButtonProps {
   children: string | JSX.Element | ReactNode;

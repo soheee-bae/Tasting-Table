@@ -5,7 +5,7 @@ import { CategoryProps } from 'apis/category';
 import { Recipe } from 'apis/recipe';
 import { getLevels } from 'helpers/getLevels';
 import ImageUploaderSingle from 'components/ImageUploaderSingle/imageUploaderSingle';
-import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
+import { uploadImage } from 'helpers/uploadImage';
 
 interface RecipeGeneralProps {
   categories: CategoryProps[];
@@ -15,19 +15,18 @@ interface RecipeGeneralProps {
 
 export default function RecipeGeneral(props: RecipeGeneralProps) {
   const { categories, recipe, updateField } = props;
-  const { blobToDataURL } = useConvertDataUrlBlob();
 
-  // const handleFileChange = async (file: File[]) => {
-  //   const blob = await resize(file && file[0], 500);
-  //   const dataUrl = await blobToDataURL(blob);
-
-  //   if (dataUrl.length > 0) updateField('img', dataUrl);
-  // };
+  const handleFileChange = async (file: File[]) => {
+    if (file.length > 0) {
+      const imgUrl: any = await uploadImage(file[0]);
+      if (imgUrl) updateField('img', imgUrl.location);
+    }
+  };
 
   return (
     <div className={styles.recipeGeneral}>
       <div className={styles.recipeImage}>
-        {/* <ImageUploaderSingle handleFileChange={handleFileChange} imgSrc={recipe.img || ''} /> */}
+        <ImageUploaderSingle handleFileChange={handleFileChange} imgSrc={recipe.img || ''} />
       </div>
       <label className={styles.inputField}>
         레시피 제목

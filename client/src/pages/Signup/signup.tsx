@@ -4,7 +4,6 @@ import styles from './signup.module.scss';
 
 import Titles from 'components/Titles/title';
 import AuthContext from 'contexts/authContext';
-import BlankProfile from 'image/blankProfile.png';
 
 import { register } from 'apis/auth';
 import { createProfile } from 'apis/profile';
@@ -20,7 +19,13 @@ export default function Signup() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await register({ email, password, passwordVerify });
-    await createProfile({ email, name: '', nickname: '', birthdate: '', profileImg: BlankProfile });
+    await createProfile({
+      email,
+      name: '',
+      nickname: '',
+      birthdate: '',
+      profileImg: 'https://tastingtable.s3.amazonaws.com/blankProfile.png'
+    });
     await getLoggedIn();
     navigate('/');
   };
