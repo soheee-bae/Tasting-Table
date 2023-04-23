@@ -13,23 +13,23 @@ import AuthContext from 'contexts/authContext';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
-import { resize } from 'hooks/useResizeImage';
+import { uploadImage } from 'helpers/uploadImage';
 
 export default function Profile() {
   const { email, setProfileImage } = useContext(AuthContext);
 
+  const [selectedFile, setSelectedFile] = useState<File>();
   const [profileImg, setProfileImg] = useState('');
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [intro, setIntro] = useState('');
 
-  const { blobToDataURL } = useConvertDataUrlBlob();
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const imgUrl: any = await uploadImage(selectedFile);
     const res = await editProfile({
-      profileImg,
+      profileImg: imgUrl.location,
       email,
       name,
       nickname,
@@ -45,10 +45,9 @@ export default function Profile() {
   };
 
   const handleFileChange = async (file: File[]) => {
-    const blob = await resize(file && file[0], 100);
-    const dataUrl = await blobToDataURL(blob);
-
-    if (dataUrl.length > 0) setProfileImg(dataUrl);
+    if (file.length > 0) {
+      setSelectedFile(file[0]);
+    }
   };
 
   async function fetchProfile() {

@@ -11,7 +11,6 @@ import { getUnusedId } from 'helpers/getUnusedId';
 import { Minus, Plus } from 'icons/index';
 import { ReorderIcon } from 'icons/reorder';
 import { Step } from 'apis/recipe';
-import { resize } from 'hooks/useResizeImage';
 import { useConvertDataUrlBlob } from 'hooks/useConvertDataUrlBlob';
 
 interface RecipeStepProps {

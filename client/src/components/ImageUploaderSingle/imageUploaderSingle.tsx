@@ -1,5 +1,7 @@
 import React, { MouseEvent, useEffect, useState } from 'react';
 import clsx from 'clsx';
+import AWS from 'aws-sdk';
+
 import ImageUploading from 'react-images-uploading';
 
 import styles from './imageUploaderSingle.module.scss';
