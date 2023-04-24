@@ -1,0 +1,14 @@
+.banner {
+  width: 100%;
+  height: 100px;
+  background-color: var(--primaryColor1000);
+  color: var(--white300);
+  font-family: var(--nanum-gothic);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerButton {
+  margin-left: 10px;
+}

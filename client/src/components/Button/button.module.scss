@@ -89,3 +89,18 @@
     color: var(--primaryColor1100);
   }
 }
+
+.outlined-text {
+  color: var(--white300);
+  font-weight: var(--font-normal);
+  transition: all 0.2s;
+  border-radius: 5px;
+  background: var(--primaryColor1000);
+  border: 1px solid var(--white300);
+  &:hover,
+  &:active {
+    border: 1px solid var(--primaryColor1000);
+    background-color: var(--white300);
+    color: var(--primaryColor1000);
+  }
+}

@@ -101,6 +101,11 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
           <p>
             소요시간 <span>{recipe.duration}분</span>
           </p>
+          {recipe.rating && (
+            <p>
+              총 평점 <span>{recipe.rating}</span>
+            </p>
+          )}
         </div>
         {recipe?.createdDate ? (
           <p className={styles.generalDates}>
@@ -108,6 +113,7 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
           </p>
         ) : null}
       </div>
+
       <ToastSnackbar />
     </div>
   );

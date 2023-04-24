@@ -57,7 +57,10 @@ export default function MyRecipe() {
       <div className={styles.myRecipeContainer}>
         <Titles title="MY RECIPE" subTitle="내 레시피를 확인해 보세요." />
         <div className={styles.editButton}>
-          <Button onClick={handleEditMode} startIcon={editMode ? <Checked /> : <UnChecked />}>
+          <Button
+            disabled={myRecipe.length === 0}
+            onClick={handleEditMode}
+            startIcon={editMode ? <Checked /> : <UnChecked />}>
             편집 모드
           </Button>
         </div>

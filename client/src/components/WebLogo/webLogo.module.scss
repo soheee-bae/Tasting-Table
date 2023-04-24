@@ -11,16 +11,9 @@
 }
 
 .logo {
-  font-family: var(--besley);
-  color: var(--primaryColor1000);
-  font-size: 28px;
-  font-weight: var(--font-thin);
+  font-family: var(--bonheur-royale);
+  color: var(--primaryColor1100);
+  font-size: 26px;
+  font-weight: var(--font-normal);
   letter-spacing: 1.7px;
-
-  span {
-    font-weight: var(--font-normal);
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    margin-right: 5px;
-  }
 }

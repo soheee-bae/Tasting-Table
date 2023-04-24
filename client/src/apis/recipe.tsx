@@ -30,6 +30,7 @@ export interface Recipe {
   userId: string;
   img?: string;
   name?: string;
+  rating?: number;
   level?: number;
   description?: string;
   duration?: number;

@@ -1,0 +1,40 @@
+.recipeItemWName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.recipeItemWNameImage {
+  position: relative;
+  img {
+    object-fit: cover;
+    width: 100%;
+    aspect-ratio: 1/1;
+    height: auto;
+  }
+}
+
+.recipeItemWNameImgCover {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  &:hover {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+  }
+}

@@ -29,7 +29,7 @@ export default function RecipeForm(props: RecipeStepProps) {
     !recipe.description ||
     !recipe.amounts ||
     !recipe.duration ||
-    (recipe.steps && (!recipe.steps[0]?.details || !recipe.steps[0]?.img)) ||
+    (recipe.steps && !recipe.steps[0]?.details) ||
     (recipe.ingredients &&
       (!recipe.ingredients[0]?.name ||
         !recipe.ingredients[0].ingredient[0]?.name ||

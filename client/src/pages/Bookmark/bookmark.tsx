@@ -62,7 +62,10 @@ export default function Bookmark() {
       <div className={styles.bookmarkContainer}>
         <Titles title="BOOKMARK LIST" subTitle="책갈피한 레시피를 확인해보세요" />
         <div className={styles.editButton}>
-          <Button onClick={handleEditMode} startIcon={editMode ? <Checked /> : <UnChecked />}>
+          <Button
+            disabled={bookmarks.length === 0}
+            onClick={handleEditMode}
+            startIcon={editMode ? <Checked /> : <UnChecked />}>
             편집 모드
           </Button>
         </div>

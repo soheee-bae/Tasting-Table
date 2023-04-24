@@ -22,9 +22,5 @@ export default function WebLogo(props: WebLogoProps) {
 }
 
 function Logo() {
-  return (
-    <p className={styles.logo}>
-      T<span>asting</span>T<span>able</span>
-    </p>
-  );
+  return <p className={styles.logo}>TastingTable</p>;
 }

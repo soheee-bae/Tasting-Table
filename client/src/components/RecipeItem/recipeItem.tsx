@@ -14,11 +14,13 @@ interface RecipeItemProps {
   allowEdit?: boolean;
   noHoverEdit?: boolean;
   noDetails?: boolean;
+  noName?: boolean;
   className?: string;
 }
 
 export default function RecipeItem(props: RecipeItemProps) {
-  const { recipe, handleDelete, handleEdit, allowEdit, noHoverEdit, noDetails, className } = props;
+  const { recipe, handleDelete, handleEdit, allowEdit, noHoverEdit, noDetails, noName, className } =
+    props;
   const navigate = useNavigate();
 
   const { _id, name, categoryType, level, duration, img } = recipe;
@@ -50,7 +52,7 @@ export default function RecipeItem(props: RecipeItemProps) {
       </div>
       <div className={styles.details}>
         {!noDetails && <p className={styles.category}>{categoryType?.name}</p>}
-        <p className={styles.name}>{name}</p>
+        {!noName && <p className={styles.name}>{name}</p>}
         {!noDetails && (
           <div className={styles.otherDetails}>
             <div className={styles.detailItem}>

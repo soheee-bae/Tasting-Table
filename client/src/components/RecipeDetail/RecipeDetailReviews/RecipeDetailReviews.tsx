@@ -17,6 +17,7 @@ import Bio from 'components/Bio/bio';
 import LoadingIndicator, { LoadingIcon } from 'components/LoadingIndicator/loadingIndicator';
 import ImageUploaderMulti from 'components/ImageUploaderMulti/imageUploaderMulti';
 import { uploadImage } from 'helpers/uploadImage';
+import { getCalculatedRating } from 'helpers/getCalculatedRating';
 
 interface RecipeDetailReviewsProps {
   recipe: Recipe;
@@ -66,10 +67,13 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
     }
     if (recipe._id) {
       const reviews = [...(prevReview ?? []), { ...newReview, img: imgUrl ?? [] }];
+      const rating = await getCalculatedRating(reviews);
+      console.log(rating);
       const res = await editRecipe({
         id: recipe?._id,
         data: {
           ...recipe,
+          rating,
           reviews
         }
       });
@@ -90,7 +94,9 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
 
   return (
     <div className={styles.recipeDetailReviews}>
-      <p className={styles.recipeTitle}>리뷰</p>
+      <p className={styles.recipeTitle}>
+        리뷰 | <span>({prevReview.length})</span>
+      </p>
       <div className={styles.reviewLists}>
         {prevReview?.map((review, i) => (
           <ReviewList key={i} review={review} index={i} />

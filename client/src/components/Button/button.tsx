@@ -3,7 +3,7 @@ import styles from './button.module.scss';
 import clsx from 'clsx';
 
 export type Size = 'sm' | 'md' | 'lg' | 'xl';
-export type Variant = 'contained' | 'outlined' | 'text';
+export type Variant = 'contained' | 'outlined' | 'text' | 'outlined-text';
 
 interface ButtonProps {
   children: string | JSX.Element | ReactNode;
