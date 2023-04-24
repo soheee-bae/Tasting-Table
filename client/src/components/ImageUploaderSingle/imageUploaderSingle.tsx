@@ -41,7 +41,8 @@ export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
                     e.preventDefault();
                     onImageUpload();
                   }}
-                  {...dragProps}>
+                  {...dragProps}
+                >
                   <Plus />
                 </button>
               )}

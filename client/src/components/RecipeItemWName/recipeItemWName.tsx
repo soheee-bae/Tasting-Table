@@ -21,7 +21,8 @@ export default function RecipeItemWName(props: RecipeItemWNameProps) {
       className={clsx(className, styles.recipeItemWName)}
       onClick={() => {
         navigate(`/recipe/${_id}`);
-      }}>
+      }}
+    >
       <div className={styles.recipeItemWNameImage}>
         <img src={img} alt={name} />
         <div className={styles.recipeItemWNameImgCover}>

@@ -42,7 +42,8 @@ export default function RecipeStep(props: RecipeStepProps) {
           onReorder={(data) => {
             setSteps(data);
           }}
-          values={steps}>
+          values={steps}
+        >
           {steps.map((step: Step, index: number) => (
             <StepItem
               key={step.id}
@@ -61,7 +62,8 @@ export default function RecipeStep(props: RecipeStepProps) {
             e.preventDefault();
             const newId = getUnusedId(stepIds);
             setSteps([...steps, { id: newId, details: '', img: '' }]);
-          }}>
+          }}
+        >
           순서추가
         </Button>
       </div>
@@ -111,7 +113,8 @@ export const StepItem = (props: StepItemProps) => {
       value={step}
       id={step.details}
       style={{ y }}
-      className={styles.stepListItem}>
+      className={styles.stepListItem}
+    >
       <div className={styles.reorderIcon}>
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
@@ -133,7 +136,8 @@ export const StepItem = (props: StepItemProps) => {
           const tempArr = steps?.filter((_, i) => i !== index);
           setSteps(tempArr);
         }}
-        variant="text">
+        variant="text"
+      >
         <Minus />
       </Button>
     </Reorder.Item>

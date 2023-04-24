@@ -1,4 +1,5 @@
 @import 'styles/size';
+@import 'styles/mixin';
 
 .nav {
   border-top: 30px solid var(--primaryColor1000);
@@ -7,6 +8,7 @@
   justify-content: center;
   height: $navbar-height;
   border-bottom: 0.5px solid var(--primaryColor100);
+  padding: 0 20px;
 }
 
 .navContainer {
@@ -24,8 +26,14 @@
   align-items: center;
   gap: 15px;
   svg {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
+  }
+  @include lg {
+    svg {
+      height: 20px;
+      width: 20px;
+    }
   }
 }
 
@@ -37,10 +45,13 @@
   opacity: 0.8;
   cursor: pointer;
   color: var(--black500);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--font-semibold);
   font-family: var(--gowun-batang);
   &:hover {
     opacity: 1;
+  }
+  @include lg {
+    font-size: var(--text-sm);
   }
 }

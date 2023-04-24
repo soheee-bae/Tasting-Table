@@ -236,7 +236,8 @@ function ReviewField(props: ReviewFieldProps) {
           variant="outlined"
           onClick={onSubmit}
           className={styles.reviewButton}
-          disabled={disabled}>
+          disabled={disabled}
+        >
           {isLoading ? <LoadingIcon /> : '등록'}
         </Button>
       </div>

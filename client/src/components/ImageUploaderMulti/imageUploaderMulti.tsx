@@ -35,7 +35,8 @@ export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
         value={images}
         onChange={onChange}
         maxNumber={3}
-        dataURLKey="data_url">
+        dataURLKey="data_url"
+      >
         {({ imageList, onImageUpload, onImageUpdate, onImageRemove, dragProps }) => (
           <div className={styles.imageButtons}>
             <button
@@ -46,7 +47,8 @@ export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
               }}
               data-disabled={isMax}
               {...dragProps}
-              disabled={isMax}>
+              disabled={isMax}
+            >
               <Plus />
             </button>
             {imageList.map((image, index) => (

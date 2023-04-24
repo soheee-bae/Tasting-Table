@@ -30,7 +30,8 @@ export default function RecipeItem(props: RecipeItemProps) {
       className={clsx(className, styles.recipeItem)}
       onClick={() => {
         !allowEdit && navigate(`/recipe/${_id}`);
-      }}>
+      }}
+    >
       <div className={styles.recipeItemImage}>
         <img src={img} alt={name} />
         <div className={styles.recipeImgCover}>

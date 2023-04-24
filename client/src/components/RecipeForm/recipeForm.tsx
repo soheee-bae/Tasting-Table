@@ -54,7 +54,8 @@ export default function RecipeForm(props: RecipeStepProps) {
         onClick={onSubmit}
         variant="contained"
         className={styles.recipeButton}
-        disabled={disabled}>
+        disabled={disabled}
+      >
         {isLoading ? <LoadingIcon /> : buttonLabel}
       </Button>
     </form>
