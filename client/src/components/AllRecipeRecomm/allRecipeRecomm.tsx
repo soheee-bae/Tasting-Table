@@ -13,7 +13,7 @@ interface AllRecipeRecommProps {
 export default function AllRecipeRecomm(props: AllRecipeRecommProps) {
   const { recipes, isLoading } = props;
 
-  const sortedRecipe = recipes.sort((a, b) => (b?.rating || 0) - (a?.rating || 0)).slice(0, 4);
+  const sortedRecipe = recipes?.sort((a, b) => (b?.rating || 0) - (a?.rating || 0)).slice(0, 4);
 
   return (
     <div className={styles.allRecipeRecomm}>
