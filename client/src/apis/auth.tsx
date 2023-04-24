@@ -20,8 +20,8 @@ export const register = async (props: RegisterProps) => {
       password,
       passwordVerify
     };
-
-    await axios.post('http://localhost:5050/auth/register', registerData);
+    // await axios.post('http://localhost:5050/auth/register', registerData);
+    await axios.post('https://tasting-table.netlify.app/auth/register', registerData);
   } catch (err) {
     console.error(err);
   }
@@ -35,8 +35,8 @@ export const login = async (props: LoginProps) => {
       email,
       password
     };
-
-    await axios.post('http://localhost:5050/auth/login', loginData);
+    await axios.post('https://tasting-table.netlify.app/auth/login', loginData);
+    // await axios.post('http://localhost:5050/auth/login', loginData);
   } catch (err) {
     console.error(err);
   }
@@ -44,7 +44,8 @@ export const login = async (props: LoginProps) => {
 
 export const logout = async () => {
   try {
-    await axios.get('http://localhost:5050/auth/logout');
+    await axios.get('https://tasting-table.netlify.app/auth/logout');
+    // await axios.get('http://localhost:5050/auth/logout');
   } catch (err) {
     console.error(err);
   }
@@ -52,7 +53,8 @@ export const logout = async () => {
 
 export const loggedInReq = async () => {
   try {
-    const res = await axios.get('http://localhost:5050/auth/loggedIn');
+    const res = await axios.get('https://tasting-table.netlify.app/auth/loggedIn');
+    // const res = await axios.get('http://localhost:5050/auth/loggedIn');
     return res.data as boolean;
   } catch (err) {
     console.error(err);
