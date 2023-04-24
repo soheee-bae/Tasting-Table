@@ -2,7 +2,7 @@ import React from 'react';
 import { Recipe } from 'apis/recipe';
 
 import styles from './recipeDetailIngredients.module.scss';
-import Button from 'components/Button/button';
+import MensurationDialog from 'components/MensurationDialog/mensurationDialog';
 
 interface RecipeDetailIngredientsProps {
   recipe: Recipe;
@@ -15,7 +15,7 @@ export default function RecipeDetailIngredients(props: RecipeDetailIngredientsPr
     <div className={styles.recipeDetailIngredients}>
       <p className={styles.title}>
         재료
-        <Button variant="outlined" size="sm"></Button>
+        <MensurationDialog>계량법 안내</MensurationDialog>
       </p>
       <div className={styles.recipeDetailIngredientsContent}>
         {recipe.ingredients?.map((ingredient, index) => {

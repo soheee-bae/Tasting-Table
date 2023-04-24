@@ -1,0 +1,29 @@
+.dialogContent {
+  padding: 20px;
+}
+
+.dialogList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 50px;
+  align-items: center;
+  font-size: var(--text-sm);
+  font-family: var(--nanum-gothic);
+  border-top: 1px solid var(--white300);
+  font-weight: var(--font-semibold);
+  padding: 10px 0;
+}
+
+.dialogListDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: end;
+  font-size: var(--text-xs);
+  font-weight: var(--font-normal);
+  gap: 5px;
+}
+.label {
+  white-space: nowrap;
+}

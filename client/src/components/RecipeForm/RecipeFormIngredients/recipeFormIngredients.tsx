@@ -9,6 +9,7 @@ import { Ingredient, Ingredients } from 'apis/recipe';
 import { getUnusedId } from 'helpers/getUnusedId';
 import { ReorderIcon } from 'icons/reorder';
 import { Minus, Plus } from 'icons/index';
+import MensurationDialog from 'components/MensurationDialog/mensurationDialog';
 
 interface RecipeIngredientsProps {
   updateField: (name: string, data: any) => void;
@@ -29,7 +30,10 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
 
   return (
     <div className={styles.recipeIngredients}>
-      <Subtitle subTitle="레시피 재료" />
+      <Subtitle
+        subTitle="레시피 재료"
+        subContent={<MensurationDialog>계량법 안내</MensurationDialog>}
+      />
       <div className={styles.recipeIngredientsContainer}>
         <Reorder.Group
           className={styles.ingredientBucket}

@@ -1,6 +1,10 @@
 .recipeDetailIngredients {
   width: 100%;
   .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     font-family: var(--gowun-batang);
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
