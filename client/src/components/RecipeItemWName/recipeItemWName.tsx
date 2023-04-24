@@ -7,11 +7,12 @@ import clsx from 'clsx';
 
 interface RecipeItemWNameProps {
   recipe: Recipe;
+  noDetails?: boolean;
   className?: string;
 }
 
 export default function RecipeItemWName(props: RecipeItemWNameProps) {
-  const { recipe, className } = props;
+  const { recipe, noDetails, className } = props;
   const { _id, name, img } = recipe;
   const navigate = useNavigate();
 
@@ -23,7 +24,14 @@ export default function RecipeItemWName(props: RecipeItemWNameProps) {
       }}>
       <div className={styles.recipeItemWNameImage}>
         <img src={img} alt={name} />
-        <div className={styles.recipeItemWNameImgCover}></div>
+        <div className={styles.recipeItemWNameImgCover}>
+          {!noDetails && (
+            <div className={styles.recipeItemWNameImgCoverContent}>
+              <p className={styles.recipeItemCategory}>{recipe.categoryType?.name}</p>
+              <p className={styles.recipeItemName}>{recipe.name}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

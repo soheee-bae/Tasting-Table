@@ -2,6 +2,7 @@ import React from 'react';
 import { Recipe } from 'apis/recipe';
 
 import styles from './recipeDetailIngredients.module.scss';
+import Button from 'components/Button/button';
 
 interface RecipeDetailIngredientsProps {
   recipe: Recipe;
@@ -12,7 +13,10 @@ export default function RecipeDetailIngredients(props: RecipeDetailIngredientsPr
 
   return (
     <div className={styles.recipeDetailIngredients}>
-      <p className={styles.title}>재료</p>
+      <p className={styles.title}>
+        재료
+        <Button variant="outlined" size="sm"></Button>
+      </p>
       <div className={styles.recipeDetailIngredientsContent}>
         {recipe.ingredients?.map((ingredient, index) => {
           const subIngredients = ingredient.ingredient;

@@ -46,7 +46,7 @@ function RecipeRecommItem(props: RecipeRecommItemProps) {
       <div className={styles.recipeRecommItemContainer}>
         <div className={styles.recipeRecommItemContent}>
           {restRecipes?.map((recipe) => (
-            <RecipeItemWName key={recipe._id} recipe={recipe} />
+            <RecipeItemWName key={recipe._id} recipe={recipe} noDetails />
           ))}
         </div>
         <RecipeItemWName recipe={lastRecipes} />
