@@ -36,6 +36,7 @@ interface RecipeRecommItemProps {
 function RecipeRecommItem(props: RecipeRecommItemProps) {
   const { sortedRecipe } = props;
 
+  if (!sortedRecipe) return null;
   const mainRecipe = sortedRecipe[0];
   const restRecipes = sortedRecipe.filter((_v, i) => i === 1 || i === 2);
   const lastRecipes = sortedRecipe[3];
