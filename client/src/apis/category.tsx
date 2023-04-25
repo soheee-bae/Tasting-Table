@@ -7,7 +7,7 @@ export interface CategoryProps {
 
 export const getCategory = async () => {
   try {
-    const category = await axios.get('https://tasting-table.netlify.app/category/');
+    const category = await axios.get('https://tasting-table.herokuapp.com/category/');
     // const category = await axios.get('http://localhost:5050/category/');
     return category.data;
   } catch (err) {
@@ -17,7 +17,7 @@ export const getCategory = async () => {
 
 export const createCategory = async (props: CategoryProps) => {
   try {
-    const category = await axios.post('https://tasting-table.netlify.app/category/', {
+    const category = await axios.post('https://tasting-table.herokuapp.com/category/', {
       ...props
     });
     // const category = await axios.post('http://localhost:5050/category/', { ...props });

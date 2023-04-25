@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["https://tasting-table.netlify.app", "http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://tasting-table.netlify.app"],
     credentials: true,
   })
 );
