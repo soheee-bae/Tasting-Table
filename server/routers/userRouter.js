@@ -10,29 +10,29 @@ router.post("/register", async (req, res) => {
 
     // validation
     if (!email || !password || !passwordVerify) {
-      return res
-        .status(400)
-        .json({ errorMessage: "Please enter all required fields." });
+      return res.status(400).json({
+        errorMessage: "모든 정보를 입력해 주세요.",
+      });
     }
 
     if (password.length < 6) {
       return res.status(400).json({
-        errorMessage: "Please enter a password of at least 6 characters.",
+        errorMessage: "비밀번호가 6자 이상이여야 합니다.",
       });
     }
 
     if (password !== passwordVerify) {
-      return res
-        .status(400)
-        .json({ errorMessage: "Please enter the same password twice." });
+      return res.status(400).json({
+        errorMessage: "비밀번호가 일치하지 않습니다.",
+      });
     }
 
     // Check duplicate account
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ errorMessage: "An account with this email already exists." });
+      return res.status(400).json({
+        errorMessage: "이미 사용중인 아이디입니다.",
+      });
     }
 
     // Hash the password
@@ -71,14 +71,16 @@ router.post("/login", async (req, res) => {
 
     //validate
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ errorMessage: "Please enter all required fields." });
+      return res.status(400).json({
+        errorMessage: "모든 정보를 입력해 주세요.",
+      });
     }
 
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res.status(401).json({ errorMessage: "Wrong email or password." });
+      return res.status(400).json({
+        errorMessage: "아이디나 비밀번호가 일치하지 않습니다.",
+      });
     }
 
     const checkPassword = await bcrypt.compare(
@@ -86,7 +88,9 @@ router.post("/login", async (req, res) => {
       existingUser.passwordHash
     );
     if (!checkPassword) {
-      return res.status(401).json({ errorMessage: "Wrong email or password." });
+      return res.status(400).json({
+        errorMessage: "아이디나 비밀번호가 일치하지 않습니다.",
+      });
     }
 
     // Log the user in

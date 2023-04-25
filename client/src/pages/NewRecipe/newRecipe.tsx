@@ -21,6 +21,8 @@ export default function NewRecipe() {
     userId,
     img: '',
     level: 1,
+    name: '',
+    description: '',
     steps: [{ id: 1, details: '', img: '' }],
     categoryType: { id: 1, name: '메인요리' },
     ingredients: [

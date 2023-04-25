@@ -41,8 +41,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
           onReorder={(data) => {
             setIngredients(data);
           }}
-          values={ingredients}
-        >
+          values={ingredients}>
           {ingredients.map((ingredient: Ingredients, index: number) => (
             <IngredientBucket
               key={ingredient.id}
@@ -63,8 +62,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
               ...ingredients,
               { id: newId, name: '', ingredient: [{ id: 1, name: '', mensuration: '' }] }
             ]);
-          }}
-        >
+          }}>
           재료/양념 묶음 추가
         </Button>
       </div>
@@ -91,8 +89,7 @@ export const IngredientBucket = (props: IngredientBucketProps) => {
       dragControls={dragControls}
       value={ingredient}
       id={ingredient.name}
-      style={{ y }}
-    >
+      style={{ y }}>
       <div className={styles.reorderIcon}>
         <ReorderIcon dragControls={dragControls} />
       </div>
@@ -172,8 +169,7 @@ export const SubIngredient = (props: SubIngredientProps) => {
                   setIngredients(copiedIngredient);
                 }
               }}
-              variant="text"
-            >
+              variant="text">
               <Minus />
             </Button>
           </div>
@@ -193,8 +189,7 @@ export const SubIngredient = (props: SubIngredientProps) => {
             ingredient: [...subIngredients, newIngredients]
           };
           setIngredients(copiedIngredient);
-        }}
-      >
+        }}>
         추가
       </Button>
     </div>

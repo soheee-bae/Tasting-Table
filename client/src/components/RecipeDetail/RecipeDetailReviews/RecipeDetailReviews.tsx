@@ -68,7 +68,6 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
     if (recipe._id) {
       const reviews = [...(prevReview ?? []), { ...newReview, img: imgUrl ?? [] }];
       const rating = await getCalculatedRating(reviews);
-      console.log(rating);
       const res = await editRecipe({
         id: recipe?._id,
         data: {
@@ -236,8 +235,7 @@ function ReviewField(props: ReviewFieldProps) {
           variant="outlined"
           onClick={onSubmit}
           className={styles.reviewButton}
-          disabled={disabled}
-        >
+          disabled={disabled}>
           {isLoading ? <LoadingIcon /> : '등록'}
         </Button>
       </div>

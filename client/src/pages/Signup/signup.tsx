@@ -10,15 +10,16 @@ import { createProfile } from 'apis/profile';
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { getLoggedIn } = useContext(AuthContext);
+  const { getLoggedIn, getLoggedInStatus } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await register({ email, password, passwordVerify });
+    const res: any = await register({ email, password, passwordVerify });
     await createProfile({
       email,
       name: '',
@@ -26,8 +27,14 @@ export default function Signup() {
       birthdate: '',
       profileImg: 'https://tastingtable.s3.amazonaws.com/blankProfile.png'
     });
-    await getLoggedIn();
-    navigate('/');
+    if (res.response && res.response.status === 400) {
+      setError(res?.response?.data?.errorMessage);
+    } else {
+      await getLoggedIn();
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    }
   };
 
   return (
@@ -51,6 +58,7 @@ export default function Signup() {
               onChange={(e) => setPasswordVerify(e.target.value)}
             />
           </label>
+          {error && <p className={styles.error}>{error}</p>}
           <input className={styles.submitButton} type="submit" value="회원가입" />
         </form>
         <div className={styles.moreContent}>

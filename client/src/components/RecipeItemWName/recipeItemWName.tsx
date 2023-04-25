@@ -13,23 +13,22 @@ interface RecipeItemWNameProps {
 
 export default function RecipeItemWName(props: RecipeItemWNameProps) {
   const { recipe, noDetails, className } = props;
-  const { _id, name, img } = recipe;
+  if (!recipe) return null;
   const navigate = useNavigate();
 
   return (
     <div
       className={clsx(className, styles.recipeItemWName)}
       onClick={() => {
-        navigate(`/recipe/${_id}`);
-      }}
-    >
+        navigate(`/recipe/${recipe?._id}`);
+      }}>
       <div className={styles.recipeItemWNameImage}>
-        <img src={img} alt={name} />
+        <img src={recipe?.img} alt={recipe?.name} />
         <div className={styles.recipeItemWNameImgCover}>
           {!noDetails && (
             <div className={styles.recipeItemWNameImgCoverContent}>
-              <p className={styles.recipeItemCategory}>{recipe.categoryType?.name}</p>
-              <p className={styles.recipeItemName}>{recipe.name}</p>
+              <p className={styles.recipeItemCategory}>{recipe?.categoryType?.name}</p>
+              <p className={styles.recipeItemName}>{recipe?.name}</p>
             </div>
           )}
         </div>

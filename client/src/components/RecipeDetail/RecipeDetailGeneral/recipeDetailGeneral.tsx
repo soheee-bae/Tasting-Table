@@ -6,7 +6,7 @@ import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
 import Bio from 'components/Bio/bio';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
 
-import { CopyLink, Bookmark, Success, Error, BookmarkAdded } from 'icons/index';
+import { Bookmark, Success, Error, BookmarkAdded } from 'icons/index';
 import AuthContext from 'contexts/authContext';
 import { ProfileProps } from 'apis/profile';
 import { Recipe } from 'apis/recipe';
@@ -52,11 +52,6 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
     fetchMyBookmarks();
   }, []);
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast(<Toast icon={<Success />} title="링크가 복사되었습니다." />);
-  };
-
   const handleAddBookmark = async () => {
     const res = await addBookmark({ recipe, userId });
     if (res?.status === 200) {
@@ -90,7 +85,6 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
           ) : (
             <IconWithLabel icon={<BookmarkAdded />} label="책갈피" onClick={handleAddBookmark} />
           )}
-          <IconWithLabel icon={<CopyLink />} label="공유" onClick={handleCopyLink} />
         </div>
       </div>
       <div className={styles.generalInnerContent}>

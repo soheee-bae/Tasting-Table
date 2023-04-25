@@ -5,6 +5,7 @@ import React, { createContext, ReactNode, useEffect, useState } from 'react';
 export type AuthContextContent = {
   loggedIn: boolean;
   getLoggedIn: () => void;
+  getLoggedInStatus: () => any;
   email: string;
   userId: string;
   profileImg: string;
@@ -16,6 +17,7 @@ export type AuthContextContent = {
 const AuthContext = createContext<AuthContextContent>({
   loggedIn: false,
   getLoggedIn: () => undefined,
+  getLoggedInStatus: () => false,
   email: '',
   userId: '',
   profileImg: '',
@@ -51,13 +53,27 @@ function AuthContextProvider(props: AuthContextProps) {
     setLoggedIn(loggedInRes || false);
   }
 
+  async function getLoggedInStatus() {
+    return loggedIn;
+  }
+
   useEffect(() => {
     getLoggedIn();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ loggedIn, getLoggedIn, email, userId, profileImg, nickname, name, setProfileImage }}>
+      value={{
+        loggedIn,
+        getLoggedIn,
+        getLoggedInStatus,
+        email,
+        userId,
+        profileImg,
+        nickname,
+        name,
+        setProfileImage
+      }}>
       {children}
     </AuthContext.Provider>
   );

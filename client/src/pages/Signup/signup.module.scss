@@ -43,7 +43,7 @@
 .submitButton {
   width: 100%;
   padding: 13px 0;
-  margin-top: 20px;
+  margin-top: 10px;
   border: none;
   background-color: var(--primaryColor1000);
   border-radius: 2px;
@@ -74,4 +74,11 @@
       opacity: 1;
     }
   }
+}
+
+.error {
+  font-family: var(--nanum-gothic);
+  font-size: var(--text-xs);
+  color: #990000;
+  margin-top: 10px;
 }

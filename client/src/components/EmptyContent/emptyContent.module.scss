@@ -1,6 +1,9 @@
 .emptyContent {
   font-size: var(--text-sm);
   font-family: var(--nanum-gothic);
+  display: flex;
+  align-items: center;
   text-align: center;
   padding: 20px 0;
+  min-height: 360px;
 }

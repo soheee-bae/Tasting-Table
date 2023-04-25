@@ -48,7 +48,7 @@ export default function Profile() {
     } else {
       toast(<Toast icon={<Error />} title="문제가 발생했습니다." subtitle=" 다시 시도하십시오." />);
     }
-    setIsLoading(true);
+    setIsLoading(false);
   };
 
   const handleFileChange = async (file: File[]) => {

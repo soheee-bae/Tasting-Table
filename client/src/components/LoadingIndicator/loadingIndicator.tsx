@@ -12,7 +12,13 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const { isLoading, children, className } = props;
   return (
     <div className={styles.loadingIndicator}>
-      {isLoading ? <LoadingIcon className={className} /> : children}
+      {isLoading ? (
+        <div>
+          <LoadingIcon className={className} />
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 }

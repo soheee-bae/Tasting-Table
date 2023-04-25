@@ -20,10 +20,12 @@ export const register = async (props: RegisterProps) => {
       password,
       passwordVerify
     };
-    // await axios.post('http://localhost:5050/auth/register', registerData);
-    await axios.post('https://tasting-table.herokuapp.com/auth/register', registerData);
+    // return await axios.post('http://localhost:5050/auth/register', registerData).then((res) => res);
+    return await axios
+      .post('https://tasting-table.herokuapp.com/auth/register', registerData)
+      .then((res) => res);
   } catch (err) {
-    console.error(err);
+    return err;
   }
 };
 
@@ -35,10 +37,12 @@ export const login = async (props: LoginProps) => {
       email,
       password
     };
-    await axios.post('https://tasting-table.herokuapp.com/auth/login', loginData);
-    // await axios.post('http://localhost:5050/auth/login', loginData);
+    // return await axios.post('http://localhost:5050/auth/login', loginData).then((res) => res);
+    return await axios
+      .post('https://tasting-table.herokuapp.com/auth/login', loginData)
+      .then((res) => res);
   } catch (err) {
-    console.error(err);
+    return err;
   }
 };
 

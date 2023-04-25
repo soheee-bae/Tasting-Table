@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingIndicator from 'components/LoadingIndicator/loadingIndicator';
 import Button from 'components/Button/button';
+import EmptyContent from 'components/EmptyContent/emptyContent';
 
 export default function MyRecipe() {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function MyRecipe() {
         </div>
         <LoadingIndicator isLoading={isLoading}>
           {myRecipe?.length === 0 ? (
-            <div className={styles.emptyContent}>등록된 레시피가 없습니다.</div>
+            <EmptyContent text="등록된 레시피가 없습니다." />
           ) : (
             <RecipeItems
               recipe={myRecipe}
