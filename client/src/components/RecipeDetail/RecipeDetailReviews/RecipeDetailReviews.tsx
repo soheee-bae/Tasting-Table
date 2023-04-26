@@ -137,7 +137,7 @@ function ReviewList(props: ReviewListProps) {
   }, [review?.userId]);
 
   return (
-    <LoadingIndicator isLoading={isLoading}>
+    <LoadingIndicator isLoading={isLoading} noMinheight>
       <div className={styles.reviewList} data-first={index === 0}>
         <div>
           <Bio

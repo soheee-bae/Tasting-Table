@@ -4,6 +4,9 @@
   justify-content: center;
   position: relative;
   min-height: 360px;
+  &[data-nominheight='true'] {
+    min-height: 0px;
+  }
 }
 
 .ldsRing {

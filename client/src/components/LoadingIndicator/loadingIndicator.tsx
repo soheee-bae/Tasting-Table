@@ -6,12 +6,13 @@ interface LoadingIndicatorProps {
   isLoading: boolean;
   children: ReactNode;
   className?: string;
+  noMinheight?: boolean;
 }
 
 export default function LoadingIndicator(props: LoadingIndicatorProps) {
-  const { isLoading, children, className } = props;
+  const { isLoading, children, className, noMinheight } = props;
   return (
-    <div className={styles.loadingIndicator}>
+    <div className={styles.loadingIndicator} data-noMinHeight={noMinheight}>
       {isLoading ? (
         <div>
           <LoadingIcon className={className} />

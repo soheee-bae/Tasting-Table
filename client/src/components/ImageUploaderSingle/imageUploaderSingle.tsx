@@ -12,10 +12,11 @@ interface ImageUploaderSingleProps {
   className?: string;
   imgSrc?: string;
   round?: boolean;
+  disabled?: boolean;
 }
 
 export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
-  const { handleFileChange, className, imgSrc, round } = props;
+  const { handleFileChange, className, imgSrc, round, disabled } = props;
   const [image, setImage] = useState<any>([]);
 
   const onChange = (imageList, _addUpdateIndex) => {
@@ -37,12 +38,13 @@ export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
               {imageList.length === 0 && (
                 <button
                   className={styles.imageButton}
+                  disabled={disabled}
+                  data-disabled={disabled}
                   onClick={(e: MouseEvent<HTMLButtonElement>) => {
                     e.preventDefault();
                     onImageUpload();
                   }}
-                  {...dragProps}
-                >
+                  {...dragProps}>
                   <Plus />
                 </button>
               )}

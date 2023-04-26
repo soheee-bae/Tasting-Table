@@ -48,6 +48,7 @@ export default function RecipeForm(props: RecipeStepProps) {
         updateField={updateField}
         initialSteps={recipe.steps || []}
         setIsLoading={setIsLoading}
+        isLoading={isLoading}
       />
       <Button
         size="md"

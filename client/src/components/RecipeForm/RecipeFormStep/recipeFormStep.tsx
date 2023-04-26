@@ -17,10 +17,11 @@ interface RecipeStepProps {
   initialSteps: Step[];
   updateField: (name: string, data: any) => void;
   setIsLoading: (loading: boolean) => void;
+  isLoading: boolean;
 }
 
 export default function RecipeStep(props: RecipeStepProps) {
-  const { initialSteps, updateField, setIsLoading } = props;
+  const { initialSteps, updateField, setIsLoading, isLoading } = props;
   const [steps, setSteps] = useState(initialSteps);
   const stepIds = steps.map((step) => step.id);
 
@@ -50,6 +51,7 @@ export default function RecipeStep(props: RecipeStepProps) {
               steps={steps}
               step={step}
               setSteps={setSteps}
+              isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
           ))}
@@ -75,10 +77,11 @@ interface StepItemProps {
   step: Step;
   setSteps: (step: Step[]) => void;
   setIsLoading: (loading: boolean) => void;
+  isLoading: boolean;
 }
 
 export const StepItem = (props: StepItemProps) => {
-  const { index, steps, step, setSteps, setIsLoading } = props;
+  const { index, steps, step, setSteps, setIsLoading, isLoading } = props;
   const y = useMotionValue(0);
   const dragControls = useDragControls();
 
@@ -116,7 +119,11 @@ export const StepItem = (props: StepItemProps) => {
         <ReorderIcon dragControls={dragControls} />
         <p>{index + 1}</p>
       </div>
-      <ImageUploaderSingle handleFileChange={handleFileChange} imgSrc={step.img} />
+      <ImageUploaderSingle
+        handleFileChange={handleFileChange}
+        imgSrc={step.img}
+        disabled={isLoading}
+      />
       <textarea
         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."
         value={step.details}
