@@ -1,3 +1,5 @@
+</br>
+
 ## 🍅 Tasting Table
 
 ### 서비스 소개 
@@ -21,16 +23,27 @@
 - Deployment : Heroku, Netlify
 - Others : framer-motion, date-fns, clsx, react-images-uploading, react-toastify
 
+</br> 
+
 ## :rocket: Demo
 https://tasting-table.netlify.app/
 
-<img width="45%" alt="Screen Shot 2023-04-26 at 5 53 33 PM" src="https://user-images.githubusercontent.com/64929428/234756418-04fdc4a4-dcd3-4c1e-968e-178b395ea969.png"> <img width="45%" alt="Allrecipe" src="https://user-images.githubusercontent.com/64929428/234756632-b4f7240c-5554-46fa-9d95-644551e1d1e2.png">
+##### 홈페이지  
 
-<img width="45%" alt="MyRecipe" src="https://user-images.githubusercontent.com/64929428/234756738-95209583-63bc-469b-ab25-26b9702324bc.png"> <img width="45%" alt="MyRecipe-Edit" src="https://user-images.githubusercontent.com/64929428/234756745-8548c035-8127-4f2c-9c7e-a8a91eb0fc3d.png">
+<img width="49.5%" height='250px' alt="Screen Shot 2023-04-26 at 5 53 33 PM" src="https://user-images.githubusercontent.com/64929428/234756418-04fdc4a4-dcd3-4c1e-968e-178b395ea969.png"> <img width="49.5%" height='250px' alt="Allrecipe" src="https://user-images.githubusercontent.com/64929428/234756632-b4f7240c-5554-46fa-9d95-644551e1d1e2.png"> 
+
+##### 내 레시피 & 검색 페이지 :
+
+<img width="49.5%" height='250px'  alt="MyRecipe" src="https://user-images.githubusercontent.com/64929428/234756738-95209583-63bc-469b-ab25-26b9702324bc.png"> <img width="49.5%" height='250px' alt="Search" src="https://user-images.githubusercontent.com/64929428/234758369-0f855fe4-d413-4802-880b-df11e3d5bed2.png">
 
 
+##### 레시피 디테일 페이지 : 
 
-https://user-images.githubusercontent.com/64929428/234756889-c0db4bb2-9cfb-43ce-8bf6-d6f48f5c3c5b.mov 
+![IMG_1672](https://user-images.githubusercontent.com/64929428/234761250-76ae318c-8340-4fcd-b2a7-745be916999d.JPG)
 
-https://user-images.githubusercontent.com/64929428/234756905-ea4d2831-b091-43bc-9e0a-c85d08801652.mov
+
+##### Framer Motion을 이용한 애니매이션 :
+
+https://user-images.githubusercontent.com/64929428/234761906-674bf4af-343e-42e2-b2a0-890999a8745f.mov
+
 
