@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './recipeDetail.module.scss';
 
 import AuthContext from 'contexts/authContext';
-import { BookmarkProps, getBookmarksByUserId } from 'apis/bookmark';
 import { getProfileByUserId } from 'apis/profile';
 
 import RecipeDetailGeneral from './RecipeDetailGeneral/recipeDetailGeneral';
@@ -24,12 +23,14 @@ export default function RecipeDetail(props: RecipeDetailProps) {
   const [profile, setProfile] = useState({});
   const [otherRecom, setOtherRecom] = useState([]);
   const [similarRecipe, setSimilarRecipe] = useState([]);
-  const [bookmark, setBookmark] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [currentProfile, setCurrentProfile] = useState({});
 
   async function fetchProfile() {
     const profile = await getProfileByUserId({ id: recipe?.userId });
     setProfile(profile);
+    const currentProfile = await getProfileByUserId({ id: userId });
+    setCurrentProfile(currentProfile);
     const otherRecom = await getRecipesByUserId({ id: recipe?.userId });
     const filteredOther = otherRecom?.filter((other) => other._id !== recipe._id);
     setOtherRecom(filteredOther);
@@ -38,15 +39,8 @@ export default function RecipeDetail(props: RecipeDetailProps) {
     setSimilarRecipe(filteredSimilar);
   }
 
-  async function fetchMyBookmarks() {
-    const bookmarks = await getBookmarksByUserId({ id: userId });
-    const bookmark = bookmarks.find((mark: BookmarkProps) => recipe._id === mark._id);
-    setBookmark(bookmark);
-  }
-
   useEffect(() => {
     fetchProfile();
-    fetchMyBookmarks();
     setIsLoading(false);
   }, [recipe?._id]);
 
@@ -54,7 +48,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
     <LoadingIndicator isLoading={isLoading}>
       <div className={styles.recipeDetail}>
         <img src={recipe?.img} alt="recipe" className={styles.recipeImg} />
-        <RecipeDetailGeneral recipe={recipe} profile={profile} bookmark={bookmark} />
+        <RecipeDetailGeneral recipe={recipe} profile={profile} />
         <RecipeDetailIngredients recipe={recipe} />
         <RecipeDetailSteps recipe={recipe} />
         <RecipeDetailOtherRecom otherRecom={otherRecom} />
@@ -62,7 +56,7 @@ export default function RecipeDetail(props: RecipeDetailProps) {
           category={recipe?.categoryType?.name || ''}
           similarRecipe={similarRecipe}
         />
-        <RecipeDetailReviews recipe={recipe} profile={profile} />
+        <RecipeDetailReviews recipe={recipe} profile={currentProfile} />
       </div>
     </LoadingIndicator>
   );

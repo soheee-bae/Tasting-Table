@@ -19,10 +19,9 @@ import 'react-toastify/dist/ReactToastify.css';
 interface RecipeDetailGeneralProps {
   recipe: Recipe;
   profile: ProfileProps;
-  bookmark?: BookmarkProps | undefined;
 }
 export default function RecipeDetailGeneral(props: RecipeDetailGeneralProps) {
-  const { recipe, profile, bookmark } = props;
+  const { recipe, profile } = props;
   if (!recipe) return null;
 
   return (
@@ -50,7 +49,7 @@ function GeneralHeader(props: Omit<RecipeDetailGeneralProps, 'profile'>) {
 
   useEffect(() => {
     fetchMyBookmarks();
-  }, []);
+  }, [recipe._id]);
 
   const handleAddBookmark = async () => {
     const res = await addBookmark({ recipe, userId });

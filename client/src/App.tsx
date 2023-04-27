@@ -31,6 +31,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path={`/search`} element={<Search />} />
+          <Route path={`/recipe/:recipeId`} element={<Details />} />
 
           {!loggedIn ? (
             <>
@@ -44,7 +45,6 @@ function App() {
               <Route path={'/myrecipe'} element={<MyRecipe />} />
               <Route path={'/profile'} element={<Profile />} />
               <Route path={'/bookmark'} element={<Bookmark />} />
-              <Route path={`/recipe/:recipeId`} element={<Details />} />
             </>
           )}
         </Routes>

@@ -26,6 +26,7 @@ interface RecipeDetailReviewsProps {
 
 export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
   const { recipe, profile } = props;
+  const { loggedIn } = useContext(AuthContext);
 
   const [prevReview, setPrevReview] = useState<Review[]>([]);
 
@@ -101,16 +102,18 @@ export default function RecipeDetailReviews(props: RecipeDetailReviewsProps) {
           <ReviewList key={i} review={review} index={i} />
         ))}
       </div>
-      <ReviewField
-        newReview={newReview}
-        setNewReview={setNewReview}
-        onSubmit={onSubmit}
-        starsKey={starsKey}
-        profile={profile}
-        selectedFiles={selectedFiles}
-        setSelectedFiles={setSelectedFiles}
-        isLoading={isLoading}
-      />
+      {loggedIn && (
+        <ReviewField
+          newReview={newReview}
+          setNewReview={setNewReview}
+          onSubmit={onSubmit}
+          starsKey={starsKey}
+          profile={profile}
+          selectedFiles={selectedFiles}
+          setSelectedFiles={setSelectedFiles}
+          isLoading={isLoading}
+        />
+      )}
       <ToastSnackbar />
     </div>
   );

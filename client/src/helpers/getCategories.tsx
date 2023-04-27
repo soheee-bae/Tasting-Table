@@ -6,8 +6,7 @@ export const categories = [
   { id: 5, name: '안주' },
   { id: 6, name: '다이어트' },
   { id: 7, name: '간식' },
-  { id: 8, name: '베이킹' },
-  { id: 9, name: '음료' }
+  { id: 8, name: '베이킹' }
 ];
 
 export const getCategories = () => {
