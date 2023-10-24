@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 
 dotenv.config();
 
-// set up server
 
 const app = express();
 
