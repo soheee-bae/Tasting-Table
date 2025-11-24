@@ -10,7 +10,7 @@ import { createProfile } from 'apis/profile';
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { getLoggedIn, getLoggedInStatus } = useContext(AuthContext);
+  const { getLoggedIn } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -23,7 +23,7 @@ const AuthContext = createContext<AuthContextContent>({
   profileImg: '',
   nickname: '',
   name: '',
-  setProfileImage: (img: string) => undefined
+  setProfileImage: () => undefined
 });
 
 interface AuthContextProps {

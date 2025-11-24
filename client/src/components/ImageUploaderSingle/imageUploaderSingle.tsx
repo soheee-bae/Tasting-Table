@@ -1,6 +1,5 @@
 import React, { MouseEvent, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import AWS from 'aws-sdk';
 
 import ImageUploading from 'react-images-uploading';
 
@@ -19,7 +18,7 @@ export default function ImageUploaderSingle(props: ImageUploaderSingleProps) {
   const { handleFileChange, className, imgSrc, round, disabled } = props;
   const [image, setImage] = useState<any>([]);
 
-  const onChange = (imageList, _addUpdateIndex) => {
+  const onChange = (imageList) => {
     const file = imageList.map((image) => image.file);
     setImage(imageList);
     handleFileChange(file);

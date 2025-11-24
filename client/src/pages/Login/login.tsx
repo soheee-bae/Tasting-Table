@@ -8,7 +8,7 @@ import AuthContext from 'contexts/authContext';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { getLoggedIn, getLoggedInStatus } = useContext(AuthContext);
+  const { getLoggedIn } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

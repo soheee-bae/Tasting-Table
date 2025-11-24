@@ -16,7 +16,7 @@ export default function ImageUploaderMulti(props: ImageUploaderMultiProps) {
   const [images, setImages] = React.useState([]);
   const isMax = images.length === 3;
 
-  const onChange = (imageList, _addUpdateIndex) => {
+  const onChange = (imageList) => {
     const urlLists = imageList.map((image) => image.file);
     setImages(imageList);
     handleFileChange(urlLists);
