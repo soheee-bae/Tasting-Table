@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import styles from './recipeDetailGeneral.module.scss';
 
-import IconWithLabel from 'components/IconWithLabel/iconWithLabel';
+import IconWithLabel from 'components/IconWithLabel/IconWithLabel';
 import Bio from 'components/Bio/bio';
 import { Toast, ToastSnackbar } from 'components/Toast/toast';
 

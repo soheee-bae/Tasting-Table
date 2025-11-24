@@ -21,7 +21,7 @@
 - FE : JavaScript, TypeScript, ReactJS, SCSS
 - BE : NodeJS, Express, Mongoose
 - DB : Amazon S3, MongoDB
-- Deployment : Heroku, Netlify
+- Deployment : Render, Netlify
 - Others : framer-motion, date-fns, clsx, react-images-uploading, react-toastify
 
 </br>

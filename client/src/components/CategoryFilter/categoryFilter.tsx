@@ -25,8 +25,7 @@ export default function CategoryFilter(props: CategoryFilterProps) {
             })}
             onClick={() => {
               setSelectedCategory(category.id);
-            }}
-          >
+            }}>
             {category.name}
           </li>
         ))}

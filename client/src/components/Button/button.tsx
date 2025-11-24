@@ -39,8 +39,7 @@ export default function Button(props: ButtonProps) {
       className={clsx(className, styles.button, styles[`${variant}`], styles[`${size}`])}
       data-disabled={disabled}
       data-selected={selected}
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
       {startIcon}
       {children}
       {endIcon}

@@ -22,7 +22,7 @@ export const register = async (props: RegisterProps) => {
     };
     // return await axios.post('http://localhost:5050/auth/register', registerData).then((res) => res);
     return await axios
-      .post('https://tasting-table.herokuapp.com/auth/register', registerData)
+      .post('https://tasting-table.onrender.com/auth/register', registerData)
       .then((res) => res);
   } catch (err) {
     return err;
@@ -39,7 +39,7 @@ export const login = async (props: LoginProps) => {
     };
     // return await axios.post('http://localhost:5050/auth/login', loginData).then((res) => res);
     return await axios
-      .post('https://tasting-table.herokuapp.com/auth/login', loginData)
+      .post('https://tasting-table.onrender.com/auth/login', loginData)
       .then((res) => res);
   } catch (err) {
     return err;
@@ -48,7 +48,7 @@ export const login = async (props: LoginProps) => {
 
 export const logout = async () => {
   try {
-    await axios.get('https://tasting-table.herokuapp.com/auth/logout');
+    await axios.get('https://tasting-table.onrender.com/auth/logout');
     // await axios.get('http://localhost:5050/auth/logout');
   } catch (err) {
     console.error(err);
@@ -57,7 +57,7 @@ export const logout = async () => {
 
 export const loggedInReq = async () => {
   try {
-    const res = await axios.get('https://tasting-table.herokuapp.com/auth/loggedIn');
+    const res = await axios.get('https://tasting-table.onrender.com/auth/loggedIn');
     // const res = await axios.get('http://localhost:5050/auth/loggedIn');
     return res.data as boolean;
   } catch (err) {

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
-import styles from './iconWithLabel.module.scss';
+import styles from './IconWithLabel.module.scss';
 
 interface IconWithLabelProps {
   icon: ReactNode;
